@@ -19,6 +19,10 @@ sudo apt-get install -y build-essential
 npm install -g @angular/cli
 ```
 
+## git clone (in current directory)
+
+`git clone git@github.com:user/my-project.git .`
+
 ## cloud9.io
 
 `ng serve --host 0.0.0.0 --port 8080 --disable-host-check --no-open --consolelogs`
