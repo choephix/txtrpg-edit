@@ -4,10 +4,13 @@
     "on_start": "I woke up..."
   },
   "aliases": {
-    "INN": "Börris' Inn & Tavern",
-    "CLINIC": "the clinic",
-    "BLACKSMITHS": "Kraig and Sons' Blades & Armor",
-    "PLAZA": "the village's small plaza"
+    "<VILLAGE>": "the village",
+    "<INN>": "Börris' Inn & Tavern",
+    "<CLINIC>": "the clinic",
+    "<BLACKSMITHS>": "Kraig and Sons' Blades & Armor",
+    "<PLAZA>": "the village's small plaza",
+    "<DUNGEON1>": "the creepy cave",
+    "<DUNGEON2>": "the bandit camp"
   },
   "nodes": {
     "spawnlake": {
@@ -240,18 +243,48 @@
         },
         {
           "node": "dungeon_one",
-          "handle": "Go south, toward the creepy cave",
-          "on_go": "I went south, toward the creepy cave"
+          "handle": "Go south, toward <DUNGEON1>",
+          "on_go": "I went south, toward <DUNGEON1>"
+        }
+      ]
+    },
+    "intersection ": {
+      "title": "the intersection",
+      "exits": [
+        {
+          "node": "dungeon_one",
+          "handle": "Continue to <DUNGEON1>",
+          "on_go": "I went to the <DUNGEON1>"
+        },
+        {
+          "node": "dungeon_two",
+          "handle": "Continue to <DUNGEON2>",
+          "on_go": "I went to the <DUNGEON2>"
+        },
+        {
+          "node": "exit_south",
+          "handle": "Continue to <VILLAGE>",
+          "on_go": "I went north, until I reached the village's welcome sign."
         }
       ]
     },
     "dungeon_one": {
-      "title": "Creepy Cave",
+      "title": "<DUNGEON1>",
       "exits": [
         {
-          "node": "exit_south",
-          "handle": "Return to the village",
-          "on_go": "I went back north, until I reached the village's welcome sign."
+          "node": "intersection ",
+          "handle": "Return to the intersection",
+          "on_go": "I went back north, until I reached the intersection ."
+        }
+      ]
+    },
+    "dungeon_two": {
+      "title": "<DUNGEON2>",
+      "exits": [
+        {
+          "node": "intersection ",
+          "handle": "Return to the intersection",
+          "on_go": "I went back north, until I reached the intersection ."
         }
       ]
     }

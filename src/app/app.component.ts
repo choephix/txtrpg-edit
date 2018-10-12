@@ -19,17 +19,32 @@ export class AppComponent {
   constructor()
   {
     this.game.start()
-    this.game.onChange = this.scroll
+    this.game.onChange = () => this.scrollToSeparator()
   }
 
   ngAfterViewInit()
   {
-    this.scroll()
+    this.scrollToSeparator()
   }
 
-  protected scroll() {
-    console.log("scrolling")
-    const o = this._separator.nativeElement;
-    scrollBy( 0, o.y - innerHeight * .5 + o.height * .5 )
+  scrollToSeparator() {
+    try {
+      const o = this._separator.nativeElement;
+      const d = o.y - innerHeight * .5 + o.height * .5;
+      scrollBy( { top: d, behavior: "auto" } )
+      // scrollBy( 0, d )
+    } catch( e ) { }
   }
+
+  scrollToSeparatorSmooth() {
+    try {
+      const o = this._separator.nativeElement;
+      const d = o.y - innerHeight * .5 + o.height * .5;
+      scrollBy( { top: d, behavior: "smooth" } )
+    } catch( e ) { }
+  }
+  
+  // toggleFullScreen() {
+  //   this._separator.nativeElement.requestFullscreen()
+  // }
 }
