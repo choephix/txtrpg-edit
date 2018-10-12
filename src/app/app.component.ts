@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Game } from './game/game';
-
-declare var require: any;
 
 @Component({
   selector: 'app-root',
@@ -9,17 +7,29 @@ declare var require: any;
   styleUrls: ['./app.component.css','./styling/main.css']
 })
 export class AppComponent {
-  imgurl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa0ChPcUYH2D6lPGnxE-CcSI6hY0AXwg0HPQcRc1wf8cmzX0k8';
+
+  @ViewChild('separator') _separator:ElementRef
+  
+  imgurl = 'https://mbtskoudsalg.com/images/filigree-divider-png.png';
 
   game:Game = new Game()
 
-  debug_log:string = ""
-
+  debby:string = " wha- "
+  
   constructor()
   {
     this.game.start()
+    this.game.onChange = this.scroll
+  }
 
-//     this.debug_log = require('./data/mock-world.json')
-    console.log(require('./game/mock-world.json'))
+  ngAfterViewInit()
+  {
+    this.scroll()
+  }
+
+  protected scroll() {
+    console.log("scrolling")
+    const o = this._separator.nativeElement;
+    scrollBy( 0, o.y - innerHeight * .5 + o.height * .5 )
   }
 }

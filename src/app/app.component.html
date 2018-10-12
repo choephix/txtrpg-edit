@@ -1,42 +1,31 @@
-<style type="scss/text">  
-.option {
-  display:block;
-  cursor:pointer;
-  color: #578;
-  transition: color .150s;
-}
-
-.option:hover {
-  color: #ABC;
-}
-
-.fonted pre {
-  font-family: 'Princess Sofia';
-  font-family: 'calibri';
-  font-size: 20px;
-  font-weight: lighter;
-}
+<style type="scss/text">
+  div { margin:0; padding:0 }
+	.entry { color:#999; } 
+  .option { display:block; cursor:pointer; color: #578; transition: color .150s; } 
+  .option:hover { color:#EC6; } 
+  .fonted pre { font-family: 'Princess Sofia'; font-family: 'calibri'; font-size: 20px; font-weight: lighter; }  
+  #separator { opacity:.06; }
+  #hud { opacity:.50; position:fixed; font-family: 'consolas'; font-size: 10px; }
 </style>
 
-<p style="opacity:0.3">
-  🕓 {{game.getTime()}}
+<p id="hud">
+	🕓 {{game.getTime()}}
+	<br/>
+  🗺 {{game.getCurrentNode()}}
 </p>
 
-<div style="text-align:center">
+<div style="text-align:center" #main (click)="scroll()">
 
-  <div class="fonted">
-    <h1>
-        <div style="height:400px; position: relative;" >
-          <div style="position: absolute; bottom: 10px; width:100%">
-            <pre *ngFor="let entry of game.journal; let i = index" 
-                 style="color:#999">{{entry}}</pre>
-          </div>
-        </div>
-    </h1>
-  </div>
+  <div style="height:1000px"></div>
 
-  <br/><br/><p class="fonted">§</p><br/><br/><br/><br/>
+	<div class="fonted">
+		<pre *ngFor="let entry of game.journal; let i = index" class="entry">{{entry}}</pre>
+	</div>
   
+  <div align="center">
+	  <img src="{{imgurl}}" width="340" height="170" id="separator" #separator>
+	</div>
+
   <div>
     <div *ngFor="let option of game.options; let i = index"
        (click)="game.selectOption(i)"
@@ -47,14 +36,11 @@
       </h1>
     </div>
   </div>
-    
-  <br/><br/><br/>
-  <br/><br/><br/>  
-  <br/><br/><br/>
-  <img alt="Angular Logo" src="{{imgurl}}" style="opacity:.2">
+
+  <div style="height:1000px"></div>
 
 </div> 
 
-<div style="font-size:9px">
-  {{debug_log}}
-</div>
+<pre style="font-size:9px">
+  {{debby}}
+</pre>

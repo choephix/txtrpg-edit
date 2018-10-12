@@ -1,41 +1,53 @@
+declare var require:any
 
-declare var require: any;
+export class Game 
+{
+  public worldData = null;
 
+  public journal:string[] = [];
+  public options:Option[] = [];
+  
+  public context = {}
 
-export class Game {
+  private actionHandler:ActionHandler = new ActionHandler();
+  
+  public onChange:()=>void;
 
-  time = 0.0
-
-  worldData = null
-
-  journal:string[] = []
-  options:Option[] = []
-
-  actionHandler:ActionHandler = new ActionHandler()
-
-  public start()
+  public start():void
   {
-    this.worldData = require('./mock-world.json')
+    this.worldData = require('./mock-world.json');
 
-    const start_node = this.worldData.start.node
-    this.go( {action:"goto", node:start_node, pre:"I woke up."} )
+    const start_node = this.worldData.start.node;
+    this.go( {action:"goto", node:start_node, pre:"I woke up."} );
   }
 
-  public go( action )
+  public go( action ):void
   {
-    const result = this.actionHandler.handleAction( action, this.worldData )
-    this.journal.push(result.journal_entry)
-    this.options = result.options
+    this.options = []
+    
+    const result = this.actionHandler.handleAction( action, this.worldData );
+    this.journal.push(result.journal_entry);
+    this.options = result.options;
+    
+    try { this.onChange() }
+    catch( e ) { console.log("onchange errorred")}
   }
 
-  public selectOption(index:number)
+  public selectOption(index:number):void
   {
-    console.log(`Selected Option [${index}]`)
+    console.log(`Selected Option [${index}]`);
 
-    this.go( this.options[index].pa )
+    this.go( this.options[index].pa );
   }
 
-  public getTime() { return this.time }
+  // public getCurrentNode() { return this.worldData.nodes[0].title }
+  public getCurrentNode() { return "unknown location" }
+  public getTime() { return this.worldData.global.time }
+}
+
+class Context
+{
+  currentNode:string
 }
 
 class ActionHandler
@@ -61,7 +73,9 @@ class ActionHandler
       for ( const exit of node.exits )
       {
         console.log(exit)
-        options.push( { t:placeAliases(exit.handle), pa:{action:"goto",node:exit.node,pre:exit.on_go} } )
+        options.push( { 
+          t:placeAliases(exit.handle), 
+          pa:{action:"goto",node:exit.node,pre:exit.on_go} } )
       }
 
       return {
