@@ -74,7 +74,7 @@ class ActionHandler
     {
       const dict = world.aliases
       for ( const alias in dict )
-        text = text.split(`<${alias}>`).join(dict[alias]);
+        text = text.split(`${alias}`).join(dict[alias]);
       return text
     }
 

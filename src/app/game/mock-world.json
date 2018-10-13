@@ -177,11 +177,6 @@
           "on_go": "I went west, toward <BLACKSMITHS>"
         },
         {
-          "node": "bookstore_street",
-          "handle": "Go south",
-          "on_go": "I exited the market, and went to the south part of the village."
-        },
-        {
           "node": "market_east",
           "handle": "Go east, to the rest of the market",
           "on_go": "I went to the other part of the market"
@@ -200,6 +195,11 @@
           "node": "clinic",
           "handle": "Enter <CLINIC>",
           "on_go": "I opened the clinic's door and went inside."
+        },
+        {
+          "node": "bookstore_street",
+          "handle": "Go south",
+          "on_go": "I exited the market, and went to the south part of the village."
         }
       ]
     },

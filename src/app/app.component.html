@@ -6,11 +6,23 @@
 	.entry.last { color:#777; } 
   .option { display:block; cursor:pointer; color: #578; } 
   .option:hover { color:#EC6; } 
-  .fonted pre { font-family: 'Princess Sofia'; font-size: 20px; font-weight: lighter; }
-  .fonted pre { font-family: 'calibri' !important; }
+  .fonted pre { font-family: 'Princess Sofia'; font-size: 2vh; font-weight: lighter; }
+  /*.fonted pre { font-family: 'Tangerine' !important; font-size: 5vh; }*/
+  .fonted pre { font-family: 'Satisfy' !important; font-size: 3vh; }
+  /*.fonted pre { font-family: 'calibri' !important; font-size: 2vh; }*/
   #separator { opacity:.06; }
-  #hud { opacity:.50; position:fixed; font-family: 'consolas'; font-size: 10px; }
+  #hud { opacity:.1; position:fixed; font-family: 'consolas'; font-size: 1.5vh; }
   #hud:hover { opacity:2.00; }
+  
+  #separator{
+    display: block;
+    max-width:510px;
+    max-height:255px;
+    min-width:170px;
+    min-height:85px;
+    width: 50vw;
+    height: 25vw;
+  }
 </style>
 
 <p id="hud">
@@ -19,7 +31,7 @@
   🗺 {{game.getCurrentNode()}}
 </p>
 
-<div style="text-align:center" #main (click)="scrollToSeparatorSmooth()">
+<div style="text-align:center" #main (click)="scrollToSeparator()">
   
   <div style="text-align:center;">
   	<div class="fonted" id="journal" style="min-height:720px;
