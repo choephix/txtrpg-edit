@@ -10,7 +10,8 @@ export class AppComponent {
 
   @ViewChild('separator') _separator:ElementRef
   
-  imgurl = 'https://mbtskoudsalg.com/images/filigree-divider-png.png';
+  imgurl = 'https://openclipart.org/download/268262/Vintage-Decorative-Divider.svg';
+  // imgurl = '/assets/separator.svg';
 
   game:Game = new Game()
 

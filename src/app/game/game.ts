@@ -37,7 +37,7 @@ export class Game
     console.log(`Context\n`,this.context)
     
     try { if ( this.onChange ) this.onChange() }
-    catch( e ) { console.log("onchange errorred "+e)}
+    catch( e ) { console.log("onchange errorred "+e) }
   }
 
   public selectOption(index:number):void
