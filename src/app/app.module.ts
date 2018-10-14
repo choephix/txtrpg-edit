@@ -5,10 +5,11 @@ import { AppComponent } from './app.component';
 import { GameViewComponent } from './game-view/game-view.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { EditorVewComponent } from './editor-vew/editor-vew.component';
 
 @NgModule({
   declarations: [
-    AppComponent, GameViewComponent
+    AppComponent, GameViewComponent, EditorVewComponent
   ],
   imports: [
     BrowserModule,
