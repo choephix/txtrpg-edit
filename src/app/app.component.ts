@@ -15,7 +15,7 @@ export class AppComponent {
 
   game:Game = new Game()
 
-  debby:string = " wha- "
+  debby:string = ""
   
   constructor()
   {
@@ -37,15 +37,11 @@ export class AppComponent {
     } catch( e ) { }
   }
 
-  scrollToSeparatorSmooth() {
-    try {
-      const o = this._separator.nativeElement;
-      const d = o.y - innerHeight * .5 + o.height * .5;
-      scrollBy( { top: d, behavior: "smooth" } )
-    } catch( e ) { }
-  }
-  
-  // toggleFullScreen() {
-  //   this._separator.nativeElement.requestFullscreen()
+  // scrollToSeparatorSmooth() {
+  //   try {
+  //     const o = this._separator.nativeElement;
+  //     const d = o.y - innerHeight * .5 + o.height * .5;
+  //     scrollBy( { top: d, behavior: "smooth" } )
+  //   } catch( e ) { }
   // }
 }

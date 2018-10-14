@@ -6,13 +6,72 @@
   <!--<title>TXTRPG-POC (Angular)</title>-->
   <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   
   <script>this.history.scrollRestoration = "manual";</script> 
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#e2d9ce">
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <style>
+    .loading {
+      animation: expand 300ms infinite 200.0001ms linear normal;
+      background-color: black;
+      border-radius: 50%;
+      font-size: 0;
+      height: 0.18vh;
+      overflow: visible;
+      position: relative;
+      width: 0.18vh;
+    }
+    .loading:after, .loading:before {
+      animation: expand 300ms infinite linear normal;
+      background-color: black;
+      border-radius: 50%;
+      content: "";
+      height: 0.18vh;
+      position: absolute;
+      width: 0.18vh;
+    }
+    .loading:before {
+      animation-delay: 99.9999ms;
+      right: 2vh;
+    }
+    .loading:after {
+      animation-delay: 300ms;
+      left: 2vh;
+    }
+    @keyframes expand {
+      0% {
+        box-shadow: 0 0 0 0 black;
+      }
+      25% {
+        box-shadow: 0 0vh 0 0.12vh black;
+      }
+      100% {
+        box-shadow: 0 0 0 0 black;
+      }
+    }
+    .cosmetics {
+      align-items: center;
+      background-color: #fff;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      opacity:.30;
+    }
+    </style>
+    <div class="cosmetics" aria-busy="true">
+      <span role="progressbar" class="loading">Loading...</span>
+    </div>
+  </app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 </html>
 
