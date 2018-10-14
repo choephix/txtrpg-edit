@@ -32,7 +32,6 @@ export class GameViewComponent implements OnInit {
     try {
       const o = this._separator.nativeElement;
       const d = o.y - innerHeight * .5;
-      console.log(o)
       scrollBy( { top: d, behavior: "auto" } )
       // scrollBy( 0, d )
     } catch( e ) { }

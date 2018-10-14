@@ -14,9 +14,9 @@ export class Game
 
   public start():void
   {
-    this.worldData = require('./mock-world.json');
+    this.worldData = require('./mock-world.2.json');
 
-    this.context.currentTime = new Date(1539388800*1000);
+    this.context.currentTime = new Date(this.worldData.global.time);
 
     const start_node = this.worldData.start.node;
     const start_text = this.worldData.start.on_start;

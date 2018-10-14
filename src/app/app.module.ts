@@ -8,16 +8,28 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 import { GameViewComponent } from './game-view/game-view.component';
 import { EditorVewComponent } from './editor-vew/editor-vew.component';
+import { EditorViewChild_NodesTable, EditorViewChild_NodeLinksTable, EditorViewChild_Map } from './editor-vew/editor-vew.component';
 
 const appRoutes: Routes = [
-  { path: 'editor', component: EditorVewComponent },
+  { path: 'edit', component: EditorVewComponent,
+	  children: [
+	      { path: '', redirectTo: 'nodes', pathMatch: 'full' },
+	      { path: 'nodes', component: EditorViewChild_NodesTable },
+	      { path: 'node_links', component: EditorViewChild_NodeLinksTable },
+	      { path: 'map', component: EditorViewChild_Map }
+	    ]
+  },
   { path: '', component: GameViewComponent },
-  { path: '**', component: EditorVewComponent }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent, GameViewComponent, EditorVewComponent
+    AppComponent, GameViewComponent,
+    EditorVewComponent,
+    	EditorViewChild_NodesTable,
+    	EditorViewChild_NodeLinksTable,
+    	EditorViewChild_Map
   ],
   imports: [
     BrowserModule,

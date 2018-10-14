@@ -1,19 +1,17 @@
 <style type="scss/text">
 #datagrid-toolbar { height:5vh; }
-#datagrid-table   { height:95vh; width:100%; display:block; }
 </style>
 
 <div class="container">
-    <div id="datagrid-toolbar">right</div>
-	  <ag-grid-angular id="datagrid-table"
-	    class="ag-theme-balham"
-	    [singleClickEdit]="true"
-	    [stopEditingWhenGridLosesFocus]="true"
-	    [enableFilter]="true"
-  		[enableSorting]="true"
-	    [rowData]="rowData"
-	    [columnDefs]="columnDefs"
-  		rowSelection="cell"
-	    >
-		</ag-grid-angular>
+
+    <div id="datagrid-toolbar">
+	    <ng-container *ngFor="let pg of pages">
+	      <a routerLink="/edit/{{pg}}"
+	         routerLinkActive="active"
+	         >[ {{pg}} ] </a>
+	     </ng-container>
+    </div>
+
+  	<router-outlet></router-outlet>
+
 </div>
