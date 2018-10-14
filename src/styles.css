@@ -2,3 +2,8 @@
 ::-webkit-scrollbar {
     display:none;
 }
+
+body, div, h1, pre, p {
+	margin:0;
+	padding:0;
+}
