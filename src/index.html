@@ -41,30 +41,24 @@
       left: 2vh;
     }
     @keyframes expand {
-      0% {
-        box-shadow: 0 0 0 0 black;
-      }
-      25% {
-        box-shadow: 0 0vh 0 0.12vh black;
-      }
-      100% {
-        box-shadow: 0 0 0 0 black;
-      }
+      0% { box-shadow: 0 0 0 0 black; }
+      25% { box-shadow: 0 0vh 0 0.12vh black; }
+      100% { box-shadow: 0 0 0 0 black; }
     }
-    .cosmetics {
+    .splash {
+      display: flex;
       align-items: center;
+      justify-content: center;
+      position: absolute;
       background-color: #fff;
       bottom: 0;
-      display: flex;
-      justify-content: center;
       left: 0;
-      position: absolute;
       right: 0;
       top: 0;
       opacity:.30;
     }
     </style>
-    <div class="cosmetics" aria-busy="true">
+    <div class="splash" aria-busy="true">
       <span role="progressbar" class="loading">Loading...</span>
     </div>
   </app-root>
