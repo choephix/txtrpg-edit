@@ -9,14 +9,14 @@ import { Game } from './../game/game';
 export class GameViewComponent implements OnInit {
 
   @ViewChild('separator') _separator:ElementRef
-  
+
   imgurl = 'https://openclipart.org/download/268262/Vintage-Decorative-Divider.svg';
   // imgurl = '/assets/separator.svg';
 
   game:Game = new Game()
 
   debby:string = ""
-  
+
   constructor()
   {
   }

@@ -1,8 +1,18 @@
-
+<style type="scss/text">
+  #navi { position:fixed; right:16px; font-family: 'consolas'; font-size: 1.5vh; text-align:right; }
+  #navi a { opacity:.05; display:block; }
+  #navi a:hover { opacity:2.00; }
+</style>
 
 <div>
-  
-  <app-game-view></app-game-view>
-
-</div> 
+  <nav id="navi">
+    <ng-container *ngFor="let r of router.config">
+      <a routerLink="/{{r.path}}"
+         routerLinkActive="active"
+         *ngIf="r.path!='**'"
+         >{{r.path?r.path:"game"}}</a>
+    </ng-container>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
 
