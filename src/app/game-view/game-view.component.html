@@ -1,10 +1,10 @@
 <style type="scss/text">
   div, p { transition: opacity .150s, color .150s; }
   div, h1, pre { margin:0; padding:0 }
-  .entry { color:#c0c0c0; margin-top: 2vh; } 
-  .entry.last { color:#777; } 
-  .option { display:block; cursor:pointer; color: #578; margin-bottom: 4vh; } 
-  .option:hover { color:#EC6; } 
+  .entry { color:#c0c0c0; margin-top: 2vh; }
+  .entry.last { color:#777; }
+  .option { display:block; cursor:pointer; color: #578; margin-bottom: 4vh; }
+  .option:hover { color:#EC6; }
   .fonted pre { font-family: 'Princess Sofia'; font-size: 2vh; font-weight: lighter; }
   /*.fonted pre { font-family: 'Tangerine' !important; font-size: 5vh; }*/
   .fonted pre { font-family: 'Satisfy' !important; font-size: 2vh; }
@@ -24,25 +24,25 @@
 </style>
 
 <p id="hud">
-	🕓 {{game.getTime() | date:'H:mm:ss.SSS'}}
-	<br/>
+  🕓 {{game.getTime() | date:'H:mm:ss.SSS'}}
+  <br/>
   🗺 {{game.getCurrentNode()}}
 </p>
 
 <div style="text-align:center" #main (click)="scrollToSeparator()">
-  
+
   <div style="text-align:center;">
-  	<div class="fonted" id="journal" 
+  	<div class="fonted" id="journal"
   	     style="min-height:720px; display: flex; justify-content: flex-end; flex-direction: column; width:100%;">
-  		<pre *ngFor="let entry of game.journal; let i = index" 
-  		     [class.last]="i==game.journal.length-1" 
+  		<pre *ngFor="let entry of game.journal; let i = index"
+  		     [class.last]="i==game.journal.length-1"
   		     class="entry">{{entry}}</pre>
   	</div>
-	</div>
-  
+  </div>
+
   <div align="center">
-	  <img src="{{imgurl}}" width="340" height="170" id="separator" #separator>
-	</div>
+    <img src="{{imgurl}}" width="340" height="170" id="separator" #separator>
+  </div>
 
   <div id="options" style="min-height:720px">
     <div *ngFor="let option of game.options; let i = index"
@@ -55,4 +55,4 @@
     </div>
   </div>
 
-</div> 
+</div>
