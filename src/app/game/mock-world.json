@@ -1,7 +1,7 @@
 {
   "start": {
     "node": "spawnlake",
-    "on_start": "I woke up..."
+    "on_start": "I woke up.\nThere is a veery veery loong, huge, giant, humongous, incomprehensibly ginormous list of things I did.\n\nThat's not important now."
   },
   "aliases": {
     "<VILLAGE>": "the village",

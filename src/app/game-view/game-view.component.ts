@@ -17,28 +17,28 @@ export class GameViewComponent implements OnInit {
 
   debby:string = ""
 
-  constructor()
-  {
-  }
-
   ngOnInit() {
     this.game.start()
-    this.game.onChange = () => this.scrollToSeparator()
+    this.game.onChange = () => this.onChange()
   }
 
   ngAfterViewInit()
   {
-    this.scrollToSeparator()
+    this.onChange()
   }
 
-  scrollToSeparator() {
+  onChange()
+  {
     try {
       const o = this._separator.nativeElement;
-      const d = o.y - innerHeight * .5 + o.height * .5;
+      const d = o.y - innerHeight * .5;
+      console.log(o)
       scrollBy( { top: d, behavior: "auto" } )
       // scrollBy( 0, d )
     } catch( e ) { }
   }
+
+  getHalfWindowHeight() { return window.innerHeight * .5 + "px" }
 
   // scrollToSeparatorSmooth() {
   //   try {

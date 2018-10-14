@@ -1,41 +1,42 @@
 declare var require:any
 
-export class Game 
+export class Game
 {
   public journal:string[] = [];
   public options:Option[] = [];
-  
+
   public worldData = null;
   public context:Context = new Context;
 
   private actionHandler:ActionHandler = new ActionHandler();
-  
+
   public onChange:()=>void;
 
-  public start():void 
+  public start():void
   {
     this.worldData = require('./mock-world.json');
-    
+
     this.context.currentTime = new Date(1539388800*1000);
-    
+
     const start_node = this.worldData.start.node;
-    this.go( {action:"goto", node:start_node, pre:"I woke up."} );
+    const start_text = this.worldData.start.on_start;
+    this.go( {action:"goto", node:start_node, pre:start_text} );
   }
 
   private go( action ):void
   {
     this.options = []
-    
+
     const result = this.actionHandler.handleAction( action, this.worldData, this.context );
     this.journal.push(result.journal_entry);
     this.options = result.options;
-    
+
     const new_time = this.context.currentTime.getTime() +result.timeDelta*1000;
     this.context.currentTime = new Date(new_time)
-    
+
     console.log(`Action result\n`,result)
     console.log(`Context\n`,this.context)
-    
+
     try { if ( this.onChange ) this.onChange() }
     catch( e ) { console.log("onchange errorred "+e) }
   }
@@ -46,15 +47,15 @@ export class Game
 
     this.go( this.options[index].pa );
   }
-  
+
   private getNode(id:string) { return this.worldData.nodes[id] }
-  
+
   ///
-  
-  public getCurrentNode() 
+
+  public getCurrentNode()
   // { return `${this.context.currentNode} / ${this.getNode(this.context.currentNode).title}` }
   { return `${this.context.currentNode}` }
-  
+
   public getTime() { return this.context.currentTime }
 }
 
@@ -83,12 +84,12 @@ class ActionHandler
     if ( params.action === "goto" )
     {
       context.currentNode = params.node;
-      
+
       const options = []
       for ( const exit of node.exits )
       {
-        options.push( { 
-          t:placeAliases(exit.handle), 
+        options.push( {
+          t:placeAliases(exit.handle),
           pa:{action:"goto",node:exit.node,pre:exit.on_go} } )
       }
 
