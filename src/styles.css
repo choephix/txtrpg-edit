@@ -1,6 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
 ::-webkit-scrollbar {
     display:none;
+}
+
+body {
+	height:100%;
 }
 
 body, div, h1, pre, p {
