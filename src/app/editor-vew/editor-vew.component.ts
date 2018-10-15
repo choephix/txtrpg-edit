@@ -266,6 +266,11 @@ export class EditorViewChild_Map
 
   mouseup_link(e)
   {
+  	if ( e.button == 2 )
+  	{
+	  	let link_index = +e.target.attributes['data-index'].value
+	  	this.w.node_links.splice( link_index, 1 )
+  	}
   }
 
   mouseup_trash(e)
