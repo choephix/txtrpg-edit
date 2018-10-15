@@ -119,6 +119,8 @@ export class EditorViewChild_NodeLinksTable
   // selector: '',
   styles: [`
   #lesvg { height:99.5vh; width:100%; }
+  #trash { fill:rgba(255,0,0,.05); }
+  #trash:hover { fill:rgba(255,0,0,.25); stroke:rgba(255,0,0,.1); stroke-width:4 }
   .node { stroke:rgba(100,200,250,0.5); stroke-width:4; fill:rgba(50,100,200,1.0) }
   .node:hover { opacity : .9 }
   .link { stroke:rgba(100,200,250,0.25); stroke-width:16 }
@@ -153,6 +155,8 @@ export class EditorViewChild_NodeLinksTable
   			[attr.y]="getViewY(node) + 24"
   			class="label">{{node.id}}</text>
   	</ng-container>
+  	<circle cx="94vw" cy="12vw" r=32 id="trash" (mouseup)="mouseup_trash($event)">
+  	</circle>
 	</svg>`
 })
 export class EditorViewChild_Map
@@ -163,6 +167,7 @@ export class EditorViewChild_Map
   offsetY = 0;
 
   draggy = null;
+  linking = false;
 
   constructor()
   {
@@ -199,7 +204,10 @@ export class EditorViewChild_Map
 
   mousemove(e)
   {
-  	if ( e.buttons > 0 && e.button <= 1 )
+  	if ( this.linking )
+  		return
+
+  	if ( e.buttons > 0 && e.button == 0 )
   	{
 			if ( this.draggy )
 			{
@@ -222,6 +230,7 @@ export class EditorViewChild_Map
   {
   	let node_id = +e.target.attributes['data-index'].value
   	this.draggy = this.w.nodes[node_id];
+  	this.linking = e.button == 2;
   }
 
   mouseup_node(e)
@@ -229,16 +238,14 @@ export class EditorViewChild_Map
   	let node_index = +e.target.attributes['data-index'].value
   	let node = this.w.nodes[node_index]
 
-  	if ( e.button == 1 )
+  	if ( this.linking )
   	{
-  		this.w.nodes.splice(node_index, 1)
-  		let links = this.w.node_links
-  		for ( let i = links.length - 1; i >= 0; i-- )
-  			if ( links[i].to == node.id || links[i].from == node.id )
-  				this.w.node_links.splice( i, 1 )
+  		if ( this.draggy != null )
+  			this.w.node_links.push({from:this.draggy,to:node.id,
+  															handle_goto:`Go to ${node.title}`,handle_gobackto:``})
   	}
   	else
-  	if ( e.button == 2 )
+  	if ( e.button == 1 )
   	{
   		let new_id = `node_${this.w.nodes.length}`
   		let title = new_id
@@ -255,6 +262,23 @@ export class EditorViewChild_Map
   	// console.log(e)
   	// console.log(this.draggy)
   	// this.log(node_id)
+  }
+
+  mouseup_trash(e)
+  {
+  	if ( this.draggy != null )
+  	{
+	  	let node = this.draggy
+	  	let node_index = this.w.nodes.indexOf(node)
+
+  		this.w.nodes.splice(node_index, 1)
+  		let links = this.w.node_links
+  		for ( let i = links.length - 1; i >= 0; i-- )
+  			if ( links[i].to == node.id || links[i].from == node.id )
+  				this.w.node_links.splice( i, 1 )
+  	}
+
+  	this.draggy = null;
   }
 
   mouseup(e)
