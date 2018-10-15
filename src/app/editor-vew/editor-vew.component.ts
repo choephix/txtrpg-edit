@@ -132,7 +132,7 @@ export class EditorViewChild_NodeLinksTable
   			(mouseup)="mouseup($event)"
   			(mousemove)="mousemove($event)"
   			(contextmenu)="contextmenu($event)">
-  	<ng-container *ngFor="let link of w.node_links; let i = index">
+  	<ng-container *ngFor="let link of w.w.node_links; let i = index">
   		<line
   			[attr.data-index]="i"
   			[attr.x1]="getViewX(link.to)+4"
@@ -142,7 +142,7 @@ export class EditorViewChild_NodeLinksTable
   			(mouseup)="mouseup_link($event)"
   			class="link"/>
   	</ng-container>
-  	<ng-container *ngFor="let node of w.nodes; let i = index">
+  	<ng-container *ngFor="let node of w.w.nodes; let i = index">
   		<circle
   			[attr.data-index]="i"
   			[attr.cx]="getViewX(node)"
@@ -162,7 +162,7 @@ export class EditorViewChild_NodeLinksTable
 })
 export class EditorViewChild_Map
 {
-  w = null;
+  w:WorldMapData = new WorldMapData();
 
   offsetX = 0;
   offsetY = 0;
@@ -170,38 +170,8 @@ export class EditorViewChild_Map
   draggy = null;
   linking = false;
 
-  constructor()
-  {
-    this.w = require('./../game/mock-world.3.json');
-    // for ( let node of this.w.nodes ) node.loc_x -=500
-  }
-
-  getNodeByID( id )
-  {
-  	for ( let node of this.w.nodes )
-  		if ( node.id == id )
-  			return node
-  	console.error(id + " missing",this.w.nodes)
-  	return null
-  }
-
-  getViewX( o )
-  {
-  	if ( typeof o === 'string' || o instanceof String )
-  		o = this.getNodeByID(o)
-  	if ( o == null )
-  		return 0;
-  	return o.loc_x + this.offsetX;
-  }
-
-  getViewY( o )
-  {
-  	if ( typeof o === 'string' || o instanceof String )
-  		o = this.getNodeByID(o)
-  	if ( o == null )
-  		return 0;
-  	return o.loc_y + this.offsetY;
-  }
+  getViewX( o ) { return this.w.getNode(o).loc_x + this.offsetX }
+  getViewY( o ) { return this.w.getNode(o).loc_y + this.offsetY }
 
   mousemove(e)
   {
@@ -229,65 +199,42 @@ export class EditorViewChild_Map
 
   mousedown_node(e)
   {
-  	let node_id = +e.target.attributes['data-index'].value
-  	this.draggy = this.w.nodes[node_id];
+  	let node_index = +e.target.attributes['data-index'].value
+  	this.draggy = this.w.getNode(node_index);
   	this.linking = e.button == 2;
   }
 
   mouseup_node(e)
   {
   	let node_index = +e.target.attributes['data-index'].value
-  	let node = this.w.nodes[node_index]
+  	let node = this.w.getNode(node_index)
 
   	if ( this.linking )
-  	{
   		if ( this.draggy != null )
-  			this.w.node_links.push({from:this.draggy,to:node.id,
-  															handle_goto:`Go to ${node.title}`,handle_gobackto:``})
-  	}
-  	else
+  			this.w.addLink(this.draggy.id,node.id);
+  		else
+  			return
+
   	if ( e.button == 1 )
   	{
-  		let new_id = `node_${this.w.nodes.length}`
-  		let title = new_id
-  		this.w.nodes.push({
-  			id:new_id,
-  			title:title,
-  			loc_x:node.loc_x + Math.random() * 64,
-  			loc_y:node.loc_y - Math.random() * 64,
-  		})
-  		this.w.node_links.push({from:new_id,to:node.id,handle_goto:`Go to ${title}`,handle_gobackto:``})
-  		this.w.node_links.push({from:node.id,to:new_id,handle_goto:`Go to ${node.title}`,handle_gobackto:``})
+  		let new_node =
+  		this.w.addNode( node.loc_x + Math.random() * 64,
+  		  							node.loc_y + Math.random() * 64 )
+  		this.w.addLink( node, new_node )
+  		this.w.addLink( new_node, node )
   	}
-
-  	// console.log(e)
-  	// console.log(this.draggy)
-  	// this.log(node_id)
   }
 
   mouseup_link(e)
   {
   	if ( e.button == 2 )
-  	{
-	  	let link_index = +e.target.attributes['data-index'].value
-	  	this.w.node_links.splice( link_index, 1 )
-  	}
+  		this.w.removeLink( +e.target.attributes['data-index'].value )
   }
 
   mouseup_trash(e)
   {
   	if ( this.draggy != null )
-  	{
-	  	let node = this.draggy
-	  	let node_index = this.w.nodes.indexOf(node)
-
-  		this.w.nodes.splice(node_index, 1)
-  		let links = this.w.node_links
-  		for ( let i = links.length - 1; i >= 0; i-- )
-  			if ( links[i].to == node.id || links[i].from == node.id )
-  				this.w.node_links.splice( i, 1 )
-  	}
-
+  		this.w.removeNode(this.w.getNodeIndex(this.draggy))
   	this.draggy = null;
   }
 
@@ -295,14 +242,85 @@ export class EditorViewChild_Map
   {
   	this.draggy = null;
 	  // console.log(e)
-
   	if ( e.button == 1 )
   	  console.log(JSON.stringify(this.w))
   }
 
-  random(seed,max) { return ( seed * 16807 % 2147483647 ) % max  }
-
   contextmenu(e) { return false; }
-
+  random(seed,max) { return ( seed * 16807 % 2147483647 ) % max  }
   log(o) { console.log(o) }
+}
+
+class WorldMapData
+{
+  w = null;
+
+  constructor()
+  {
+    this.w = require('./../game/mock-world.3.json');
+    // for ( let node of this.w.nodes ) node.loc_x -=500
+  }
+
+  getNode( o )
+  {
+  	if ( typeof o === 'string' || o instanceof String )
+	  	for ( let node of this.w.nodes )
+	  		if ( node.id == o )
+	  			return node
+  	if ( o.hasOwnProperty("id") )
+  		return o;
+	  return this.w.nodes[o]
+  	// console.error( `${o} missing`,this.w.nodes)
+  }
+
+  getNodeIndex( o )
+  {
+  	let nodes = this.w.nodes;
+  	for ( let i in nodes )
+  		if ( nodes[i] == o || nodes[i].id == o )
+  			return i
+  }
+
+  addNode(x,y)
+  {
+		let new_id = `node_${this.w.nodes.length}`
+		let title = new_id
+  	let node = {
+			id:new_id,
+			title:title,
+			loc_x:x,
+			loc_y:y,
+		}
+		this.w.nodes.push(node)
+		return node
+  }
+
+  addLink(from,to)
+  {
+  	let from_node = this.getNode(from)
+  	let to_node = this.getNode(to)
+  	let link = {
+  		from:from_node.id,
+  		to:to_node.id,
+  		handle_goto:`Go to ${to_node.title}`,
+  		handle_gobackto:`Return to ${to_node.title}`,
+  	}
+  	this.w.node_links.push(link)
+  	return link
+  }
+
+  removeNode( node_index )
+  {
+  	let node = this.w.nodes[node_index]
+		let links = this.w.node_links
+		for ( let i = links.length - 1; i >= 0; i-- )
+			if ( links[i].to == node.id || links[i].from == node.id )
+				this.removeLink( i )
+		this.w.nodes.splice(node_index, 1)
+  }
+
+  removeLink( link_index )
+  {
+  	this.w.node_links.splice( link_index, 1 )
+  }
 }
