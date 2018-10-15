@@ -79,7 +79,7 @@ export class EditorViewChild_NodesTable
 	    [enableFilter]="true"
   		[enableSorting]="true"
     	[enableColResize]="true"
-	    [rowData]="worldData.node_links"
+	    [rowData]="worldData.text_node_links"
 	    [columnDefs]="columnDefs"
 	    (gridReady)="onGridReady($event)"
 	    >
@@ -94,8 +94,9 @@ export class EditorViewChild_NodeLinksTable
   columnDefs = [
       { editable:true, field: 'from' , headerName: 'from', suppressSizeToFit:true },
       { editable:true, field: 'to', headerName: 'to', suppressSizeToFit:true },
-      { editable:true, field: 'handle_goto', headerName: 'on GO' },
-      { editable:true, field: 'handle_gobackto', headerName: 'on GO BACK' }
+      { editable:true, field: 'flags', headerName: 'flags', suppressSizeToFit:true },
+      { editable:true, field: 'handle', headerName: 'handle', autoHeight: true },
+      { editable:true, field: 'text', headerName: 'text', autoHeight: true }
   ];
 
   constructor()
@@ -109,6 +110,7 @@ export class EditorViewChild_NodeLinksTable
     this.gridColumnApi = params.columnApi;
 
     this.gridApi.sizeColumnsToFit();
+    this.gridApi.resetRowHeights()
   }
 }
 
@@ -259,6 +261,25 @@ class WorldMapData
   {
     this.w = require('./../game/mock-world.3.json');
     // for ( let node of this.w.nodes ) node.loc_x -=500
+
+    // this.w.text_links = []
+    // for ( let link of this.w.node_links )
+    // {
+    // 	delete link.handle_goto;
+    // 	delete link.handle_gobackto;
+
+    // 	this.w.text_links.push({
+    // 		from: link.from, to: link.to, flags: [],
+    // 		handle: `Go to ${link.to}`,
+    // 		text: `I went to ${link.to}`
+    // 	})
+    // 	this.w.text_links.push({
+    // 		from: link.from, to: link.to, flags: ['back'],
+    // 		handle: `Go back to ${link.to}`,
+    // 		text: `I went returned to ${link.to}`
+    // 	})
+    // }
+    // console.log(JSON.stringify(this.w))
   }
 
   getNode( o )

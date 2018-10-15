@@ -15,12 +15,12 @@ const appRoutes: Routes = [
 	  children: [
 	      { path: '', redirectTo: 'nodes', pathMatch: 'full' },
 	      { path: 'nodes', component: EditorViewChild_NodesTable },
-	      { path: 'node_links', component: EditorViewChild_NodeLinksTable },
+	      { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
 	      { path: 'map', component: EditorViewChild_Map }
 	    ]
   },
   { path: '', component: GameViewComponent },
-  { path: '**', redirectTo: '' }
+  // { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
