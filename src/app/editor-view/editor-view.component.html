@@ -1,5 +1,13 @@
 <style type="scss/text">
-#datagrid-toolbar { position: fixed; bottom: 0; right: 0; text-align: right; margin:1.25vw; user-select: none; }
+#datagrid-toolbar {
+	user-select: none;
+	position: fixed;
+	bottom: 1.25vw;
+	right:  1.25vw;
+	text-align: right;
+}
+#datagrid-toolbar a { opacity: 0.4; }
+#datagrid-toolbar a:hover { opacity: 1.0; }
 </style>
 
 <div class="container">
@@ -14,7 +22,7 @@
 					  			(dragstart)="log($event)"
 					  			(drop)="log($event)"
 					  			(dragover)="log($event)"
-	         >[ {{pg}} ]</a>
+	         >{{pg}}</a>
 	         <br/>
 	     </ng-container>
     </div>
