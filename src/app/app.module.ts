@@ -1,12 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { HttpClientModule } from '@angular/common/http';
 
 import { environment } from '../environments/environment'
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { AgGridModule } from 'ag-grid-angular'
 
 import { WorldMapData } from './editor-view/editor-view.component'
+import { Gitbub } from './util/gitbub'
+import { GitbubAutomodi, GitbubAutomodiGo } from './util/gitbub-automodi'
+
 import { AppComponent } from './app.component'
 import { GameViewComponent } from './game-view/game-view.component'
 import { EditorVewComponent } from './editor-view/editor-view.component'
@@ -38,6 +42,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AgGridModule.withComponents([]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot( appRoutes, { enableTracing: false } )
