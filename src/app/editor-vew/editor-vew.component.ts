@@ -114,9 +114,6 @@ export class EditorViewChild_NodeLinksTable
   }
 }
 
-// <image x="{{i*16}}" y="{{i*12}}"
-  					 //xlink:href="https://image.flaticon.com/icons/svg/64/64113.svg"></image>
-
 @Component({
   // selector: '',
   styles: [`
@@ -125,6 +122,7 @@ export class EditorViewChild_NodeLinksTable
   #trash:hover { fill:rgba(255,0,0,.25); stroke:rgba(255,0,0,.1); stroke-width:4 }
   .node { stroke:rgba(100,200,250,0.5); stroke-width:4; fill:rgba(50,100,200,1.0) }
   .link { stroke:rgba(100,200,250,0.25); stroke-width:16 }
+  .link.tobe { stroke:rgba(0,0,0,0.125); stroke-width:8 }
   .label { font: bold 10px monospace, sans-serif; color: grey; user-select: none;  }
   .node:hover { opacity : .9 }
   .link:hover { opacity : .7 }
@@ -134,6 +132,14 @@ export class EditorViewChild_NodeLinksTable
   			(mouseup)="mouseup($event)"
   			(mousemove)="mousemove($event)"
   			(contextmenu)="contextmenu($event)">
+  	<ng-container>
+  		<line *ngIf="linking&&draggy"
+  			[attr.x1]="getViewX(draggy)"
+  			[attr.y1]="getViewY(draggy)"
+  			[attr.x2]="mouseX"
+  			[attr.y2]="mouseY"
+  			class="link tobe"/>
+  	</ng-container>
   	<ng-container *ngFor="let link of w.w.node_links; let i = index">
   		<line
   			[attr.data-index]="i"
@@ -172,11 +178,17 @@ export class EditorViewChild_Map
   draggy = null;
   linking = false;
 
+  mouseX = 0;
+  mouseY = 0;
+
   getViewX( o ) { return this.w.getNode(o).loc_x + this.offsetX }
   getViewY( o ) { return this.w.getNode(o).loc_y + this.offsetY }
 
   mousemove(e)
   {
+	  this.mouseX = e.x;
+	  this.mouseY = e.y;
+
   	if ( this.linking )
   		return
 
@@ -243,6 +255,7 @@ export class EditorViewChild_Map
   mouseup(e)
   {
   	this.draggy = null;
+  	this.linking = false;
 	  // console.log(e)
   	if ( e.button == 1 )
   	  console.log(JSON.stringify(this.w))
