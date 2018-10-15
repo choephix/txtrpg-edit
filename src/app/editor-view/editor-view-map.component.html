@@ -14,8 +14,8 @@
 			(mouseup)="mouseup($event)"
 			(mousemove)="mousemove($event)"
 			(contextmenu)="contextmenu($event)">
-	<ng-container>
-		<line *ngIf="linking&&draggy"
+	<ng-container *ngIf="linking&&draggy">
+		<line
 			[attr.x1]="getViewX(draggy)"
 			[attr.y1]="getViewY(draggy)"
 			[attr.x2]="mouseX"
@@ -46,6 +46,10 @@
 			[attr.y]="getViewY(node) + 24"
 			class="label">{{node.id}}</text>
 	</ng-container>
-	<circle cx="94vw" cy="12vw" r=32 id="trash" (mouseup)="mouseup_trash($event)">
+	<circle id="trash"
+					cx="50vw" cy="90vh" r=64
+					*ngIf="!linking&&draggy"
+					(mouseup)="mouseup_trash($event)"
+					>
 	</circle>
 </svg>

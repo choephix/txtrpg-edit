@@ -66,8 +66,8 @@ export class EditorViewChild_Map
   	if ( e.button == 1 )
   	{
   		let new_node =
-  		this.w.addNode( node.loc_x + Math.random() * 64,
-  		  							node.loc_y + Math.random() * 64 )
+  		this.w.addNode( node.loc_x + Math.random() * 96,
+  		  							node.loc_y - Math.random() * 96)
   		this.w.addLink( node, new_node )
   		this.w.addLink( new_node, node )
   	}
