@@ -122,9 +122,10 @@ export class EditorViewChild_NodeLinksTable
   #trash { fill:rgba(255,0,0,.05); }
   #trash:hover { fill:rgba(255,0,0,.25); stroke:rgba(255,0,0,.1); stroke-width:4 }
   .node { stroke:rgba(100,200,250,0.5); stroke-width:4; fill:rgba(50,100,200,1.0) }
-  .node:hover { opacity : .9 }
   .link { stroke:rgba(100,200,250,0.25); stroke-width:16 }
   .label { font: bold 10px monospace, sans-serif; color: grey; user-select: none;  }
+  .node:hover { opacity : .9 }
+  .link:hover { opacity : .7 }
   `],
   template: `
   <svg id="lesvg" #lesvg
@@ -135,9 +136,9 @@ export class EditorViewChild_NodeLinksTable
   		<line
   			[attr.data-index]="i"
   			[attr.x1]="getViewX(link.to)+4"
-  			[attr.y1]="getViewY(link.to)+4"
+  			[attr.y1]="getViewY(link.to)+random(i,8)"
   			[attr.x2]="getViewX(link.from)-4"
-  			[attr.y2]="getViewY(link.from)-4"
+  			[attr.y2]="getViewY(link.from)-random(i,8)"
   			(mouseup)="mouseup_link($event)"
   			class="link"/>
   	</ng-container>
