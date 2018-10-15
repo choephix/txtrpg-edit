@@ -1,17 +1,22 @@
 <style type="scss/text">
-#datagrid-toolbar { height:5vh; }
+#datagrid-toolbar { position: fixed; bottom: 0; right: 0; text-align: right; margin:1.25vw; user-select: none; }
 </style>
 
 <div class="container">
+
+  	<router-outlet></router-outlet>
 
     <div id="datagrid-toolbar">
 	    <ng-container *ngFor="let pg of pages">
 	      <a routerLink="/edit/{{pg}}"
 	         routerLinkActive="active"
-	         >[ {{pg}} ] </a>
+  								draggable="true"
+					  			(dragstart)="log($event)"
+					  			(drop)="log($event)"
+					  			(dragover)="log($event)"
+	         >[ {{pg}} ]</a>
+	         <br/>
 	     </ng-container>
     </div>
-
-  	<router-outlet></router-outlet>
 
 </div>

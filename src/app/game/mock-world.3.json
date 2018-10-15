@@ -1,262 +1,262 @@
 {
-   "start":{
-      "node":"spawnlake",
-      "on_start":"I woke up. There is a veery veery loong, huge, giant, humongous, incomprehensibly ginormous list of things I did.\nBut that's not important now.\n\n\n-\n\n"
-   },
-   "global":{
-      "time":1539388800000
-   },
-   "aliases":{
-      "<VILLAGE>":"the village",
-      "<INN>":"Börris' Inn & Tavern",
-      "<CLINIC>":"the clinic",
-      "<BLACKSMITHS>":"Kraig and Sons' Blades & Armor",
-      "<PLAZA>":"the village's small plaza",
-      "<DUNGEON1>":"the creepy cave",
-      "<DUNGEON2>":"the bandit camp"
-   },
-   "nodes":[
-      {  "id":"spawnlake", "title":"inside the Lake of Birth" },
-      {  "id":"spawnlake_shore", "title":"the Lake of Birth" },
-      {  "id":"forest_path", "title":"the thick forest of doom" },
-      {  "id":"north_exit", "title":"the north end of the village" },
-      {  "id":"north_residential", "title":"village houses (north)" },
-      {  "id":"inn_street", "title":"the front of <INN>" },
-      {  "id":"inn", "title":"<INN>" },
-      {  "id":"plaza", "title":"Central Plaza" },
-      {  "id":"clinic", "title":"the clinic" },
-      {  "id":"blacksmith_street", "title":"<BLACKSMITHS>" },
-      {  "id":"market_west", "title":"the marketplace (west)" },
-      {  "id":"market_east", "title":"the marketplace (east)" },
-      {  "id":"bookstore_street", "title":"Book Store" },
-      {  "id":"residential_south", "title":"The Magician's house" },
-      {  "id":"exit_south", "title":"South Exit" },
-      {  "id":"intersection ", "title":"the intersection" },
-      {  "id":"dungeon_one", "title":"<DUNGEON1>" },
-      {  "id":"dungeon_two", "title":"<DUNGEON2>" }
-   ],
-   "node_links":[
-      {
-         "from":"spawnlake",
-         "to":"spawnlake_shore",
-         "handle_goto":"I started swimming toward the shore.",
-         "handle_gobackto":"I started swimming toward the shore."
-      },
-      {
-         "from":"spawnlake_shore",
-         "to":"forest_path",
-         "handle_goto":"I entered the thick forest and followed the path.",
-         "handle_gobackto":"I entered the thick forest and followed the path."
-      },
-      {
-         "from":"forest_path",
-         "to":"spawnlake_shore",
-         "handle_goto":"I followed the path into the depths of the forest, until reached the Lake of Birth.",
-         "handle_gobackto":"I followed the path into the depths of the forest, until reached the Lake of Birth."
-      },
-      {
-         "from":"forest_path",
-         "to":"north_exit",
-         "handle_goto":"I exited the forest and followed the road.",
-         "handle_gobackto":"I exited the forest and followed the road."
-      },
-      {
-         "from":"north_exit",
-         "to":"forest_path",
-         "handle_goto":"I entered the forest of doom",
-         "handle_gobackto":"I entered the forest of doom"
-      },
-      {
-         "from":"north_exit",
-         "to":"north_residential",
-         "handle_goto":"I entered the village of Rok",
-         "handle_gobackto":"I entered the village of Rok"
-      },
-      {
-         "from":"north_residential",
-         "to":"north_exit",
-         "handle_goto":"I went to the north exit out of the village",
-         "handle_gobackto":"I went to the north exit out of the village"
-      },
-      {
-         "from":"north_residential",
-         "to":"inn_street",
-         "handle_goto":"I went deeper towards the village center",
-         "handle_gobackto":"I went deeper towards the village center"
-      },
-      {
-         "from":"inn_street",
-         "to":"north_residential",
-         "handle_goto":"I went north, toward the residential area",
-         "handle_gobackto":"I went north, toward the residential area"
-      },
-      {
-         "from":"inn_street",
-         "to":"inn",
-         "handle_goto":"I entered <INN>",
-         "handle_gobackto":"I entered <INN>"
-      },
-      {
-         "from":"inn_street",
-         "to":"plaza",
-         "handle_goto":"I moved down the hill, toward <PLAZA>",
-         "handle_gobackto":"I moved down the hill, toward <PLAZA>"
-      },
-      {
-         "from":"inn",
-         "to":"inn_street",
-         "handle_goto":"I opened the door and [exitted|stepped outside][| [the inn|the building|<INN>]].",
-         "handle_gobackto":"I opened the door and [exitted|stepped outside][| [the inn|the building|<INN>]]."
-      },
-      {
-         "from":"plaza",
-         "to":"inn_street",
-         "handle_goto":"I moved up the road, toward the old Inn.",
-         "handle_gobackto":"I moved up the road, toward the old Inn."
-      },
-      {
-         "from":"plaza",
-         "to":"clinic",
-         "handle_goto":"I entered the clinic",
-         "handle_gobackto":"I entered the clinic"
-      },
-      {
-         "from":"plaza",
-         "to":"blacksmith_street",
-         "handle_goto":"I went toward the metalsmiths' place",
-         "handle_gobackto":"I went toward the metalsmiths' place"
-      },
-      {
-         "from":"plaza",
-         "to":"market_west",
-         "handle_goto":"I entered to the marketplace",
-         "handle_gobackto":"I entered to the marketplace"
-      },
-      {
-         "from":"clinic",
-         "to":"market_east",
-         "handle_goto":"I exited the clinic, and (returned) to the marketplace",
-         "handle_gobackto":"I exited the clinic, and (returned) to the marketplace"
-      },
-      {
-         "from":"clinic",
-         "to":"plaza",
-         "handle_goto":"I opened the clinic's back door and stepped out into <PLAZA>.",
-         "handle_gobackto":"I opened the clinic's back door and stepped out into <PLAZA>."
-      },
-      {
-         "from":"blacksmith_street",
-         "to":"plaza",
-         "handle_goto":"I went to <PLAZA>",
-         "handle_gobackto":"I went to <PLAZA>"
-      },
-      {
-         "from":"blacksmith_street",
-         "to":"market_west",
-         "handle_goto":"I went to the village's marketplace",
-         "handle_gobackto":"I went to the village's marketplace"
-      },
-      {
-         "from":"market_west",
-         "to":"plaza",
-         "handle_goto":"I went north, to <PLAZA>.",
-         "handle_gobackto":"I went north, to <PLAZA>."
-      },
-      {
-         "from":"market_west",
-         "to":"blacksmith_street",
-         "handle_goto":"I went west, toward <BLACKSMITHS>",
-         "handle_gobackto":"I went west, toward <BLACKSMITHS>"
-      },
-      {
-         "from":"market_west",
-         "to":"market_east",
-         "handle_goto":"I went to the other part of the market",
-         "handle_gobackto":"I went to the other part of the market"
-      },
-      {
-         "from":"market_east",
-         "to":"market_west",
-         "handle_goto":"I went to the other part of the market",
-         "handle_gobackto":"I went to the other part of the market"
-      },
-      {
-         "from":"market_east",
-         "to":"clinic",
-         "handle_goto":"I opened the clinic's door and went inside.",
-         "handle_gobackto":"I opened the clinic's door and went inside."
-      },
-      {
-         "from":"market_east",
-         "to":"bookstore_street",
-         "handle_goto":"I exited the market, and went to the south part of the village.",
-         "handle_gobackto":"I exited the market, and went to the south part of the village."
-      },
-      {
-         "from":"bookstore_street",
-         "to":"market_east",
-         "handle_goto":"I entered the village's marketplace",
-         "handle_gobackto":"I entered the village's marketplace"
-      },
-      {
-         "from":"bookstore_street",
-         "to":"residential_south",
-         "handle_goto":"I went south, toward the magician's house",
-         "handle_gobackto":"I went south, toward the magician's house"
-      },
-      {
-         "from":"residential_south",
-         "to":"bookstore_street",
-         "handle_goto":"I went north, toward the center of the village.",
-         "handle_gobackto":"I went north, toward the center of the village."
-      },
-      {
-         "from":"residential_south",
-         "to":"exit_south",
-         "handle_goto":"I went south, until I reached the end of the village",
-         "handle_gobackto":"I went south, until I reached the end of the village"
-      },
-      {
-         "from":"exit_south",
-         "to":"residential_south",
-         "handle_goto":"I went north, entering the small village.",
-         "handle_gobackto":"I went north, entering the small village."
-      },
-      {
-         "from":"exit_south",
-         "to":"dungeon_one",
-         "handle_goto":"I went south, toward <DUNGEON1>",
-         "handle_gobackto":"I went south, toward <DUNGEON1>"
-      },
-      {
-         "from":"intersection ",
-         "to":"dungeon_one",
-         "handle_goto":"I went to the <DUNGEON1>",
-         "handle_gobackto":"I went to the <DUNGEON1>"
-      },
-      {
-         "from":"intersection ",
-         "to":"dungeon_two",
-         "handle_goto":"I went to the <DUNGEON2>",
-         "handle_gobackto":"I went to the <DUNGEON2>"
-      },
-      {
-         "from":"intersection ",
-         "to":"exit_south",
-         "handle_goto":"I went north, until I reached the village's welcome sign.",
-         "handle_gobackto":"I went north, until I reached the village's welcome sign."
-      },
-      {
-         "from":"dungeon_one",
-         "to":"intersection ",
-         "handle_goto":"I went back north, until I reached the intersection .",
-         "handle_gobackto":"I went back north, until I reached the intersection ."
-      },
-      {
-         "from":"dungeon_two",
-         "to":"intersection ",
-         "handle_goto":"I went back north, until I reached the intersection .",
-         "handle_gobackto":"I went back north, until I reached the intersection ."
-      }
-   ]
+  "start": {
+    "node": "spawnlake",
+    "on_start": "I woke up. There is a veery veery loong, huge, giant, humongous, incomprehensibly ginormous list of things I did.\nBut that's not important now.\n\n\n-\n\n"
+  },
+  "global": {
+    "time": 1539388800000
+  },
+  "aliases": {
+    "<VILLAGE>": "the village",
+    "<INN>": "B\u00f6rris' Inn & Tavern",
+    "<CLINIC>": "the clinic",
+    "<BLACKSMITHS>": "Kraig and Sons' Blades & Armor",
+    "<PLAZA>": "the village's small plaza",
+    "<DUNGEON1>": "the creepy cave",
+    "<DUNGEON2>": "the bandit camp"
+  },
+  "nodes": [
+    {"id":"spawnlake","title":"inside the Lake of Birth","loc_x":623,"loc_y":21},
+    {"id":"spawnlake_shore","title":"the Lake of Birth","loc_x":642,"loc_y":89},
+    {"id":"forest_path","title":"the thick forest of doom","loc_x":704,"loc_y":125},
+    {"id":"north_exit","title":"the north end of the village","loc_x":719,"loc_y":237},
+    {"id":"north_residential","title":"village houses (north)","loc_x":724,"loc_y":344},
+    {"id":"inn_street","title":"the front of <INN>","loc_x":681,"loc_y":469},
+    {"id":"inn","title":"<INN>","loc_x":615,"loc_y":435},
+    {"id":"plaza","title":"Central Plaza","loc_x":649,"loc_y":551},
+    {"id":"clinic","title":"the clinic","loc_x":670,"loc_y":599},
+    {"id":"blacksmith_street","title":"<BLACKSMITHS>","loc_x":520,"loc_y":565},
+    {"id":"market_west","title":"the marketplace (west)","loc_x":588,"loc_y":653},
+    {"id":"market_east","title":"the marketplace (east)","loc_x":668,"loc_y":648},
+    {"id":"bookstore_street","title":"Book Store","loc_x":720,"loc_y":689},
+    {"id":"residential_south","title":"The Magician's house","loc_x":823,"loc_y":752},
+    {"id":"exit_south","title":"South Exit","loc_x":835,"loc_y":892},
+    {"id":"intersection","title":"the intersection","loc_x":884,"loc_y":1083},
+    {"id":"dungeon_one","title":"<DUNGEON1>","loc_x":1210,"loc_y":1087},
+    {"id":"dungeon_two","title":"<DUNGEON2>","loc_x":847,"loc_y":1177}
+  ],
+  "node_links": [
+    {
+      "from": "spawnlake",
+      "to": "spawnlake_shore",
+      "handle_goto": "I started swimming toward the shore.",
+      "handle_gobackto": "I started swimming toward the shore."
+    },
+    {
+      "from": "spawnlake_shore",
+      "to": "forest_path",
+      "handle_goto": "I entered the thick forest and followed the path.",
+      "handle_gobackto": "I entered the thick forest and followed the path."
+    },
+    {
+      "from": "forest_path",
+      "to": "spawnlake_shore",
+      "handle_goto": "I followed the path into the depths of the forest, until reached the Lake of Birth.",
+      "handle_gobackto": "I followed the path into the depths of the forest, until reached the Lake of Birth."
+    },
+    {
+      "from": "forest_path",
+      "to": "north_exit",
+      "handle_goto": "I exited the forest and followed the road.",
+      "handle_gobackto": "I exited the forest and followed the road."
+    },
+    {
+      "from": "north_exit",
+      "to": "forest_path",
+      "handle_goto": "I entered the forest of doom",
+      "handle_gobackto": "I entered the forest of doom"
+    },
+    {
+      "from": "north_exit",
+      "to": "north_residential",
+      "handle_goto": "I entered the village of Rok",
+      "handle_gobackto": "I entered the village of Rok"
+    },
+    {
+      "from": "north_residential",
+      "to": "north_exit",
+      "handle_goto": "I went to the north exit out of the village",
+      "handle_gobackto": "I went to the north exit out of the village"
+    },
+    {
+      "from": "north_residential",
+      "to": "inn_street",
+      "handle_goto": "I went deeper towards the village center",
+      "handle_gobackto": "I went deeper towards the village center"
+    },
+    {
+      "from": "inn_street",
+      "to": "north_residential",
+      "handle_goto": "I went north, toward the residential area",
+      "handle_gobackto": "I went north, toward the residential area"
+    },
+    {
+      "from": "inn_street",
+      "to": "inn",
+      "handle_goto": "I entered <INN>",
+      "handle_gobackto": "I entered <INN>"
+    },
+    {
+      "from": "inn_street",
+      "to": "plaza",
+      "handle_goto": "I moved down the hill, toward <PLAZA>",
+      "handle_gobackto": "I moved down the hill, toward <PLAZA>"
+    },
+    {
+      "from": "inn",
+      "to": "inn_street",
+      "handle_goto": "I opened the door and [exitted|stepped outside][| [the inn|the building|<INN>]].",
+      "handle_gobackto": "I opened the door and [exitted|stepped outside][| [the inn|the building|<INN>]]."
+    },
+    {
+      "from": "plaza",
+      "to": "inn_street",
+      "handle_goto": "I moved up the road, toward the old Inn.",
+      "handle_gobackto": "I moved up the road, toward the old Inn."
+    },
+    {
+      "from": "plaza",
+      "to": "clinic",
+      "handle_goto": "I entered the clinic",
+      "handle_gobackto": "I entered the clinic"
+    },
+    {
+      "from": "plaza",
+      "to": "blacksmith_street",
+      "handle_goto": "I went toward the metalsmiths' place",
+      "handle_gobackto": "I went toward the metalsmiths' place"
+    },
+    {
+      "from": "plaza",
+      "to": "market_west",
+      "handle_goto": "I entered to the marketplace",
+      "handle_gobackto": "I entered to the marketplace"
+    },
+    {
+      "from": "clinic",
+      "to": "market_east",
+      "handle_goto": "I exited the clinic, and (returned) to the marketplace",
+      "handle_gobackto": "I exited the clinic, and (returned) to the marketplace"
+    },
+    {
+      "from": "clinic",
+      "to": "plaza",
+      "handle_goto": "I opened the clinic's back door and stepped out into <PLAZA>.",
+      "handle_gobackto": "I opened the clinic's back door and stepped out into <PLAZA>."
+    },
+    {
+      "from": "blacksmith_street",
+      "to": "plaza",
+      "handle_goto": "I went to <PLAZA>",
+      "handle_gobackto": "I went to <PLAZA>"
+    },
+    {
+      "from": "blacksmith_street",
+      "to": "market_west",
+      "handle_goto": "I went to the village's marketplace",
+      "handle_gobackto": "I went to the village's marketplace"
+    },
+    {
+      "from": "market_west",
+      "to": "plaza",
+      "handle_goto": "I went north, to <PLAZA>.",
+      "handle_gobackto": "I went north, to <PLAZA>."
+    },
+    {
+      "from": "market_west",
+      "to": "blacksmith_street",
+      "handle_goto": "I went west, toward <BLACKSMITHS>",
+      "handle_gobackto": "I went west, toward <BLACKSMITHS>"
+    },
+    {
+      "from": "market_west",
+      "to": "market_east",
+      "handle_goto": "I went to the other part of the market",
+      "handle_gobackto": "I went to the other part of the market"
+    },
+    {
+      "from": "market_east",
+      "to": "market_west",
+      "handle_goto": "I went to the other part of the market",
+      "handle_gobackto": "I went to the other part of the market"
+    },
+    {
+      "from": "market_east",
+      "to": "clinic",
+      "handle_goto": "I opened the clinic's door and went inside.",
+      "handle_gobackto": "I opened the clinic's door and went inside."
+    },
+    {
+      "from": "market_east",
+      "to": "bookstore_street",
+      "handle_goto": "I exited the market, and went to the south part of the village.",
+      "handle_gobackto": "I exited the market, and went to the south part of the village."
+    },
+    {
+      "from": "bookstore_street",
+      "to": "market_east",
+      "handle_goto": "I entered the village's marketplace",
+      "handle_gobackto": "I entered the village's marketplace"
+    },
+    {
+      "from": "bookstore_street",
+      "to": "residential_south",
+      "handle_goto": "I went south, toward the magician's house",
+      "handle_gobackto": "I went south, toward the magician's house"
+    },
+    {
+      "from": "residential_south",
+      "to": "bookstore_street",
+      "handle_goto": "I went north, toward the center of the village.",
+      "handle_gobackto": "I went north, toward the center of the village."
+    },
+    {
+      "from": "residential_south",
+      "to": "exit_south",
+      "handle_goto": "I went south, until I reached the end of the village",
+      "handle_gobackto": "I went south, until I reached the end of the village"
+    },
+    {
+      "from": "exit_south",
+      "to": "residential_south",
+      "handle_goto": "I went north, entering the small village.",
+      "handle_gobackto": "I went north, entering the small village."
+    },
+    {
+      "from": "intersection",
+      "to": "dungeon_one",
+      "handle_goto": "I went to the <DUNGEON1>",
+      "handle_gobackto": "I went to the <DUNGEON1>"
+    },
+    {
+      "from": "intersection",
+      "to": "dungeon_two",
+      "handle_goto": "I went to the <DUNGEON2>",
+      "handle_gobackto": "I went to the <DUNGEON2>"
+    },
+    {
+      "from": "intersection",
+      "to": "exit_south",
+      "handle_goto": "I went north, until I reached the village's welcome sign.",
+      "handle_gobackto": "I went north, until I reached the village's welcome sign."
+    },
+    {
+      "from": "dungeon_one",
+      "to": "intersection",
+      "handle_goto": "I went back north, until I reached the intersection.",
+      "handle_gobackto": "I went back north, until I reached the intersection."
+    },
+    {
+      "from": "dungeon_two",
+      "to": "intersection",
+      "handle_goto": "I went back north, until I reached the intersection.",
+      "handle_gobackto": "I went back north, until I reached the intersection."
+    },
+    {
+      "from": "exit_south",
+      "to": "intersection",
+      "handle_goto": "I went south, until I reached an intersection",
+      "handle_gobackto": "I went back to the intersection"
+    }
+  ]
 }
