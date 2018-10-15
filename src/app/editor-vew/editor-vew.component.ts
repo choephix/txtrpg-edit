@@ -134,10 +134,10 @@ export class EditorViewChild_NodeLinksTable
   	<ng-container *ngFor="let link of w.node_links; let i = index">
   		<line
   			[attr.data-index]="i"
-  			[attr.x1]="getViewX(link.to)"
-  			[attr.y1]="getViewY(link.to)"
-  			[attr.x2]="getViewX(link.from)"
-  			[attr.y2]="getViewY(link.from)"
+  			[attr.x1]="getViewX(link.to)+4"
+  			[attr.y1]="getViewY(link.to)+4"
+  			[attr.x2]="getViewX(link.from)-4"
+  			[attr.y2]="getViewY(link.from)-4"
   			(mouseup)="mouseup_link($event)"
   			class="link"/>
   	</ng-container>
@@ -298,6 +298,8 @@ export class EditorViewChild_Map
   	if ( e.button == 1 )
   	  console.log(JSON.stringify(this.w))
   }
+
+  random(seed,max) { return ( seed * 16807 % 2147483647 ) % max  }
 
   contextmenu(e) { return false; }
 
