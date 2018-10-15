@@ -1,25 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Gitbub } from './../util/gitbub';
+import { GitbubAutomodiGo } from './../util/gitbub-automodi';
 
 declare var require:any
+
+const FILE:string = "mock-world"
+const BRANCH:string = "develop"
 
 @Component({ templateUrl: './editor-view.component.html' })
 export class EditorVewComponent
 {
 	pages:string[] = []
 
-  constructor( public router: Router )
+	worldFile:Gitbub
+
+  constructor( public router: Router, private http:HttpClient )
   {
 		for ( const r of router.config )
 			if ( r.path === "edit" )
 				for ( const pg of r.children )
 					if ( pg.path )
 						this.pages.push( pg.path )
+
+		this.worldFile = new Gitbub(FILE,BRANCH,http)
+		this.worldFile.load(console.log)
+
+		GitbubAutomodiGo.go(http)
+  }
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(e:KeyboardEvent) {
+  	if ( e.keyCode == 19 && e.ctrlKey && e.shiftKey )
+    	this.worldFile.save(()=>console.log("\n\n::DATA::SAVED::\n\n"))
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   log(o) { console.log(o) }
 }
-
 
 @Component({
   // selector: '',
