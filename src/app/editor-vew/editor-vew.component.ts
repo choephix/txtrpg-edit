@@ -138,7 +138,7 @@ export class EditorViewChild_NodeLinksTable
   			[attr.y1]="getViewY(link.to)"
   			[attr.x2]="getViewX(link.from)"
   			[attr.y2]="getViewY(link.from)"
-  			(mouseup)="mouseup_node($event)"
+  			(mouseup)="mouseup_link($event)"
   			class="link"/>
   	</ng-container>
   	<ng-container *ngFor="let node of w.nodes; let i = index">
@@ -262,6 +262,10 @@ export class EditorViewChild_Map
   	// console.log(e)
   	// console.log(this.draggy)
   	// this.log(node_id)
+  }
+
+  mouseup_link(e)
+  {
   }
 
   mouseup_trash(e)
