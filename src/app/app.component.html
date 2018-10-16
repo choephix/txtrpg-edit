@@ -6,12 +6,8 @@
 
 <div>
   <nav id="navi">
-    <ng-container *ngFor="let r of router.config">
-      <a routerLink="/{{r.path}}"
-         routerLinkActive="active"
-         *ngIf="r.path!='**'"
-         >{{r.path?r.path:"game"}}</a>
-    </ng-container>
+	  <a routerLink="{{branch}}/game" routerLinkActive="active">PLAY {{branch.toUpperCase()}}</a>
+	  <a routerLink="{{branch}}/edit" routerLinkActive="active">EDIT {{branch.toUpperCase()}}</a>
   </nav>
   <router-outlet></router-outlet>
 </div>

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor( public router: Router ) {}
+	public branch:string = "develop"
+  constructor( public router:Router )
+  { router.events.subscribe( e => this.branch = router.url.match(/^\/?([^\/]*)\//)[1] ) }
 }
 
 @Component({
