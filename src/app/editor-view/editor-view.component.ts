@@ -2,6 +2,8 @@ import { Component, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalWorldDataService } from './../editor/global-world-data.service';
 
+declare var angular: any;
+
 @Component({ templateUrl: './editor-view.component.html' })
 export class EditorVewComponent
 {
@@ -40,42 +42,106 @@ export class EditorVewComponent
 }
 
 @Component({
-  // selector: '',
   styles: [`#table { height:95vh; width:100%; }`],
   template: `
-  <ag-grid-angular
-	  	id="table"
-	    class="ag-theme-balham"
-	    [singleClickEdit]="true"
-	    [stopEditingWhenGridLosesFocus]="true"
-	    [enableFilter]="true"
-  		[enableSorting]="true"
-	    [rowData]="worldData.aliases"
-	    [columnDefs]="columnDefs"
-  	  (gridReady)="onGridReady($event)"
-	    >
-		</ag-grid-angular>`
+		<ag-grid-angular
+			id="table"
+			class="ag-theme-balham"
+			rowSelection='single'
+			[singleClickEdit]="true"
+			[stopEditingWhenGridLosesFocus]="true"
+			[enableFilter]="true"
+			[enableSorting]="true"
+			[rowData]="rowData"
+			[columnDefs]="columnDefs"
+			(gridReady)="onGridReady($event)"
+			(rowClicked)='onSelectionChanged($event)'
+			*ngIf="config!=undefined"
+			>
+		</ag-grid-angular>
+	  <ng-container *ngFor="let c of objectKeys(configs)">
+		  <button (click)="config=configs[c]">{{c}}</button>
+	  </ng-container>
+		<br/>
+		<button (click)="clone()">➕</button>
+		`
 })
 export class EditorViewChild_NodesTable
 {
-  public get worldData() { return this.gitbub.data }
+	public gitbub
 
-  public columnDefs = [
-      // { editable:true, field: 'id' , headerName: 'ID', suppressSizeToFit:true },
-      // { editable:true, field: 'title', headerName: 'Title' },
-      { editable:true, field: 'key' , headerName: 'key', suppressSizeToFit:true },
-      { editable:true, field: 'alias', headerName: 'alias' },
-      { editable:true, field: 'type', headerName: 'type' },
-  ];
+  public get w() { return this.gitbub.data }
+  public get rowData():any[] { return this.config.dataFunc() }
+  public get columnDefs():any[] { return this.config.columnDefs }
 
-	private gitbub
+  objectKeys = Object.keys;
+  configs = {
+  	"ALIASES" : {
+	  	dataFunc : () => this.w.aliases,
+	  	columnDefs : [
+		      { editable:true, field: 'key' ,  headerName: 'key', suppressSizeToFit:true },
+		      { editable:true, field: 'alias', headerName: 'alias' },
+		      { editable:true, field: 'type',  headerName: 'type' },
+		  ]
+	  },
+  	"NODES" : {
+	  	dataFunc : () => this.w.nodes,
+	  	columnDefs : [
+		      { editable:true, field: 'id' , headerName: 'ID', suppressSizeToFit:true },
+		      { editable:true, field: 'title', headerName: 'Title' },
+		  ]
+	  },
+  	"TEXT/LINKS" : {
+	  	dataFunc : () => this.w.text_node_links,
+	  	columnDefs : [
+	      { editable:true, field: 'from' , headerName: 'from', suppressSizeToFit:true },
+	      { editable:true, field: 'to', headerName: 'to', suppressSizeToFit:true },
+	      { editable:true, field: 'flags', headerName: 'flags', suppressSizeToFit:true },
+	      { editable:true, field: 'handle', headerName: 'handle', autoHeight: true },
+	      { editable:true, field: 'text', headerName: 'text', autoHeight: true }
+		  ]
+	  },
+  }
+  config:TableConfiguration = this.configs["ALIASES"]
 
-  constructor( public world:GlobalWorldDataService )
-  { this.gitbub = world.bub }
+	aggapi:any
+
+  constructor( public world:GlobalWorldDataService ) { this.gitbub = world.bub }
 
   onGridReady(params)
-  { params.api.sizeColumnsToFit() }
+  {
+  	this.aggapi = params.api;
+  	params.api.sizeColumnsToFit()
+    params.api.resetRowHeights()
+  }
+
+  onSelectionChanged(e)
+  {
+  	console.log(e)
+  }
+
+  clone()
+  {
+  	let from = this.aggapi.getSelectedRows()[0]
+  	let i = this.rowData.indexOf(from)+1
+
+  	console.log(i,from,this.aggapi)
+
+  	let o = {}
+  	Object.assign(o,from)
+
+  	this.aggapi.updateRowData( { add:[o], addIndex:i } )
+  }
 }
+
+class TableConfiguration
+{
+  columnDefs:any[] = []
+  dataFunc:()=>any[];
+}
+
+
+
 
 
 @Component({
