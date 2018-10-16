@@ -16,10 +16,8 @@
 
     <div id="datagrid-toolbar">
 	    <ng-container *ngFor="let pg of pages">
-	      <a routerLink="/edit/{{pg}}"
-	         routerLinkActive="active"
-	         >{{pg}}</a>
-	         <br/>
+	      <a routerLink="{{pg}}" routerLinkActive="active">{{pg}}</a>
+	      <br/>
 	     </ng-container>
     </div>
 

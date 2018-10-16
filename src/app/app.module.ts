@@ -28,7 +28,8 @@ const appRoutes: Routes = [
         ]
   },
   { path: ':branch/game', component: GameViewComponent },
-  { path: '', redirectTo: 'poc/game', pathMatch: 'full' },
+  { path: ':branch', redirectTo: ':branch/game', pathMatch: 'full' },
+  { path: '', redirectTo: 'develop/game', pathMatch: 'full' },
   { path: '**', component: Page404Component },
 ];
 
