@@ -98,7 +98,7 @@ export class EditorViewChild_Map
   	this.linking = false;
 	  // console.log(e)
   	if ( e.button == 1 )
-  	  console.log(JSON.stringify(this.w))
+  	  console.log(JSON.stringify(this.w.w))
   }
 
   contextmenu(e) { return false; }
