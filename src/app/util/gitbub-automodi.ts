@@ -35,8 +35,8 @@ export class GitbubAutomodi
 	{
 		for ( let branch of branches )
 		{
-			let f = new Gitbub(filename,branch,http)
-			f.load((data)=>{
+			let f = new Gitbub(http)
+			f.load(filename,branch,(data)=>{
 				// console.log(f)
 				func(data)
 				f.save(()=>console.log("SAVED DATA\n",data))
@@ -48,8 +48,8 @@ export class GitbubAutomodi
 	{
 		for ( let branch of branches )
 		{
-			let f = new Gitbub(filename,branch,http)
-			f.load((data)=>{
+			let f = new Gitbub(http)
+			f.load(filename,branch,(data)=>{
 				func(data)
 				console.log("MODIFIED DATA\n",data)
 			})

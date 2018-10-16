@@ -5,24 +5,30 @@ const REPO:string = "txtrpg-data"
 
 export class Gitbub
 {
-  public busy:boolean;
-  public sha:string;
-  public data;
-  public dataOriginalJson:string;
+  public busy:boolean
+  public sha:string
+  public data
+  public dataOriginalJson:string
 
-  constructor( public filename:string, public branch:string, private http:HttpClient ) { }
+  public filename:string
+  public branch:string
 
-  public load( callbackLoaded : (data) => void ):void
+  constructor( private http:HttpClient ) { }
+
+  public load( filename:string, branch:string, callbackLoaded : (data) => void ):void
   {
+  	this.filename = filename;
+  	this.branch = branch;
+
     console.log( `loading ${this.filename} from branch ${this.branch.toUpperCase()}`)
 
-		let file:string = this.filename
 		let bust:string = this.generateCacheBust()
-    let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${file}?ref=${this.branch}&${bust}`
+    let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/`+
+    								 `contents/${filename}?ref=${this.branch}&${bust}`
 
     this.busy = true;
     this.http.get( url ).subscribe( data => {
-	    console.log( "loaded "+this.filename, data );
+	    console.log( "loaded "+filename, data );
 	    this.busy = false;
 	    this.sha = data['sha'];
 	    this.dataOriginalJson = B64UTF8.Decode(data['content']);
@@ -33,13 +39,13 @@ export class Gitbub
 
   public save( callbackSaved : () => void ):void
   {
+  	if ( !this.filename ) { console.error(`filename is ${this.filename}`); return; }
+  	if ( !this.data )     { console.error(`data is ${this.data}`); return; }
+
   	const json = this.generateJson();
 
     if ( json === this.dataOriginalJson )
-    {
-      console.warn( this.filename + " - nothng changed to save" );
-      return;
-    }
+    { console.warn( this.filename + " - nothng changed to save" ); return; }
 
 		let file:string = this.filename
     let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${file}`

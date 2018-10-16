@@ -15,18 +15,14 @@ export class GlobalWorldDataService
 
   private sub: any;
 
-  constructor( private http:HttpClient ) {}
+  constructor( private http:HttpClient )
+  { this.bub = new Gitbub(this.http) }
 
-  public load(branch:string)
-  {
-		this.bub = new Gitbub(FILE,branch,this.http)
-		this.bub.load( (data) => this.onWorldFileLoaded(data) )
-  }
+  public load( branch:string )
+  { this.bub.load( FILE, branch, (data) => this.onWorldFileLoaded(data) ) }
 
   public save()
-  {
-  	this.bub.save(()=>console.log("\n::DATA::SAVED::\n\n"))
-  }
+  { this.bub.save(()=>console.log("\n::DATA::SAVED::\n\n")) }
 
   private onWorldFileLoaded( data )
   {
