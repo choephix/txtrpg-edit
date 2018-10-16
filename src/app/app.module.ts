@@ -11,7 +11,7 @@ import { WorldMapData } from './editor-view/editor-view.component'
 import { Gitbub } from './util/gitbub'
 import { GitbubAutomodi, GitbubAutomodiGo } from './util/gitbub-automodi'
 
-import { AppComponent } from './app.component'
+import { AppComponent, Page404Component } from './app.component'
 import { GameViewComponent } from './game-view/game-view.component'
 import { EditorVewComponent } from './editor-view/editor-view.component'
 import { EditorViewChild_NodesTable } from './editor-view/editor-view.component'
@@ -21,19 +21,20 @@ import { EditorViewChild_Map } from './editor-view/editor-view-map.component'
 const appRoutes: Routes = [
   { path: ':branch/edit', component: EditorVewComponent,
 	  children: [
-          { path: '', redirectTo: 'nodes', pathMatch: 'full' },
+          { path: '', redirectTo: 'map', pathMatch: 'full' },
+          { path: 'map', component: EditorViewChild_Map },
           { path: 'nodes', component: EditorViewChild_NodesTable },
           { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
-          { path: 'map', component: EditorViewChild_Map }
         ]
   },
   { path: ':branch/game', component: GameViewComponent },
-  { path: '**', redirectTo: 'poc/game' }
+  { path: '**', component: Page404Component },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    Page404Component,
     GameViewComponent,
     EditorVewComponent,
     	EditorViewChild_NodesTable,
