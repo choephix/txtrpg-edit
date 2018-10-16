@@ -6,15 +6,16 @@ import { GlobalWorldDataService } from './../editor/global-world-data.service';
 export class EditorVewComponent
 {
 	pages:string[] = []
+	branch:string
 
   constructor( public router:Router, private route:ActivatedRoute, public world:GlobalWorldDataService )
   {
     this.route.paramMap.subscribe( params => {
-    	let branch = params.get("branch")
-    	if ( !branch )
+    	this.branch = params.get("branch")
+    	if ( !this.branch )
     		console.warn("no branch?",params)
     	else
-    		world.load(branch)
+    		world.load(this.branch)
     } );
 
   	console.log( router.config )
@@ -57,11 +58,9 @@ export class EditorVewComponent
 })
 export class EditorViewChild_NodesTable
 {
-  worldData = null;
+  public get worldData() { return this.gitbub.data }
 
-  gridApi;
-  gridColumnApi;
-  columnDefs = [
+  public columnDefs = [
       // { editable:true, field: 'id' , headerName: 'ID', suppressSizeToFit:true },
       // { editable:true, field: 'title', headerName: 'Title' },
       { editable:true, field: 'key' , headerName: 'key', suppressSizeToFit:true },
@@ -69,16 +68,13 @@ export class EditorViewChild_NodesTable
       { editable:true, field: 'type', headerName: 'type' },
   ];
 
+	private gitbub
+
   constructor( public world:GlobalWorldDataService )
-  { this.worldData = world.bub.data }
+  { this.gitbub = world.bub }
 
   onGridReady(params)
-  {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    this.gridApi.sizeColumnsToFit();
-  }
+  { params.api.sizeColumnsToFit() }
 }
 
 
@@ -102,11 +98,9 @@ export class EditorViewChild_NodesTable
 })
 export class EditorViewChild_NodeLinksTable
 {
-  worldData = null;
+  public get worldData() { return this.gitbub.data }
 
-  gridApi;
-  gridColumnApi;
-  columnDefs = [
+  public columnDefs = [
       { editable:true, field: 'from' , headerName: 'from', suppressSizeToFit:true },
       { editable:true, field: 'to', headerName: 'to', suppressSizeToFit:true },
       { editable:true, field: 'flags', headerName: 'flags', suppressSizeToFit:true },
@@ -114,26 +108,27 @@ export class EditorViewChild_NodeLinksTable
       { editable:true, field: 'text', headerName: 'text', autoHeight: true }
   ];
 
+	private gitbub
+
   constructor( public world:GlobalWorldDataService )
-  { this.worldData = world.bub.data }
+  { this.gitbub = world.bub }
 
   onGridReady(params)
   {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    this.gridApi.sizeColumnsToFit();
-    this.gridApi.resetRowHeights()
+    params.api.sizeColumnsToFit();
+    params.api.resetRowHeights()
   }
 }
 
 export class WorldMapData
 {
-  w = null;
+  public get w() { return this.gitbub.data }
 
-  constructor(data)
+	private gitbub = null;
+
+  constructor(gitbub)
   {
-    this.w = data;
+    this.gitbub = gitbub;
     // for ( let node of this.w.nodes ) node.loc_x -=500
 
     // this.w.text_links = []

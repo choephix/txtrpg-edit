@@ -21,7 +21,7 @@ export class EditorViewChild_Map
 
   constructor( public world:GlobalWorldDataService )
   {
-  	this.w =  new WorldMapData(world.bub.data)
+  	this.w =  new WorldMapData(world.bub)
   }
 
   mousemove(e)
