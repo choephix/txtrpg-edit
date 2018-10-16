@@ -18,10 +18,6 @@
 	    <ng-container *ngFor="let pg of pages">
 	      <a routerLink="/edit/{{pg}}"
 	         routerLinkActive="active"
-  								draggable="true"
-					  			(dragstart)="log($event)"
-					  			(drop)="log($event)"
-					  			(dragover)="log($event)"
 	         >{{pg}}</a>
 	         <br/>
 	     </ng-container>
