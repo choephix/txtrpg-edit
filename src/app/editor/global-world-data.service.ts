@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { Gitbub } from './../util/gitbub';
 import { GitbubAutomodiGo } from './../util/gitbub-automodi';
 
@@ -12,12 +13,14 @@ export class GlobalWorldDataService
 	public bub:Gitbub
 	public loaded:boolean = false
 
-  constructor( private http:HttpClient )
-  {
-		this.bub = new Gitbub(FILE,BRANCH,http)
-		this.bub.load( (data) => this.onWorldFileLoaded(data) )
+  private sub: any;
 
-		GitbubAutomodiGo.go(http)
+  constructor( private http:HttpClient ) {}
+
+  public load(branch:string)
+  {
+		this.bub = new Gitbub(FILE,branch,this.http)
+		this.bub.load( (data) => this.onWorldFileLoaded(data) )
   }
 
   public save()

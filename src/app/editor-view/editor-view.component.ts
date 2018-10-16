@@ -1,6 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalWorldDataService } from './../editor/global-world-data.service';
 
 @Component({ templateUrl: './editor-view.component.html' })
@@ -8,8 +7,17 @@ export class EditorVewComponent
 {
 	pages:string[] = []
 
-  constructor( public router: Router, private http:HttpClient, public world:GlobalWorldDataService )
+  constructor( public router:Router, private route:ActivatedRoute, public world:GlobalWorldDataService )
   {
+    this.route.paramMap.subscribe( params => {
+    	let branch = params.get("branch")
+    	if ( !branch )
+    		console.warn("no branch?",params)
+    	else
+    		world.load(branch)
+    } );
+
+  	console.log(router)
 		for ( const r of router.config )
 			if ( r.path === "edit" )
 				for ( const pg of r.children )
@@ -41,7 +49,7 @@ export class EditorVewComponent
 	    [stopEditingWhenGridLosesFocus]="true"
 	    [enableFilter]="true"
   		[enableSorting]="true"
-	    [rowData]="worldData.nodes"
+	    [rowData]="worldData.aliases"
 	    [columnDefs]="columnDefs"
   	  (gridReady)="onGridReady($event)"
 	    >
@@ -54,8 +62,11 @@ export class EditorViewChild_NodesTable
   gridApi;
   gridColumnApi;
   columnDefs = [
-      { editable:true, field: 'id' , headerName: 'ID', suppressSizeToFit:true },
-      { editable:true, field: 'title', headerName: 'Title' }
+      // { editable:true, field: 'id' , headerName: 'ID', suppressSizeToFit:true },
+      // { editable:true, field: 'title', headerName: 'Title' },
+      { editable:true, field: 'key' , headerName: 'key', suppressSizeToFit:true },
+      { editable:true, field: 'alias', headerName: 'alias' },
+      { editable:true, field: 'type', headerName: 'type' },
   ];
 
   constructor( public world:GlobalWorldDataService )

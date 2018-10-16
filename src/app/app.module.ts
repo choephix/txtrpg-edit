@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Routes, ActivatedRoute } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http';
 
 import { environment } from '../environments/environment'
@@ -19,7 +19,7 @@ import { EditorViewChild_NodeLinksTable } from './editor-view/editor-view.compon
 import { EditorViewChild_Map } from './editor-view/editor-view-map.component'
 
 const appRoutes: Routes = [
-  { path: 'edit', component: EditorVewComponent,
+  { path: ':branch/edit', component: EditorVewComponent,
 	  children: [
           { path: '', redirectTo: 'nodes', pathMatch: 'full' },
           { path: 'nodes', component: EditorViewChild_NodesTable },
@@ -27,8 +27,8 @@ const appRoutes: Routes = [
           { path: 'map', component: EditorViewChild_Map }
         ]
   },
-  { path: '', component: GameViewComponent },
-  // { path: '**', redirectTo: '' }
+  { path: ':branch/game', component: GameViewComponent },
+  { path: '**', redirectTo: 'poc/game' }
 ];
 
 @NgModule({
