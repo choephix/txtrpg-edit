@@ -12,7 +12,7 @@
 
 <div class="container">
 
-  	<router-outlet></router-outlet>
+  	<router-outlet *ngIf="world.loaded"></router-outlet>
 
     <div id="datagrid-toolbar">
 	    <ng-container *ngFor="let pg of pages">

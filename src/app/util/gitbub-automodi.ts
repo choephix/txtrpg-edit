@@ -5,12 +5,14 @@ export class GitbubAutomodiGo
 {
 	static go(http:HttpClient)
 	{
-		return;
-
-		let modi:(w)=>void = GitbubAutomodiGo.rework_aliases
-		GitbubAutomodi.test(http,modi,"mock-world")
+		let modi:(w)=>void = GitbubAutomodiGo.rename
+		// GitbubAutomodi.test(http,modi,"mock-world")
 
 		// GitbubAutomodi.update(http,modi,"mock-world") // DANGERZONE
+	}
+
+	static rename(w) {
+		w.aliases[5].alias = "the very crepy cave"
 	}
 
 	static rework_aliases(w) {

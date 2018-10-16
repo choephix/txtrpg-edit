@@ -1,41 +1,30 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Gitbub } from './../util/gitbub';
-import { GitbubAutomodiGo } from './../util/gitbub-automodi';
-
-declare var require:any
-
-const FILE:string = "mock-world"
-const BRANCH:string = "develop"
+import { GlobalWorldDataService } from './../editor/global-world-data.service';
 
 @Component({ templateUrl: './editor-view.component.html' })
 export class EditorVewComponent
 {
 	pages:string[] = []
 
-	worldFile:Gitbub
-
-  constructor( public router: Router, private http:HttpClient )
+  constructor( public router: Router, private http:HttpClient, public world:GlobalWorldDataService )
   {
 		for ( const r of router.config )
 			if ( r.path === "edit" )
 				for ( const pg of r.children )
 					if ( pg.path )
 						this.pages.push( pg.path )
-
-		this.worldFile = new Gitbub(FILE,BRANCH,http)
-		this.worldFile.load(console.log)
-
-		GitbubAutomodiGo.go(http)
   }
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(e:KeyboardEvent) {
   	if ( e.keyCode == 19 && e.ctrlKey && e.shiftKey )
-    	this.worldFile.save(()=>console.log("\n\n::DATA::SAVED::\n\n"))
-    event.preventDefault();
-    event.stopPropagation();
+    	this.world.save()
+    else
+    	console.log(e)
+    e.preventDefault();
+    e.stopPropagation();
   }
 
   log(o) { console.log(o) }
@@ -69,10 +58,8 @@ export class EditorViewChild_NodesTable
       { editable:true, field: 'title', headerName: 'Title' }
   ];
 
-  constructor()
-  {
-    this.worldData = require('./../game/mock-world.3.json');
-  }
+  constructor( public world:GlobalWorldDataService )
+  { this.worldData = world.bub.data }
 
   onGridReady(params)
   {
@@ -116,10 +103,8 @@ export class EditorViewChild_NodeLinksTable
       { editable:true, field: 'text', headerName: 'text', autoHeight: true }
   ];
 
-  constructor()
-  {
-    this.worldData = require('./../game/mock-world.3.json');
-  }
+  constructor( public world:GlobalWorldDataService )
+  { this.worldData = world.bub.data }
 
   onGridReady(params)
   {
@@ -135,9 +120,9 @@ export class WorldMapData
 {
   w = null;
 
-  constructor()
+  constructor(data)
   {
-    this.w = require('./../game/mock-world.3.json');
+    this.w = data;
     // for ( let node of this.w.nodes ) node.loc_x -=500
 
     // this.w.text_links = []

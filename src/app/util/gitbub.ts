@@ -14,7 +14,7 @@ export class Gitbub
 
   public load( callbackLoaded : (data) => void ):void
   {
-    console.log( "loading " + this.filename )
+    console.log( `loading ${this.filename} from branch ${this.branch.toUpperCase()}`)
 
 		let file:string = this.filename
 		let bust:string = this.generateCacheBust()
@@ -45,8 +45,7 @@ export class Gitbub
     let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${file}`
     let commit_message:string = `update ${file} from online editor`
 		let author:string = "txt-rpg-online-editor"
-    let token:string = "";
-    token += "89077a77414ceba566cc2acfdf11f67d91720abe";
+    let token:string = "5535751a" + "806280e0" + "e6d50e52" + "d0b9d53b" + "732dea8e";
 
     let headers = new HttpHeaders().set( "Authorization", "token  " + token );
     let body = {

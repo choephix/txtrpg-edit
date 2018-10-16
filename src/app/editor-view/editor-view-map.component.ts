@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { WorldMapData } from './editor-view.component';
+import { GlobalWorldDataService } from './../editor/global-world-data.service';
 
 @Component({ templateUrl: `editor-view-map.component.html` })
 export class EditorViewChild_Map
 {
-  w:WorldMapData = new WorldMapData();
+  w:WorldMapData;
 
   offsetX = 0;
   offsetY = 0;
@@ -17,6 +18,11 @@ export class EditorViewChild_Map
 
   getViewX( o ) { return this.w.getNode(o).loc_x + this.offsetX }
   getViewY( o ) { return this.w.getNode(o).loc_y + this.offsetY }
+
+  constructor( public world:GlobalWorldDataService )
+  {
+  	this.w =  new WorldMapData(world.bub.data)
+  }
 
   mousemove(e)
   {
