@@ -12,7 +12,6 @@ import { Gitbub } from './util/gitbub'
 import { GitbubAutomodi, GitbubAutomodiGo } from './util/gitbub-automodi'
 
 import { AppComponent, Page404Component } from './app.component'
-import { GameViewComponent } from './game-view/game-view.component'
 import { EditorVewComponent } from './editor-view/editor-view.component'
 import { EditorViewChild_NodesTable } from './editor-view/editor-view.component'
 import { EditorViewChild_NodeLinksTable } from './editor-view/editor-view.component'
@@ -27,9 +26,8 @@ const appRoutes: Routes = [
           { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
         ]
   },
-  { path: ':branch/game', component: GameViewComponent },
-  { path: ':branch', redirectTo: ':branch/game', pathMatch: 'full' },
-  { path: '', redirectTo: 'develop/game', pathMatch: 'full' },
+  { path: ':branch', redirectTo: ':branch/edit', pathMatch: 'full' },
+  { path: '', redirectTo: 'develop/edit', pathMatch: 'full' },
   { path: '**', component: Page404Component },
 ];
 
@@ -37,7 +35,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     Page404Component,
-    GameViewComponent,
     EditorVewComponent,
     	EditorViewChild_NodesTable,
     	EditorViewChild_NodeLinksTable,
