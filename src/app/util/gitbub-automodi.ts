@@ -5,10 +5,27 @@ export class GitbubAutomodiGo
 {
 	static go(http:HttpClient)
 	{
-		let modi:(w)=>void = GitbubAutomodiGo.rename
+		let modi:(w)=>void = GitbubAutomodiGo.add_shit
 		// GitbubAutomodi.test(http,modi,"mock-world")
 
 		// GitbubAutomodi.update(http,modi,"mock-world") // DANGERZONE
+	}
+
+	static add_shit(w) {
+		w.text = {
+			default_feedback : {
+				"go_to":"I went to $$.",
+				"look_around":"I looked around. I was at $$.",
+				"look_up":"I looked up at the sky. It was almost noon.",
+			},
+			default_handle : {
+				"go_to":"Go to $$",
+				"talk_to":"Talk [to|with] $$",
+				"look_around":"Look around",
+				"_hidden":"...",
+				"look_up":"Look up",
+			}
+		}
 	}
 
 	static rename(w) {
