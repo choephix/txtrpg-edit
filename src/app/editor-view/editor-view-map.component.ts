@@ -5,16 +5,19 @@ import { GlobalWorldDataService } from './../editor/global-world-data.service';
 @Component({ templateUrl: `editor-view-map.component.html` })
 export class EditorViewChild_Map
 {
-  w:WorldMapData;
+  w:WorldMapData
 
-  offsetX = 0;
-  offsetY = 0;
+  offsetX = 0
+  offsetY = 0
 
-  draggy = null;
-  linking = false;
+  selectedNode:number|null = null
+  selectedLink:number|null = null
 
-  mouseX = 0;
-  mouseY = 0;
+  draggy = null
+  linking = false
+
+  mouseX = 0
+  mouseY = 0
 
   getViewX( o ) { return this.w.getNode(o).loc_x + this.offsetX }
   getViewY( o ) { return this.w.getNode(o).loc_y + this.offsetY }
@@ -77,12 +80,35 @@ export class EditorViewChild_Map
   		this.w.addLink( node, new_node )
   		this.w.addLink( new_node, node )
   	}
+  	else
+  	if ( e.button == 0 )
+  		this.selectNode( node_index )
+  	e.stopPropagation()
   }
 
   mouseup_link(e)
   {
+  	let link_id = +e.target.attributes['data-index'].value
   	if ( e.button == 2 )
-  		this.w.removeLink( +e.target.attributes['data-index'].value )
+  		this.w.removeLink( link_id )
+  	else
+  	if ( e.button == 0 )
+  		this.selectLink( link_id )
+  	e.stopPropagation()
+  }
+
+  selectLink( i )
+  {
+  	console.log(i)
+  	this.selectedNode = null
+  	this.selectedLink = i
+  }
+
+  selectNode( i )
+  {
+  	console.log(i)
+  	this.selectedLink = null
+  	this.selectedNode = i
   }
 
   mouseup_trash(e)
@@ -96,6 +122,10 @@ export class EditorViewChild_Map
   {
   	this.draggy = null;
   	this.linking = false;
+
+  	this.selectedNode = null
+  	this.selectedNode = null
+
 	  // console.log(e)
   	if ( e.button == 1 )
   	  console.log(JSON.stringify(this.w.w))

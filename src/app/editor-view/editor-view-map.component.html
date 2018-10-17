@@ -3,8 +3,10 @@
 #trash { fill:rgba(255,0,0,.05); }
 #trash:hover { fill:rgba(255,0,0,.25); stroke:rgba(255,0,0,.1); stroke-width:4 }
 .node { stroke:rgba(100,200,250,0.5); stroke-width:4; fill:rgba(50,100,200,1.0) }
+.node.selected { fill:rgba(255,225,150,1.0) }
 .link { stroke:rgba(100,200,250,0.25); stroke-width:16 }
 .link.tobe { stroke:rgba(0,0,0,0.125); stroke-width:8 }
+.link.selected { stroke:rgba(255,225,150,1.0) }
 .label { font: bold 10px monospace, sans-serif; color: grey; user-select: none;  }
 .node:hover { opacity : .9 }
 .link:hover { opacity : .7 }
@@ -22,8 +24,10 @@
 			[attr.y2]="mouseY"
 			class="link tobe"/>
 	</ng-container>
+
 	<ng-container *ngFor="let link of w.w.node_links; let i = index">
 		<line
+			[class.selected]="i==selectedLink"
 			[attr.data-index]="i"
 			[attr.x1]="getViewX(link.to)+4"
 			[attr.y1]="getViewY(link.to)+random(i,8)"
@@ -34,6 +38,7 @@
 	</ng-container>
 	<ng-container *ngFor="let node of w.w.nodes; let i = index">
 		<circle
+			[class.selected]="i==selectedNode"
 			[attr.data-index]="i"
 			[attr.cx]="getViewX(node)"
 			[attr.cy]="getViewY(node)"
@@ -46,6 +51,7 @@
 			[attr.y]="getViewY(node) + 24"
 			class="label">{{node.id}}</text>
 	</ng-container>
+
 	<circle id="trash"
 					cx="50vw" cy="90vh" r=64
 					*ngIf="!linking&&draggy"
@@ -53,3 +59,19 @@
 					>
 	</circle>
 </svg>
+
+<style>
+#edit-properties-panel {
+	width:40vw;
+	height:30vh;
+	background:#EEE;
+	border: 1px dashed #ACE;
+	position: fixed;
+	right: 0;
+	top: 25vh;
+}
+</style>
+
+<div id="edit-properties-panel" *ngIf="selectedNode!=null||true">
+	edit this shit
+</div>
