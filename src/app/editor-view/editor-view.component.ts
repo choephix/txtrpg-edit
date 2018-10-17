@@ -20,7 +20,6 @@ export class EditorVewComponent
     		world.load(this.branch)
     } );
 
-  	console.log( router.config )
 		for ( const r of router.config )
 			if ( r.path === ":branch/edit" )
 				for ( const pg of r.children )

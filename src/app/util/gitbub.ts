@@ -28,7 +28,7 @@ export class Gitbub
 
     this.busy = true;
     this.http.get( url ).subscribe( data => {
-	    console.log( "loaded "+filename, data );
+	    console.log( "loaded "+filename );
 	    this.busy = false;
 	    this.sha = data['sha'];
 	    this.dataOriginalJson = B64UTF8.Decode(data['content']);

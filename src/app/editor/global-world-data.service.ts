@@ -26,7 +26,7 @@ export class GlobalWorldDataService
 
   private onWorldFileLoaded( data )
   {
-  	console.log("Loaded\n",data)
+  	console.log("world data:\n",data)
   	this.loaded = true
   	GitbubAutomodiGo.go(this.http)
   }
