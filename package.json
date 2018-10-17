@@ -25,6 +25,7 @@
     "@types/ui-grid": "0.0.42",
     "ag-grid-angular": "^19.0.0",
     "ag-grid-community": "^19.0.0",
+    "angular-schema-form": "^0.8.13",
     "angular-ui-grid": "^4.6.3",
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
