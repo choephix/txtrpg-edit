@@ -79,26 +79,26 @@ export class EditorViewChild_NodesTable
   	"ALIASES" : {
 	  	dataFunc : () => this.w.aliases,
 	  	columnDefs : [
-		      { editable:true, field: 'key' ,  headerName: 'key', suppressSizeToFit:true },
-		      { editable:true, field: 'alias', headerName: 'alias' },
-		      { editable:true, field: 'type',  headerName: 'type' },
+	      { editable:true, field:'key' ,  headerName:'key',  suppressSizeToFit:true },
+	      { editable:true, field:'alias', headerName:'alias' },
+	      { editable:true, field:'type',  headerName:'type'  },
 		  ]
 	  },
   	"NODES" : {
 	  	dataFunc : () => this.w.nodes,
 	  	columnDefs : [
-		      { editable:true, field: 'id' , headerName: 'ID', suppressSizeToFit:true },
-		      { editable:true, field: 'title', headerName: 'Title' },
+	      { editable:true, field:'id' ,   headerName:'ID',   suppressSizeToFit:true },
+	      { editable:true, field:'title', headerName:'title' },
 		  ]
 	  },
   	"TEXT/LINKS" : {
 	  	dataFunc : () => this.w.text_node_links,
 	  	columnDefs : [
-	      { editable:true, field: 'from' , headerName: 'from', suppressSizeToFit:true },
-	      { editable:true, field: 'to', headerName: 'to', suppressSizeToFit:true },
-	      { editable:true, field: 'flags', headerName: 'flags', suppressSizeToFit:true },
-	      { editable:true, field: 'handle', headerName: 'handle', autoHeight: true },
-	      { editable:true, field: 'text', headerName: 'text', autoHeight: true }
+	      { editable:true, field:'from',   headerName:'from',   suppressSizeToFit:true },
+	      { editable:true, field:'to',     headerName:'to',     suppressSizeToFit:true },
+	      { editable:true, field:'flags',  headerName:'flags',  suppressSizeToFit:true },
+	      { editable:true, field:'handle', headerName:'handle', autoHeight:true },
+	      { editable:true, field:'text',   headerName:'text',   autoHeight:true }
 		  ]
 	  },
   }
