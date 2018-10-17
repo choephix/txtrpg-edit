@@ -25,14 +25,12 @@
     "@types/ui-grid": "0.0.42",
     "ag-grid-angular": "^19.0.0",
     "ag-grid-community": "^19.0.0",
-    "angular-schema-form": "^0.8.13",
-    "angular-ui-grid": "^4.6.3",
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.8.0",
+    "@angular-devkit/build-angular": "^0.8.5",
     "@angular/cli": "~6.2.4",
     "@angular/compiler-cli": "^6.1.0",
     "@angular/language-service": "^6.1.0",
