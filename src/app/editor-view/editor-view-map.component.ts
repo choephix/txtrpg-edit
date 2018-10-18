@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { WorldMapData } from './editor-view.component';
 import { GlobalWorldDataService } from './../editor/global-world-data.service';
+
+declare var JSONEditor: any;
 
 @Component({ templateUrl: `editor-view-map.component.html` })
 export class EditorViewChild_Map
@@ -22,9 +24,19 @@ export class EditorViewChild_Map
   getViewX( o ) { return this.w.getNode(o).loc_x + this.offsetX }
   getViewY( o ) { return this.w.getNode(o).loc_y + this.offsetY }
 
+  jsoneditor
+  
   constructor( public world:GlobalWorldDataService )
   {
   	this.w =  new WorldMapData(world.bub)
+  }
+
+  @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
+  ngAfterViewInit() {
+    console.log(this.jsoneditor_ref)
+    var container = this.jsoneditor_ref.nativeElement
+    var options = {mode:'tree',navigationBar:false};
+    this.jsoneditor = new JSONEditor(container, options,{});
   }
 
   mousemove(e)
@@ -109,6 +121,7 @@ export class EditorViewChild_Map
   	console.log(i)
   	this.selectedLink = null
   	this.selectedNode = i
+    this.jsoneditor.set(this.w.w.nodes[i]);
   }
 
   mouseup_trash(e)
@@ -125,6 +138,7 @@ export class EditorViewChild_Map
 
   	this.selectedNode = null
   	this.selectedNode = null
+    this.jsoneditor.set({});
 
 	  // console.log(e)
   	if ( e.button == 1 )
