@@ -10,6 +10,6 @@ export class AppComponent {
   public branch:string = "develop"
   constructor( public router:Router )
   { 
-      router.events.subscribe( e => this.branch = router.url.match(/^\/?([^\/]*)\//)[1] ) 
+      router.events.subscribe( e => this.branch = router.url.match(/^\/?([^\/]*)/)[1] ) 
   }
 }
