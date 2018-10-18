@@ -32,7 +32,7 @@ export class EditorVewComponent
   	if ( e.keyCode == 19 && e.ctrlKey && e.shiftKey )
     	this.world.save()
     else
-    	console.log(e)
+    	return
     e.preventDefault();
     e.stopPropagation();
   }
