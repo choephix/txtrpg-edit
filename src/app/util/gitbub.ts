@@ -37,6 +37,22 @@ export class Gitbub
     } );
   }
 
+  public loadWithoutAPI( filename:string, branch:string, callbackLoaded : (data) => void ):void
+  {
+    console.warn( `loading ${this.filename} from branch ${this.branch.toUpperCase()} (not using Github API, but "raw" link instead)`)
+    
+		let bust:string = "" + new Date().valueOf() % 1000000
+    let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/${branch}/${filename}`
+    
+    this.busy = true
+    this.http.get( url ).subscribe( data => {
+	    this.busy = false
+	    this.data = data;
+	    console.log( `loaded ${this.filename}`, this.data );
+      callbackLoaded( this.data );
+    } );
+  }
+
   public save( callbackSaved : () => void ):void
   {
   	if ( !this.filename ) { console.error(`filename is ${this.filename}`); return; }
