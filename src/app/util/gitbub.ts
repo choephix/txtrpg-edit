@@ -19,25 +19,20 @@ export class Gitbub
   {
   	this.filename = filename;
   	this.branch = branch;
-  	
-  // 	let headers = {
-  //     'If-Modified-Since':'Mon, 26 Jul 1997 05:00:00 GMT',
-  //     'Cache-Control':'no-cache',
-  //     'Pragma':'no-cache',
-  // 	}
-  	
-            	this.loadWithoutAPI(filename,branch,callbackLoaded)
-            	return;
+  	this.loadWithoutAPI( callbackLoaded )
+  }
 
+  public loadWithAPI( callbackLoaded : (data) => void ):void
+  {
     console.log( `loading ${this.filename} from branch ${this.branch.toUpperCase()}`)
 
 		let bust:string = this.generateCacheBust()
     let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/`+
-    								 `contents/${filename}?ref=${this.branch}&${bust}`
+    								 `contents/${this.filename}?ref=${this.branch}&${bust}`
 
     this.busy = true;
     this.http.get( url ).subscribe( data => {
-	    console.log( "loaded "+filename );
+	    console.log( "loaded "+this.filename );
 	    this.busy = false;
 	    this.sha = data['sha'];
 	    this.dataOriginalJson = B64UTF8.Decode(data['content']);
@@ -46,13 +41,14 @@ export class Gitbub
     } );
   }
 
-  public loadWithoutAPI( filename:string, branch:string, callbackLoaded : (data) => void ):void
+  public loadWithoutAPI( callbackLoaded : (data) => void ):void
   {
-    console.warn( `loading ${this.filename} from branch ${this.branch.toUpperCase()} (not using Github API, but "raw" link instead)`)
+    console.groupCollapsed( `loading ${this.filename} from /${this.branch.toUpperCase()}` )
+    console.warn( `not using Github API, but "raw" link instead)`)
     
 		let bust:string = "" + new Date().valueOf() % 1000000
-    let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/${branch}/${filename}?${bust}`
-  //   let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/${branch}/${filename}`
+    let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/${this.branch}/${this.filename}?${bust}`
+  //   let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/${branch}/${this.filename}`
   // 	let headers = {
   //     'If-Modified-Since':'Mon, 26 Jul 1997 05:00:00 GMT',
   //     'Cache-Control':'no-cache',
@@ -65,6 +61,7 @@ export class Gitbub
 	    this.data = data;
 	    console.log( `loaded ${this.filename}`, this.data );
       callbackLoaded( this.data );
+      console.groupEnd()
     } );
   }
 
@@ -72,10 +69,10 @@ export class Gitbub
   {
   	if ( !this.filename ) { console.error(`filename is ${this.filename}`); return; }
   	if ( !this.data )     { console.error(`data is ${this.data}`); return; }
-  	
+    
   	if ( !this.sha )
   	{
-  	  console.log( "no sha, loading for sha" );
+  	  console.warn( "no sha, loading for sha" );
 		  let bust:string = this.generateCacheBust()
       let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${this.filename}?ref=${this.branch}&${bust}`
       this.busy = true;
@@ -83,39 +80,40 @@ export class Gitbub
   	    console.log( "loaded ",data );
   	    this.busy = false;
   	    this.sha = data['sha'];
-        this.save( callbackSaved )
+        this.save( callbackSaved ) // recurse this shit
       } );
-  	  return;
   	}
-
-  	const json = this.generateJson();
-
-    if ( json === this.dataOriginalJson )
-    { console.warn( this.filename + " - nothng changed to save" ); return; }
-
-		let file:string = this.filename
-    let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${file}`
-    let commit_message:string = `update ${file} via online editor`
-		let author:string = "txt-rpg-online-editor"
-		let email:string = "dev@thechoephix.com"
-    let token:string = "5535751a" + "806280e0" + "e6d50e52" + "d0b9d53b" + "732dea8e";
-
-    let headers = new HttpHeaders().set( "Authorization", "token  " + token );
-    let body = {
-    	sha : this.sha,
-    	message : commit_message,
-    	content : B64UTF8.Encode(json),
-    	branch: this.branch,
-    	committer: {name:author,email:email},
-    };
-
-    this.http.put( url, body, { headers : headers } )
-      .subscribe( data => {
-		    console.log( "saved data", data );
-		    this.sha = data['content']['sha'];
-    		this.dataOriginalJson = json;
-        callbackSaved();
-       } );
+    else
+    {
+    	const json = this.generateJson();
+  
+      if ( json === this.dataOriginalJson )
+      { console.warn( this.filename + " - nothng changed to save" ); return; }
+  
+  		let file:string = this.filename
+      let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${file}`
+      let commit_message:string = `update ${file} via online editor`
+  		let author:string = "txt-rpg-online-editor"
+  		let email:string = "dev@thechoephix.com"
+      let token:string = "5535751a" + "806280e0" + "e6d50e52" + "d0b9d53b" + "732dea8e";
+  
+      let headers = new HttpHeaders().set( "Authorization", "token  " + token );
+      let body = {
+      	sha : this.sha,
+      	message : commit_message,
+      	content : B64UTF8.Encode(json),
+      	branch: this.branch,
+      	committer: {name:author,email:email},
+      };
+  
+      this.http.put( url, body, { headers : headers } )
+        .subscribe( data => {
+  		    console.log( "saved data", data );
+  		    this.sha = data['content']['sha'];
+      		this.dataOriginalJson = json;
+          callbackSaved();
+         } );
+    }
   }
 
   public hasDataChanged():boolean { return this.dataOriginalJson != this.generateJson() }
