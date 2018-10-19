@@ -1,24 +1,64 @@
 <style type="scss/text">
-#datagrid-toolbar {
-	user-select: none;
+#sidebar {
 	position: fixed;
-	bottom: 1.25vw;
-	right:  1.25vw;
-	text-align: right;
+	height:99vh;
+	height:100%;
+  top: 0;
+  left: 0;
+  background-color: #EEE;
+  overflow-x: hidden;
+  font-family: monospace;
+	padding: .5vh 1vw; 
+	user-select: none;
+  box-sizing: border-box;
+  outline:1px solid #999;
 }
-#datagrid-toolbar a { opacity: 0.4; }
-#datagrid-toolbar a:hover { opacity: 1.0; }
+#sidebar h2 {
+	margin:0;
+	padding:0;
+}
+#sidebar .nav-button {
+	display:block;
+	text-decoration: none; 
+	color:#235;
+}
+#sidebar .nav-button:hover {
+	color:#4CE;
+}
+
+#sidebar { width:25vw }
+#current-view { margin-left: 25vw }
 </style>
 
 <div class="container">
-
-  	<router-outlet *ngIf="world.loaded"></router-outlet>
-
-    <div id="datagrid-toolbar">
-	    <ng-container *ngFor="let pg of pages">
-	      <a routerLink="{{pg}}" routerLinkActive="active">{{pg}}</a>
-	      <br/>
-	    </ng-container>
-    </div>
+	
+	<div id="sidebar">
+		
+	  <nav id="navi">
+	  	<p style="font-size:10px">branch:</p>
+			<h2>{{branch.toUpperCase()}}</h2>
+		  <div id="navi-branches">
+		  	<a *ngFor="let b of branches" 
+		  		 class="nav-button"
+		  	   routerLink="{{router.url.replace(branch,b)}}" 
+		  	   routerLinkActive="active">🌍 {{b}}</a>
+		  </div>
+	  </nav>
+	  
+	  <br/><br/>
+		
+		<nav>
+      <a *ngFor="let pg of pages"
+      	 class="nav-button"
+      	 routerLink="{{pg}}"
+      	 routerLinkActive="active">⚪ {{pg}}</a>
+    </nav>
+    
+	</div>
+	
+	<div id="current-view">
+		<router-outlet *ngIf="world.loaded">
+		</router-outlet>
+	</div>
 
 </div>

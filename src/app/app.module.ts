@@ -16,6 +16,7 @@ import { Page404Component } from './app-404.component'
 import { EditorVewComponent } from './editor-view/editor-view.component'
 import { EditorViewChild_NodesTable } from './editor-view/editor-view.component'
 import { EditorViewChild_NodeLinksTable } from './editor-view/editor-view.component'
+import { EditorViewChild_FullJson } from './editor-view/editor-view.component'
 import { EditorViewChild_Map } from './editor-view/editor-view-map.component'
 
 const appRoutes: Routes = [
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
 	  children: [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
           { path: 'map', component: EditorViewChild_Map },
+          { path: 'fulljson', component: EditorViewChild_FullJson },
           { path: 'nodes', component: EditorViewChild_NodesTable },
           { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
         ]
@@ -39,6 +41,7 @@ const appRoutes: Routes = [
     EditorVewComponent,
     	EditorViewChild_NodesTable,
     	EditorViewChild_NodeLinksTable,
+    	EditorViewChild_FullJson,
     	EditorViewChild_Map,
   ],
   imports: [

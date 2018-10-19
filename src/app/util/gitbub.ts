@@ -19,6 +19,9 @@ export class Gitbub
   {
   	this.filename = filename;
   	this.branch = branch;
+  	
+            	this.loadWithoutAPI(filename,branch,callbackLoaded)
+            	return;
 
     console.log( `loading ${this.filename} from branch ${this.branch.toUpperCase()}`)
 

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalWorldDataService } from './../editor/global-world-data.service';
 
@@ -7,8 +7,11 @@ declare var angular: any;
 @Component({ templateUrl: './editor-view.component.html' })
 export class EditorVewComponent
 {
-	pages:string[] = []
-	branch:string
+  public branches:string[] = ["master","poc","lorem","develop","shitbox"]
+	public pages:string[] = []
+  
+  public branch:string = "develop"
+  public page:string = null
 
   constructor( public router:Router, private route:ActivatedRoute, public world:GlobalWorldDataService )
   {
@@ -40,8 +43,14 @@ export class EditorVewComponent
   log(o) { console.log(o) }
 }
 
+// 
+
+// 
+
+// 
+
 @Component({
-  styles: [`#table { height:95vh; width:100%; }`],
+  styles: [`#table { height:100%; width:100%; }`],
   template: `
 		<ag-grid-angular
 			id="table"
@@ -139,13 +148,15 @@ class TableConfiguration
   dataFunc:()=>any[];
 }
 
+// 
 
+// 
 
-
+// 
 
 @Component({
   // selector: '',
-  styles: [`#table { height:95vh; width:100%; }`],
+  styles: [`#table { height:100vh; width:100%; }`],
   template: `
   <ag-grid-angular
 	  	id="table"
@@ -277,5 +288,64 @@ export class WorldMapData
   removeLink( link_index )
   {
   	this.w.node_links.splice( link_index, 1 )
+  }
+}
+
+// 
+
+// 
+
+// 
+
+declare var JSONEditor: any;
+
+@Component({
+  // selector: '',
+  styles: [`
+  #panel {
+    
+  }
+  #jsoneditor {
+    box-sizing: border-box;
+  }
+  `],
+  template: `
+  <div id="panel">
+  </div>
+  <div id="edit-properties-panel">
+	  <div id="jsoneditor" #jsoneditor></div>
+  </div>`
+})
+export class EditorViewChild_FullJson
+{
+  @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
+  public get worldData() { return this.gitbub.data }
+	private gitbub
+  private jsoneditor
+  
+  private jsoneditor_options = {
+    mode:'tree',
+    modes:['tree','view','form','code','text'],
+    navigationBar:true,
+    statusBar:true,
+    search:true,
+    onChange:()=>this.onJsonDataChange()
+  };
+
+  constructor( public world:GlobalWorldDataService )
+  { 
+    this.gitbub = world.bub 
+  }
+  
+  ngAfterViewInit() {
+    this.jsoneditor = new JSONEditor(
+                          this.jsoneditor_ref.nativeElement, 
+                          this.jsoneditor_options,
+                          this.worldData );
+  }
+  
+  onJsonDataChange()
+  {
+    console.log()
   }
 }

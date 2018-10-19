@@ -1,19 +1,7 @@
 <style type="scss/text">
-#navi { position:fixed; top:0; right:16px; font-family: 'consolas'; font-size: 1.5vh; text-align:right; }
-#navi-branches { font-size:1.0vh }
-#navi a { opacity:.05; display:block; }
-#navi a:hover { opacity:2.00; }
-#navi code { font-size:1.125vh; opacity:.40; }
-#navi:hover code { opacity:2.00; }
 </style>
 
 <div>
   <router-outlet></router-outlet>
-  <nav id="navi">
-	  <code>branch: <b>{{branch.toUpperCase()}}</b></code>
-	  <div id="navi-branches">
-	  	<a *ngFor="let b of ALL_BRANCHES" routerLink="{{router.url.replace(branch,b)}}" routerLinkActive="active">{{b}} 🌍</a>
-	  </div>
-  </nav>
 </div>
 
