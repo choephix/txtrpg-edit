@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
 import { Gitbub } from './../util/gitbub';
 import { GitbubAutomodiGo } from './../util/gitbub-automodi';
 

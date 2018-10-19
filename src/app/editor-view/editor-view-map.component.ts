@@ -43,7 +43,7 @@ export class EditorViewChild_Map
   {
 	  this.mouseX = e.x;
 	  this.mouseY = e.y;
-
+	  
   	if ( this.linking )
   		return
 
@@ -51,8 +51,8 @@ export class EditorViewChild_Map
   	{
 			if ( this.draggy )
 			{
-				this.draggy.loc_x = e.x - this.offsetX;
-				this.draggy.loc_y = e.y - this.offsetY;
+				this.draggy.loc_x = e.offsetX - this.offsetX;
+				this.draggy.loc_y = e.offsetY - this.offsetY;
 			}
 			else
 			{
