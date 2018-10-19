@@ -12,13 +12,19 @@ export class Gitbub
 
   public filename:string
   public branch:string
-
+  
   constructor( private http:HttpClient ) { }
 
   public load( filename:string, branch:string, callbackLoaded : (data) => void ):void
   {
   	this.filename = filename;
   	this.branch = branch;
+  	
+  // 	let headers = {
+  //     'If-Modified-Since':'Mon, 26 Jul 1997 05:00:00 GMT',
+  //     'Cache-Control':'no-cache',
+  //     'Pragma':'no-cache',
+  // 	}
   	
             	this.loadWithoutAPI(filename,branch,callbackLoaded)
             	return;
@@ -45,7 +51,13 @@ export class Gitbub
     console.warn( `loading ${this.filename} from branch ${this.branch.toUpperCase()} (not using Github API, but "raw" link instead)`)
     
 		let bust:string = "" + new Date().valueOf() % 1000000
-    let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/${branch}/${filename}`
+    let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/${branch}/${filename}?${bust}`
+  //   let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/${branch}/${filename}`
+  // 	let headers = {
+  //     'If-Modified-Since':'Mon, 26 Jul 1997 05:00:00 GMT',
+  //     'Cache-Control':'no-cache',
+  //     'Pragma':'no-cache',
+  // 	}
     
     this.busy = true
     this.http.get( url ).subscribe( data => {
@@ -60,6 +72,21 @@ export class Gitbub
   {
   	if ( !this.filename ) { console.error(`filename is ${this.filename}`); return; }
   	if ( !this.data )     { console.error(`data is ${this.data}`); return; }
+  	
+  	if ( !this.sha )
+  	{
+  	  console.log( "no sha, loading for sha" );
+		  let bust:string = this.generateCacheBust()
+      let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${this.filename}?ref=${this.branch}&${bust}`
+      this.busy = true;
+      this.http.get( url ).subscribe( data => {
+  	    console.log( "loaded ",data );
+  	    this.busy = false;
+  	    this.sha = data['sha'];
+        this.save( callbackSaved )
+      } );
+  	  return;
+  	}
 
   	const json = this.generateJson();
 
@@ -68,8 +95,9 @@ export class Gitbub
 
 		let file:string = this.filename
     let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${file}`
-    let commit_message:string = `update ${file} from online editor`
+    let commit_message:string = `update ${file} via online editor`
 		let author:string = "txt-rpg-online-editor"
+		let email:string = "dev@thechoephix.com"
     let token:string = "5535751a" + "806280e0" + "e6d50e52" + "d0b9d53b" + "732dea8e";
 
     let headers = new HttpHeaders().set( "Authorization", "token  " + token );
@@ -78,12 +106,12 @@ export class Gitbub
     	message : commit_message,
     	content : B64UTF8.Encode(json),
     	branch: this.branch,
-    	committer: {name:author,email:"dev@thechoephix.com"},
+    	committer: {name:author,email:email},
     };
 
     this.http.put( url, body, { headers : headers } )
       .subscribe( data => {
-		    console.log( data );
+		    console.log( "saved data", data );
 		    this.sha = data['content']['sha'];
     		this.dataOriginalJson = json;
         callbackSaved();
