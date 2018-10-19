@@ -53,25 +53,9 @@
 	</ng-container>
 
 	<circle id="trash"
-					cx="50vw" cy="90vh" r=64
+					cx="10vh" cy="90vh" r=64
 					*ngIf="!linking&&draggy"
 					(mouseup)="mouseup_trash($event)"
 					>
 	</circle>
 </svg>
-
-<style>
-#edit-properties-panel {
-	width:40vw;
-	height:30vh;
-	background:#EEE;
-	border: 1px dashed #ACE;
-	position: fixed;
-	right: 0;
-	top: 25vh;
-}
-</style>
-
-<div id="edit-properties-panel" *ngIf="selectedNode!=null">
-	<div id="jsoneditor" style="width: 100%; height: 100%;" #jsoneditor></div>
-</div>

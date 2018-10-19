@@ -47,11 +47,12 @@ export class EditorVewComponent
                           this.jsoneditor_ref.nativeElement, 
                           this.jsoneditor_options,
                           {} );
+    this.selection.callbacks_OnSelect.push( o => this.jsoneditor.set(o) )
   }
   
   onJsonDataChange()
   {
-    console.log( this.jsoneditor.get() )
+    this.selection.dispatchObjectModified( this.jsoneditor.get() )
   }
 
   @HostListener('document:keypress', ['$event'])

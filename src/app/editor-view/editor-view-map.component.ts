@@ -1,9 +1,7 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { WorldMapData } from './editor-view.component';
 import { GlobalWorldDataService } from './../editor/global-world-data.service';
 import { SelectionService } from './../editor/selection.service';
-
-declare var JSONEditor: any;
 
 @Component({ templateUrl: `editor-view-map.component.html` })
 export class EditorViewChild_Map
@@ -25,27 +23,17 @@ export class EditorViewChild_Map
   getViewX( o ) { return this.w.getNode(o).loc_x + this.offsetX }
   getViewY( o ) { return this.w.getNode(o).loc_y + this.offsetY }
 
-  jsoneditor
-  
   constructor( public world:GlobalWorldDataService, public selection:SelectionService )
   {
-  	this.w =  new WorldMapData(world.bub)
+  	this.w = new WorldMapData(world.bub)
+  	this.selection.callbacks_OnModify.push( new_o => this.onDataWillBeModified(new_o) )
   }
 
-  @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
-  ngAfterViewInit() {
-    // console.log(this.jsoneditor_ref)
-    // var container = this.jsoneditor_ref.nativeElement
-    // var options = {mode:'text',navigationBar:false,search:false,modes:['tree','view','form','code','text'],statusBar:false,onChange:()=>this.onJsonDataChange()};
-    // this.jsoneditor = new JSONEditor(container, options,{});
-  }
-  
-  onJsonDataChange()
+  onDataWillBeModified( new_o )
   {
-    const new_o = this.jsoneditor.get()
-    const old_o = this.w.w.nodes[this.selectedNode]
+    const old_o = this.selection.selectedObject
     const old_id = old_o.id
-    Object.assign(old_o,new_o)
+    console.log("MODI",new_o,old_o)
     for ( const link of this.w.w.node_links )
     {
       if ( link.from == old_id )
@@ -142,7 +130,6 @@ export class EditorViewChild_Map
   	console.log(i)
   	this.selectedLink = null
   	this.selectedNode = i
-    // this.jsoneditor.set(this.w.w.nodes[i]);
     this.selection.selectObject( this.w.w.nodes[i] );
   }
 
@@ -160,7 +147,6 @@ export class EditorViewChild_Map
 
   	this.selectedNode = null
   	this.selectedNode = null
-    this.jsoneditor.set({});
 
 	  // console.log(e)
   	if ( e.button == 1 )
