@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 const ACCO:string = "choephix"
 const REPO:string = "txtrpg-data"
@@ -13,7 +14,7 @@ export class Gitbub
   public filename:string
   public branch:string
   
-  constructor( private http:HttpClient ) { }
+  constructor( private http:HttpClient, private toastr:ToastrService ) { }
 
   public load( filename:string, branch:string, callbackLoaded : (data) => void ):void
   {
@@ -32,7 +33,7 @@ export class Gitbub
 
     this.busy = true;
     this.http.get( url ).subscribe( data => {
-	    console.log( "loaded "+this.filename );
+	    console.log( "loaded " + this.filename );
 	    this.busy = false;
 	    this.sha = data['sha'];
 	    this.dataOriginalJson = B64UTF8.Decode(data['content']);

@@ -50,26 +50,26 @@ export class GitbubAutomodi
 	// loaded object from each branch will be passed to your function for modification, then saved
 	public static update(http:HttpClient,func:(o)=>void,filename:string,branches:string[]=GitbubAutomodi.ALL_BRANCHES)
 	{
-		for ( let branch of branches )
-		{
-			let f = new Gitbub(http)
-			f.load(filename,branch,(data)=>{
-				// console.log(f)
-				func(data)
-				f.save(()=>console.log("SAVED DATA\n",data))
-			})
-		}
+		// for ( let branch of branches )
+		// {
+		// 	let f = new Gitbub(http)
+		// 	f.load(filename,branch,(data)=>{
+		// 		// console.log(f)
+		// 		func(data)
+		// 		f.save(()=>console.log("SAVED DATA\n",data))
+		// 	})
+		// }
 	}
 	// loaded object from branch will be passed to your function for modification, then logged
 	public static test(http:HttpClient,func:(o)=>void,filename:string,branches:string[]=GitbubAutomodi.ALL_BRANCHES)
 	{
-		for ( let branch of branches )
-		{
-			let f = new Gitbub(http)
-			f.load(filename,branch,(data)=>{
-				func(data)
-				console.log("MODIFIED DATA\n",data)
-			})
-		}
+		// for ( let branch of branches )
+		// {
+		// 	let f = new Gitbub(http)
+		// 	f.load(filename,branch,(data)=>{
+		// 		func(data)
+		// 		console.log("MODIFIED DATA\n",data)
+		// 	})
+		// }
 	}
 }
