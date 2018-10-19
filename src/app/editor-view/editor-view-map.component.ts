@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { WorldMapData } from './editor-view.component';
-import { GlobalWorldDataService } from './../editor/global-world-data.service';
+import { WorldDataService } from './../editor/world-data.service';
 import { SelectionService } from './../editor/selection.service';
 
 @Component({ templateUrl: `editor-view-map.component.html` })
@@ -23,7 +23,7 @@ export class EditorViewChild_Map
   getViewX( o ) { return this.w.getNode(o).loc_x + this.offsetX }
   getViewY( o ) { return this.w.getNode(o).loc_y + this.offsetY }
 
-  constructor( public world:GlobalWorldDataService, public selection:SelectionService )
+  constructor( public world:WorldDataService, public selection:SelectionService )
   {
   	this.w = new WorldMapData(world.bub)
   	this.selection.callbacks_OnModify.push( new_o => this.onDataWillBeModified(new_o) )

@@ -8,7 +8,7 @@ const FILE:string = "mock-world"
 const BRANCH:string = "develop"
 
 @Injectable({providedIn: 'root'})
-export class GlobalWorldDataService
+export class WorldDataService
 {
 	public bub:Gitbub
 	public loaded:boolean = false

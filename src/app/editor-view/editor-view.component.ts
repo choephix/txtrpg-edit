@@ -1,6 +1,6 @@
 import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GlobalWorldDataService } from './../editor/global-world-data.service';
+import { WorldDataService } from './../editor/world-data.service';
 import { SelectionService } from './../editor/selection.service';
 
 declare var angular: any;
@@ -15,7 +15,7 @@ export class EditorVewComponent
   public branch:string = "develop"
   public page:string = null
 
-  constructor( public router:Router, private route:ActivatedRoute, public world:GlobalWorldDataService, public selection:SelectionService )
+  constructor( public router:Router, private route:ActivatedRoute, public world:WorldDataService, public selection:SelectionService )
   {
     this.route.paramMap.subscribe( params => {
     	this.branch = params.get("branch")
@@ -139,7 +139,7 @@ export class EditorViewChild_NodesTable
 
 	aggapi:any
 
-  constructor( public world:GlobalWorldDataService ) { this.gitbub = world.bub }
+  constructor( public world:WorldDataService ) { this.gitbub = world.bub }
 
   onGridReady(params)
   {
@@ -211,7 +211,7 @@ export class EditorViewChild_NodeLinksTable
 
 	private gitbub
 
-  constructor( public world:GlobalWorldDataService )
+  constructor( public world:WorldDataService )
   { this.gitbub = world.bub }
 
   onGridReady(params)
@@ -354,7 +354,7 @@ export class EditorViewChild_FullJson
     onChange:()=>this.onJsonDataChange()
   };
 
-  constructor( public world:GlobalWorldDataService )
+  constructor( public world:WorldDataService )
   { 
     this.gitbub = world.bub 
   }
