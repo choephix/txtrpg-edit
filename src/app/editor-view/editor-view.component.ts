@@ -1,8 +1,10 @@
 import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GlobalWorldDataService } from './../editor/global-world-data.service';
+import { SelectionService } from './../editor/selection.service';
 
 declare var angular: any;
+declare var JSONEditor: any;
 
 @Component({ templateUrl: './editor-view.component.html' })
 export class EditorVewComponent
@@ -13,7 +15,7 @@ export class EditorVewComponent
   public branch:string = "develop"
   public page:string = null
 
-  constructor( public router:Router, private route:ActivatedRoute, public world:GlobalWorldDataService )
+  constructor( public router:Router, private route:ActivatedRoute, public world:GlobalWorldDataService, public selection:SelectionService )
   {
     this.route.paramMap.subscribe( params => {
     	this.branch = params.get("branch")
@@ -28,6 +30,28 @@ export class EditorVewComponent
 				for ( const pg of r.children )
 					if ( pg.path )
 						this.pages.push( pg.path )
+  }
+  
+  private jsoneditor
+  private jsoneditor_options = {
+    mode:'form',
+    modes:['tree','view','form','code','text'],
+    navigationBar:false,
+    statusBar:false,
+    search:false,
+    onChange:()=>this.onJsonDataChange()
+  };
+  @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
+  ngAfterViewInit() {
+    this.jsoneditor = new JSONEditor(
+                          this.jsoneditor_ref.nativeElement, 
+                          this.jsoneditor_options,
+                          {} );
+  }
+  
+  onJsonDataChange()
+  {
+    console.log( this.jsoneditor.get() )
   }
 
   @HostListener('document:keypress', ['$event'])
@@ -296,8 +320,6 @@ export class WorldMapData
 // 
 
 // 
-
-declare var JSONEditor: any;
 
 @Component({
   // selector: '',

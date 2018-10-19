@@ -8,7 +8,13 @@ html, body {
   height: auto;
 }
 
-html, body, div, h1, pre, p {
+html, body, 
+div, pre, p,
+h1, h2, h3, h4,
+table, tbody, tr, td, th
+{
   margin:0;
   padding:0;
+  border-spacing:0;
+  box-sizing: border-box;
 }

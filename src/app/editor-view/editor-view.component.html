@@ -8,10 +8,14 @@
   background-color: #EEE;
   overflow-x: hidden;
   font-family: monospace;
-	padding: .5vh 1vw; 
 	user-select: none;
   box-sizing: border-box;
   outline:1px solid #999;
+}
+#sidebar .panel {
+	padding: .5vh 1vw; 
+	padding-bottom: 2vh;
+  border-bottom:1px solid #CCC;
 }
 #sidebar h2 {
 	margin:0;
@@ -26,6 +30,16 @@
 	color:#4CE;
 }
 
+#sidebar table.tabs { width:100%; }
+#sidebar table.tabs th { outline:1px solid #DDD; padding:.5vh 0vh;  }
+#sidebar table.tabs th:hover { outline:1px solid #BBB; background:white; }
+
+#sidebar #jsoneditor {
+	background-color:white;
+}
+
+
+
 #sidebar { width:25vw }
 #current-view { margin-left: 25vw }
 </style>
@@ -34,7 +48,7 @@
 	
 	<div id="sidebar">
 		
-	  <nav id="navi">
+	  <div id="navi" class="panel">
 	  	<p style="font-size:10px">branch:</p>
 			<h2>{{branch.toUpperCase()}}</h2>
 		  <div id="navi-branches">
@@ -43,16 +57,26 @@
 		  	   routerLink="{{router.url.replace(branch,b)}}" 
 		  	   routerLinkActive="active">🌍 {{b}}</a>
 		  </div>
-	  </nav>
+	  </div>
 	  
-	  <br/><br/>
-		
-		<nav>
+		<div class="panel">
+			<p style="font-size:10px">pages:</p>
       <a *ngFor="let pg of pages"
       	 class="nav-button"
       	 routerLink="{{pg}}"
       	 routerLinkActive="active">⚪ {{pg}}</a>
-    </nav>
+    </div>
+	  
+		<div>
+			<table class="tabs">
+				<tr>
+					<th>json</th>
+					<th>automodi</th>
+					<th>else</th>
+				</tr>
+			</table>
+			<div id="jsoneditor" style="width: 100%;" #jsoneditor></div>
+		</div>
     
 	</div>
 	

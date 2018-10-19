@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { WorldMapData } from './editor-view.component';
 import { GlobalWorldDataService } from './../editor/global-world-data.service';
+import { SelectionService } from './../editor/selection.service';
 
 declare var JSONEditor: any;
 
@@ -26,17 +27,17 @@ export class EditorViewChild_Map
 
   jsoneditor
   
-  constructor( public world:GlobalWorldDataService )
+  constructor( public world:GlobalWorldDataService, public selection:SelectionService )
   {
   	this.w =  new WorldMapData(world.bub)
   }
 
   @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
   ngAfterViewInit() {
-    console.log(this.jsoneditor_ref)
-    var container = this.jsoneditor_ref.nativeElement
-    var options = {mode:'text',navigationBar:false,search:false,modes:['tree','view','form','code','text'],statusBar:false,onChange:()=>this.onJsonDataChange()};
-    this.jsoneditor = new JSONEditor(container, options,{});
+    // console.log(this.jsoneditor_ref)
+    // var container = this.jsoneditor_ref.nativeElement
+    // var options = {mode:'text',navigationBar:false,search:false,modes:['tree','view','form','code','text'],statusBar:false,onChange:()=>this.onJsonDataChange()};
+    // this.jsoneditor = new JSONEditor(container, options,{});
   }
   
   onJsonDataChange()
@@ -141,7 +142,8 @@ export class EditorViewChild_Map
   	console.log(i)
   	this.selectedLink = null
   	this.selectedNode = i
-    this.jsoneditor.set(this.w.w.nodes[i]);
+    // this.jsoneditor.set(this.w.w.nodes[i]);
+    this.selection.selectObject( this.w.w.nodes[i] );
   }
 
   mouseup_trash(e)
