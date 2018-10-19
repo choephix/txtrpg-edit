@@ -35,8 +35,24 @@ export class EditorViewChild_Map
   ngAfterViewInit() {
     console.log(this.jsoneditor_ref)
     var container = this.jsoneditor_ref.nativeElement
-    var options = {mode:'tree',navigationBar:false};
+    var options = {mode:'text',navigationBar:false,search:false,modes:['tree','view','form','code','text'],statusBar:false,onChange:()=>this.onJsonDataChange()};
     this.jsoneditor = new JSONEditor(container, options,{});
+  }
+  
+  onJsonDataChange()
+  {
+    const new_o = this.jsoneditor.get()
+    const old_o = this.w.w.nodes[this.selectedNode]
+    const old_id = old_o.id
+    Object.assign(old_o,new_o)
+    for ( const link of this.w.w.node_links )
+    {
+      if ( link.from == old_id )
+        link.from = new_o.id
+      else
+      if ( link.to == old_id )
+        link.to = new_o.id
+    }
   }
 
   mousemove(e)
@@ -79,10 +95,13 @@ export class EditorViewChild_Map
   	let node = this.w.getNode(node_index)
 
   	if ( this.linking )
+  	{
   		if ( this.draggy != null )
   			this.w.addLink(this.draggy.id,node.id);
   		else
   			return
+  		this.linking = false
+  	}
 
   	if ( e.button == 1 )
   	{
@@ -106,6 +125,7 @@ export class EditorViewChild_Map
   	else
   	if ( e.button == 0 )
   		this.selectLink( link_id )
+  	this.linking = false
   	e.stopPropagation()
   }
 
