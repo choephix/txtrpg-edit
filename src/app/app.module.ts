@@ -1,11 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes, ActivatedRoute } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http';
-
-import { environment } from '../environments/environment'
+import { BrowserModule } from '@angular/platform-browser'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { AgGridModule } from 'ag-grid-angular'
+import { ToastrModule } from 'ngx-toastr';
+import { environment } from '../environments/environment'
 
 import { WorldMapData } from './editor-view/editor-view.component'
 import { Gitbub } from './util/gitbub'
@@ -46,7 +47,9 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
+    ToastrModule.forRoot(), 
     AgGridModule.withComponents([]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot( appRoutes, { enableTracing: false } )
