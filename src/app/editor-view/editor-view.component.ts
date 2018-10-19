@@ -330,11 +330,10 @@ export class WorldMapData
   }
   #jsoneditor {
     box-sizing: border-box;
+    height: 100vh;
   }
   `],
   template: `
-  <div id="panel">
-  </div>
   <div id="edit-properties-panel">
 	  <div id="jsoneditor" #jsoneditor></div>
   </div>`
