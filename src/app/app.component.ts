@@ -5,9 +5,6 @@ import { WorldDataService } from './services/world-data.service';
 import { SelectionService } from './services/selection.service';
 import { AutomodiPanelComponent } from './view/other.component'
 
-declare var angular: any;
-declare var JSONEditor: any;
-
 @NgModule({ declarations: [ AutomodiPanelComponent ] })
 @Component({ selector: 'app-root', templateUrl: './app.component.html' })
 export class AppComponent

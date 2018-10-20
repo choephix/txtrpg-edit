@@ -26,7 +26,6 @@
     "ag-grid-angular": "^19.0.0",
     "ag-grid-community": "^19.0.0",
     "core-js": "^2.5.4",
-    "jsoneditor": "^5.24.7",
     "ng2-ace-editor": "^0.3.8",
     "ngx-toastr": "^9.1.1",
     "rxjs": "~6.2.0",
