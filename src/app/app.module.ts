@@ -1,12 +1,13 @@
+import { environment } from '../environments/environment'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes, ActivatedRoute } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker'
-import { AgGridModule } from 'ag-grid-angular'
 import { ToastrModule } from 'ngx-toastr';
-import { environment } from '../environments/environment'
+import { AgGridModule } from 'ag-grid-angular'
+import { AceEditorModule } from 'ng2-ace-editor';
 
 import { Eventu } from './util/common'
 import { WorldMapWrapper } from './util/world-map-wrapper'
@@ -46,13 +47,14 @@ const appRoutes: Routes = [
     AutomodiPanelComponent,
   ],
   imports: [
+    RouterModule.forRoot( appRoutes, { enableTracing: false } ),
+    HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({easeTime:150}), 
     AgGridModule.withComponents([]),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    RouterModule.forRoot( appRoutes, { enableTracing: false } )
+    AceEditorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

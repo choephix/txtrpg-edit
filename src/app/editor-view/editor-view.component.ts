@@ -3,9 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { WorldDataService } from './../services/world-data.service';
 import { SelectionService } from './../services/selection.service';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Logger } from './../services/logging.service';
-
 declare var angular: any;
 declare var JSONEditor: any;
 
@@ -18,7 +15,7 @@ export class EditorVewComponent
   
   public branch:string = "develop"
   public page:string = null
-  public sidetab:string = this.sidetabs[0]
+  public sidetab:string = this.sidetabs[1]
 
   constructor( public router:Router, 
                private route:ActivatedRoute, 
@@ -74,63 +71,91 @@ export class EditorVewComponent
   log(o) { console.log(o) }
 }
 
+/// /// ///
+  /// ///
+/// /// ///
+  /// ///
+/// /// ///
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Logger } from './../services/logging.service';
+import { DataLoader } from './../util/data-loader'
+
 @Component({
   selector: 'automodi',
   template: `
 		<table class="tabs">
 			<tr>
-				<th *ngFor='let b of buttons' 
-						(click)="b.f()">
-						  <button>{{b.key}}</button>
-						</th>
+				<th *ngFor='let b of buttons' (click)="b.f()">
+				  <button>{{b.key}}</button>
+				</th>
 			</tr>
 		</table>
-		<div>
-		  <textarea id="automodi-textarea" #textarea>le code</textarea>
-		</div>
+		
+    <div ace-editor id="ace"
+         [(text)]="code"
+         [mode]="'javascript'"
+         [options]="options"
+         ></div>
   `,
   styles: [`
   table { width:100%; }
   button { width:100%; padding:.5vh 0; }
-  textarea { width:100%; height:50vh; }
+  #ace { height:49vh }
   `]
 })
 export class AutomodiPanelComponent
 {
-	ALL_BRANCHES:string[] = ["master","develop","poc","lorem"]
+	ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 	
-  @ViewChild('textarea') textarea_ref:ElementRef;
+  code:string = `
+console.log(this.global.time)
+
+// Use this space to code global changes 
+// to the json map structure, like
+// creating new objects, deleting old ones
+// or populating/truncating arrays, etc.
+// Code is run and for all branches one by one.
+// Have a good time, and don't break anything!
+\n\n\n\n\n\n\n\n`;
   
 	public buttons:{key:string,f:()=>void}[] = [
 	    {key:"CLEAR",f:()=>this.doClear()},
 	    {key:"TEST",f:()=>this.doTest()},
 	    {key:"COMMIT",f:()=>this.doCommit()},
 	  ]
+	  
+	 public options:any = {
+	   fontSize: `.75vw`,
+	   showGutter: false,
+	   wrap: true,
+	 }
 
   constructor( public http:HttpClient, public toast:Logger ) {}
 	  
   private doClear()
   {
-    this.textarea_ref.nativeElement.value = ""
-    console.log(this.textarea_ref)
+    this.code = ""
   }
 	  
   private doTest()
   {
     let branches = this.ALL_BRANCHES
-    let code = this.textarea_ref.nativeElement.value
+    let code = this.code
+    
+    let process = function():void
+    {
+			eval(code)
+			console.log(this)
+    }
     
 		for ( let branch of branches )
 		{
-      let world = new WorldDataService( this.http, this.toast )
-      world.load( branch )
-      
-      eval(code)
-      
-		// 	f.load(filename,branch,(data)=>{
-		// 		eval(code)
-		// 		console.log(data)
-		// 	})
+      let world = new DataLoader( this.http )
+      world.setBranch( branch )
+      world.load( false ).subscribe( 
+        data => process.call(data),
+        )
 		}
   }
 	  

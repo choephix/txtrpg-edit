@@ -21,8 +21,6 @@ export class DataLoader
          new HttpHeaders({ 'Authorization':"token "+"5535751a"+"806280e0e6d50e52"+"d0b9d53b732dea8e" })
   public headers_load:HttpHeaders = 
          new HttpHeaders({ 'If-Modified-Since':'Mon, 26 Jul 1997 05:00:00 GMT',
-                           'Pragma':'no-cache',
-                           'Cache-Control':'no-cache',
                            'Content-Type':'application/json',
                            })
   
@@ -77,7 +75,7 @@ export class DataLoader
       	    this.dataOriginalJson = B64UTF8.Decode(data['content'])
       	    this.data = JSON.parse(this.dataOriginalJson)
       	    this.dataOriginalJson = this.generateJson()
-          	eve.dispatchResult( data )
+          	eve.dispatchResult( this.data )
           },
           error => eve.dispatchError( error )
         )
