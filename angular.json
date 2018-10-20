@@ -29,7 +29,7 @@
               "node_modules/jsoneditor/dist/jsoneditor.min.css"
             ],
             "scripts": [
-              "node_modules/jsoneditor/dist/jsoneditor.min.js"
+              "node_modules/jsoneditor/dist/jsoneditor-minimalist.min.js"
             ]
           },
           "configurations": {

@@ -3,7 +3,7 @@ import { WorldMapWrapper } from './../util/world-map-wrapper';
 import { WorldDataService } from './../services/world-data.service';
 import { SelectionService } from './../services/selection.service';
 
-@Component({ templateUrl: `editor-view-map.component.html` })
+@Component({ templateUrl: `map.component.html` })
 export class EditorViewChild_Map
 {
   w:WorldMapWrapper

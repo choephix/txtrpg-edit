@@ -13,16 +13,16 @@ import { Eventu } from './util/common'
 import { WorldMapWrapper } from './util/world-map-wrapper'
 
 import { AppComponent } from './app.component'
-import { Page404Component } from './app-404.component'
-import { EditorVewComponent } from './editor-view/editor-view.component'
-import { EditorViewChild_NodesTable } from './editor-view/editor-view.component'
-import { EditorViewChild_NodeLinksTable } from './editor-view/editor-view.component'
-import { EditorViewChild_FullJson } from './editor-view/editor-view.component'
-import { EditorViewChild_Map } from './editor-view/editor-view-map.component'
-import { AutomodiPanelComponent } from './editor-view/editor-view.component'
+import { Page404Component } from './404.component'
+import { EditorViewChild_NodesTable } from './view/other.component'
+import { EditorViewChild_NodeLinksTable } from './view/other.component'
+import { EditorViewChild_FullJson } from './view/other.component'
+import { EditorViewChild_Map } from './view/map.component'
+
+import { AutomodiPanelComponent } from './view/other.component'
 
 const appRoutes: Routes = [
-  { path: ':branch', component: EditorVewComponent,
+  { path: ':branch', component: Page404Component,
 	  children: [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
           { path: 'map', component: EditorViewChild_Map },
@@ -39,11 +39,10 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     Page404Component,
-    EditorVewComponent,
-    	EditorViewChild_NodesTable,
-    	EditorViewChild_NodeLinksTable,
-    	EditorViewChild_FullJson,
-    	EditorViewChild_Map,
+  	EditorViewChild_NodesTable,
+  	EditorViewChild_NodeLinksTable,
+  	EditorViewChild_FullJson,
+  	EditorViewChild_Map,
     AutomodiPanelComponent,
   ],
   imports: [
@@ -56,6 +55,7 @@ const appRoutes: Routes = [
     AgGridModule.withComponents([]),
     AceEditorModule,
   ],
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })
