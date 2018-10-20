@@ -9,7 +9,7 @@ declare var JSONEditor: any;
 @Component({ templateUrl: './editor-view.component.html' })
 export class EditorVewComponent
 {
-  public branches:string[] = ["master","poc","lorem","develop","shitbox"]
+  public branches:string[] = ["shitbox","develop","lorem","poc","master"]
 	public pages:string[] = []
 	public sidetabs:string[] = ["json","automodi","else","elser"]
   
@@ -128,7 +128,9 @@ console.log(this.global.time)
 	 public options:any = {
 	   fontSize: `.75vw`,
 	   showGutter: false,
+	   showPrintMargin: false,
 	   wrap: true,
+	   maxLines: Infinity,
 	 }
 
   constructor( public http:HttpClient, public toast:Logger ) {}
