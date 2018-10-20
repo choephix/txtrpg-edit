@@ -27,7 +27,7 @@ export class EditorVewComponent
     } );
 
 		for ( const r of router.config )
-			if ( r.path === ":branch/edit" )
+			if ( r.path === ":branch" )
 				for ( const pg of r.children )
 					if ( pg.path )
 						this.pages.push( pg.path )

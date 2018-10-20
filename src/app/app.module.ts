@@ -9,8 +9,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { environment } from '../environments/environment'
 
 import { WorldMapData } from './editor-view/editor-view.component'
-import { Gitbub } from './util/gitbub'
-import { GitbubAutomodi, GitbubAutomodiGo } from './util/gitbub-automodi'
 
 import { AppComponent } from './app.component'
 import { Page404Component } from './app-404.component'
@@ -21,7 +19,7 @@ import { EditorViewChild_FullJson } from './editor-view/editor-view.component'
 import { EditorViewChild_Map } from './editor-view/editor-view-map.component'
 
 const appRoutes: Routes = [
-  { path: ':branch/edit', component: EditorVewComponent,
+  { path: ':branch', component: EditorVewComponent,
 	  children: [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
           { path: 'map', component: EditorViewChild_Map },
@@ -30,8 +28,7 @@ const appRoutes: Routes = [
           { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
         ]
   },
-  { path: ':branch', redirectTo: ':branch/edit', pathMatch: 'full' },
-  { path: '', redirectTo: 'develop/edit', pathMatch: 'full' },
+  { path: '', redirectTo: 'develop', pathMatch: 'full' },
   { path: '**', component: Page404Component },
 ];
 
@@ -49,7 +46,7 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ToastrModule.forRoot({positionClass:'toast-bottom-right',easeTime:150,timeOut:3300}), 
+    ToastrModule.forRoot({easeTime:150}), 
     AgGridModule.withComponents([]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot( appRoutes, { enableTracing: false } )
