@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Gitbub } from './gitbub';
+// import { Gitbub } from './gitbub';
 
 export class GitbubAutomodiGo
 {

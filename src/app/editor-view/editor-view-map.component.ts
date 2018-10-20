@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { WorldMapData } from './editor-view.component';
+import { WorldMapWrapper } from './../util/world-map-wrapper';
 import { WorldDataService } from './../services/world-data.service';
 import { SelectionService } from './../services/selection.service';
 
 @Component({ templateUrl: `editor-view-map.component.html` })
 export class EditorViewChild_Map
 {
-  w:WorldMapData
+  w:WorldMapWrapper
 
   offsetX = 0
   offsetY = 0
@@ -25,7 +25,7 @@ export class EditorViewChild_Map
 
   constructor( public world:WorldDataService, public selection:SelectionService )
   {
-  	this.w = new WorldMapData(world)
+  	this.w = new WorldMapWrapper(world)
   	this.selection.callbacks_OnModify.push( new_o => this.onDataWillBeModified(new_o) )
   }
 
