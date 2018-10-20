@@ -1,8 +1,6 @@
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
-/*::-webkit-scrollbar {display:none;}*/
-
 html, body 
 {
   min-height: 100vh;
