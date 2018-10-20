@@ -27,6 +27,7 @@ export class Logger
   public error( error:Error, title:string )
   {
     console.error( title, error )
-    this.toastr.error( error.message, title, {positionClass:'toast-top-right',easeTime:150,disableTimeOut:true} )
+    this.toastr.error( `${typeof error}:\n${error.message}`, title, 
+                       {positionClass:'toast-top-right',easeTime:150,disableTimeOut:true} )
   }
 }
