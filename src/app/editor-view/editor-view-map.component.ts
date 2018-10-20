@@ -46,8 +46,8 @@ export class EditorViewChild_Map
 
   mousemove(e)
   {
-	  this.mouseX = e.x;
-	  this.mouseY = e.y;
+	  this.mouseX = e.offsetX;
+	  this.mouseY = e.offsetY;
 	  
   	if ( this.linking )
   		return
