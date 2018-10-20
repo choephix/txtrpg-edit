@@ -3,6 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { WorldDataService } from './../services/world-data.service';
 import { SelectionService } from './../services/selection.service';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Logger } from './../services/logging.service';
+
 declare var angular: any;
 declare var JSONEditor: any;
 
@@ -71,21 +74,19 @@ export class EditorVewComponent
   log(o) { console.log(o) }
 }
 
-
 @Component({
   selector: 'automodi',
   template: `
 		<table class="tabs">
 			<tr>
-				<th *ngFor='let tab of sidetabs' 
-						[class.selected]='tab == sidetab'
-						(click)="sidetab=tab">
-						  <button>{{tab}}</button>
+				<th *ngFor='let b of buttons' 
+						(click)="b.f()">
+						  <button>{{b.key}}</button>
 						</th>
 			</tr>
 		</table>
 		<div>
-		  <textarea id="automodi-textarea">le code</textarea>
+		  <textarea id="automodi-textarea" #textarea>le code</textarea>
 		</div>
   `,
   styles: [`
@@ -94,10 +95,49 @@ export class EditorVewComponent
   textarea { width:100%; height:50vh; }
   `]
 })
-export class AutomodiPanelComponent {
-   
-	public sidetabs:string[] = ["json","automodi","else","elser"]
-  public sidetab:string = null
+export class AutomodiPanelComponent
+{
+	ALL_BRANCHES:string[] = ["master","develop","poc","lorem"]
+	
+  @ViewChild('textarea') textarea_ref:ElementRef;
+  
+	public buttons:{key:string,f:()=>void}[] = [
+	    {key:"CLEAR",f:()=>this.doClear()},
+	    {key:"TEST",f:()=>this.doTest()},
+	    {key:"COMMIT",f:()=>this.doCommit()},
+	  ]
+
+  constructor( public http:HttpClient, public toast:Logger ) {}
+	  
+  private doClear()
+  {
+    this.textarea_ref.nativeElement.value = ""
+    console.log(this.textarea_ref)
+  }
+	  
+  private doTest()
+  {
+    let branches = this.ALL_BRANCHES
+    let code = this.textarea_ref.nativeElement.value
+    
+		for ( let branch of branches )
+		{
+      let world = new WorldDataService( this.http, this.toast )
+      world.load( branch )
+      
+      eval(code)
+      
+		// 	f.load(filename,branch,(data)=>{
+		// 		eval(code)
+		// 		console.log(data)
+		// 	})
+		}
+  }
+	  
+  private doCommit()
+  {
+    
+  }
 }
 
 // 
