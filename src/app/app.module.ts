@@ -17,6 +17,7 @@ import { EditorViewChild_NodesTable } from './editor-view/editor-view.component'
 import { EditorViewChild_NodeLinksTable } from './editor-view/editor-view.component'
 import { EditorViewChild_FullJson } from './editor-view/editor-view.component'
 import { EditorViewChild_Map } from './editor-view/editor-view-map.component'
+import { AutomodiPanelComponent } from './editor-view/editor-view.component'
 
 const appRoutes: Routes = [
   { path: ':branch', component: EditorVewComponent,
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
     	EditorViewChild_NodeLinksTable,
     	EditorViewChild_FullJson,
     	EditorViewChild_Map,
+    AutomodiPanelComponent,
   ],
   imports: [
     BrowserModule,

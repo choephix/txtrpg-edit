@@ -31,11 +31,13 @@
 }
 
 #sidebar table.tabs { width:100%; }
-#sidebar table.tabs th { outline:1px solid #DDD; padding:.5vh 0vh;  }
-#sidebar table.tabs th:hover { outline:1px solid #BBB; background:white; }
+#sidebar table.tabs th { outline:1px solid #CCC; padding:.5vh 0vh; background:#e8e8e8; }
+#sidebar table.tabs th.selected { color:#26D; background:white; }
+#sidebar table.tabs th:hover { color:#6BF; }
 
 #sidebar #jsoneditor {
 	background-color:white;
+	width: 100%;
 }
 
 
@@ -70,12 +72,17 @@
 		<div>
 			<table class="tabs">
 				<tr>
-					<th>json</th>
-					<th>automodi</th>
-					<th>else</th>
+					<th *ngFor='let tab of sidetabs' 
+							[class.selected]='tab == sidetab'
+							(click)="sidetab=tab">{{tab}}</th>
 				</tr>
 			</table>
-			<div id="jsoneditor" style="width: 100%;" #jsoneditor></div>
+			<div id="jsoneditor" #jsoneditor
+					 [style.display]="sidetab=='json'?'block':'none'"
+					 ></div>
+			<automodi id="automodi" #automodi
+								[style.display]="sidetab=='automodi'?'block':'none'"
+								></automodi>
 		</div>
     
 	</div>

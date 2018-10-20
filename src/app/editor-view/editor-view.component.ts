@@ -11,9 +11,11 @@ export class EditorVewComponent
 {
   public branches:string[] = ["master","poc","lorem","develop","shitbox"]
 	public pages:string[] = []
+	public sidetabs:string[] = ["json","automodi","else","elser"]
   
   public branch:string = "develop"
   public page:string = null
+  public sidetab:string = this.sidetabs[0]
 
   constructor( public router:Router, 
                private route:ActivatedRoute, 
@@ -67,6 +69,35 @@ export class EditorVewComponent
   }
 
   log(o) { console.log(o) }
+}
+
+
+@Component({
+  selector: 'automodi',
+  template: `
+		<table class="tabs">
+			<tr>
+				<th *ngFor='let tab of sidetabs' 
+						[class.selected]='tab == sidetab'
+						(click)="sidetab=tab">
+						  <button>{{tab}}</button>
+						</th>
+			</tr>
+		</table>
+		<div>
+		  <textarea id="automodi-textarea">le code</textarea>
+		</div>
+  `,
+  styles: [`
+  table { width:100%; }
+  button { width:100%; padding:.5vh 0; }
+  textarea { width:100%; height:50vh; }
+  `]
+})
+export class AutomodiPanelComponent {
+   
+	public sidetabs:string[] = ["json","automodi","else","elser"]
+  public sidetab:string = null
 }
 
 // 
