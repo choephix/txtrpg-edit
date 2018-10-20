@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { WorldMapData } from './editor-view.component';
-import { WorldDataService } from './../editor/world-data.service';
-import { SelectionService } from './../editor/selection.service';
+import { WorldDataService } from './../services/world-data.service';
+import { SelectionService } from './../services/selection.service';
 
 @Component({ templateUrl: `editor-view-map.component.html` })
 export class EditorViewChild_Map

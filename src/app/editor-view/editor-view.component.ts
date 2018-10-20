@@ -1,7 +1,7 @@
 import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WorldDataService } from './../editor/world-data.service';
-import { SelectionService } from './../editor/selection.service';
+import { WorldDataService } from './../services/world-data.service';
+import { SelectionService } from './../services/selection.service';
 
 declare var angular: any;
 declare var JSONEditor: any;
