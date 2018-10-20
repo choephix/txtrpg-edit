@@ -15,14 +15,15 @@ export class EditorVewComponent
   public branch:string = "develop"
   public page:string = null
 
-  constructor( public router:Router, private route:ActivatedRoute, public world:WorldDataService, public selection:SelectionService )
+  constructor( public router:Router, 
+               private route:ActivatedRoute, 
+               public world:WorldDataService, 
+               public selection:SelectionService )
   {
     this.route.paramMap.subscribe( params => {
     	this.branch = params.get("branch")
-    	if ( !this.branch )
-    		console.warn("no branch?",params)
-    	else
-    		world.load(this.branch)
+    	if ( !this.branch ) console.warn("no branch?",params)
+    	else world.load(this.branch)
     } );
 
 		for ( const r of router.config )
@@ -139,7 +140,7 @@ export class EditorViewChild_NodesTable
 
 	aggapi:any
 
-  constructor( public world:WorldDataService ) { this.gitbub = world.bub }
+  constructor( public world:WorldDataService ) { this.gitbub = world }
 
   onGridReady(params)
   {
@@ -212,7 +213,7 @@ export class EditorViewChild_NodeLinksTable
 	private gitbub
 
   constructor( public world:WorldDataService )
-  { this.gitbub = world.bub }
+  { this.gitbub = world }
 
   onGridReady(params)
   {
@@ -356,7 +357,7 @@ export class EditorViewChild_FullJson
 
   constructor( public world:WorldDataService )
   { 
-    this.gitbub = world.bub 
+    this.gitbub = world 
   }
   
   ngAfterViewInit() {

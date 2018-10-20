@@ -3,7 +3,8 @@
 
 /*::-webkit-scrollbar {display:none;}*/
 
-html, body {
+html, body 
+{
   min-height: 100vh;
   height: auto;
 }
@@ -17,4 +18,9 @@ table, tbody, tr, td, th
   padding:0;
   border-spacing:0;
   box-sizing: border-box;
+}
+
+#toast-container 
+{
+  font-family: "Calibri", monospace !important
 }

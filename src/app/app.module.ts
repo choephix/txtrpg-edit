@@ -49,7 +49,7 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ToastrModule.forRoot(), 
+    ToastrModule.forRoot({positionClass:'toast-bottom-right',easeTime:150,timeOut:3300}), 
     AgGridModule.withComponents([]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     RouterModule.forRoot( appRoutes, { enableTracing: false } )

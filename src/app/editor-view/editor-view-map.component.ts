@@ -25,7 +25,7 @@ export class EditorViewChild_Map
 
   constructor( public world:WorldDataService, public selection:SelectionService )
   {
-  	this.w = new WorldMapData(world.bub)
+  	this.w = new WorldMapData(world)
   	this.selection.callbacks_OnModify.push( new_o => this.onDataWillBeModified(new_o) )
   }
 
