@@ -8,6 +8,7 @@ import { AgGridModule } from 'ag-grid-angular'
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from '../environments/environment'
 
+import { Eventu } from './util/common'
 import { WorldMapWrapper } from './util/world-map-wrapper'
 
 import { AppComponent } from './app.component'
