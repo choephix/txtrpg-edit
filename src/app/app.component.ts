@@ -13,7 +13,7 @@ export class AppComponent {}
 export class AppInnerComponent
 {
   public branches:string[] = ["shitbox","develop","lorem","poc","master"]
-	public pages:string[] = ["map","table"]
+	public pages:string[] = []
 	public sidetabs:string[] = ["json","automodi","else","elser"]
   
   public branch:string = "develop"
@@ -34,11 +34,11 @@ export class AppInnerComponent
     	  world.load(this.branch)
     } );
 
-		// for ( const r of router.config )
-		// 	if ( r.path === ":branch" )
-		// 		for ( const pg of r.children )
-		// 			if ( pg.path )
-		// 				this.pages.push( pg.path )
+		for ( const r of router.config )
+			if ( r.path === ":branch" )
+				for ( const pg of r.children )
+					if ( pg.path )
+						this.pages.push( pg.path )
   }
   
   private jsoneditor
