@@ -251,7 +251,7 @@ export class EditorViewChild_FullJsonAce
   ]
   
   public options:any = {
-    fontSize: `11px`,
+    fontSize: `10px`,
     showGutter: true,
     fixedWidthGutter: true,
     showLineNumbers: false,
@@ -264,9 +264,7 @@ export class EditorViewChild_FullJsonAce
 	 
 	public json:string = "{}\n"
   
-  constructor( public world:WorldDataService ) { }
-
-  ngAfterViewInit() { this.refresh() }
+  constructor( public world:WorldDataService ) { this.refresh() }
 
   refresh() { this.json = this.world.getJson() }
   
