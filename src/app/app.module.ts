@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker'
+import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular'
 import { AceEditorModule } from 'ng2-ace-editor';
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    ToastrModule.forRoot({easeTime:150}), 
+    FormsModule,
+    ToastrModule.forRoot({easeTime:150}),
     AgGridModule.withComponents([]),
     AceEditorModule,
   ],
