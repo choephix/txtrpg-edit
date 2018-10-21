@@ -60,7 +60,10 @@ export class DataLoader
       	    this.data = data
           	eve.dispatchResult( data )
           },
-          error => eve.dispatchError( error )
+          error => {
+            this.busy = false
+            eve.dispatchError( error )
+          }
         );
       }
       else
@@ -78,12 +81,16 @@ export class DataLoader
       	    this.dataOriginalJson = this.generateJson()
           	eve.dispatchResult( this.data )
           },
-          error => eve.dispatchError( error )
+          error => {
+            this.busy = false
+            eve.dispatchError( error )
+          }
         )
       }
     }
     catch ( error )
     {
+      this.busy = false
       eve.dispatchError( error )
     }
     
@@ -125,11 +132,15 @@ export class DataLoader
           .subscribe( 
             data => {
               console.log( "saved data", data );
+              this.busy = false
               this.sha = data['content']['sha'];
               this.dataOriginalJson = json;
           	  eve.dispatchResult( data )
             },
-            error => eve.dispatchError( error )
+            error => {
+              this.busy = false
+              eve.dispatchError( error )
+            }
           );
     	}
       
@@ -137,8 +148,7 @@ export class DataLoader
     	{
     	  actuallySave()
     	}
-    	/// Load that SHA first, then actuallySave()
-    	else
+    	else /// Load that SHA first, then actuallySave()
     	{
     	  console.warn( "Loading for the SHA", "No SHA" )
     	  
@@ -149,21 +159,25 @@ export class DataLoader
         this.http.get( url ).subscribe(
           data => {
       	    console.log( "loaded ",data );
-      	    this.busy = false;
       	    this.sha = data['sha'];
       	    if ( this.sha )
       	      actuallySave()
             else
-              throw new Error("Can't get that sha, dawg...")
+            {
+              this.busy = false
+              eve.dispatchError( new Error("Can't get that sha, dawg...") )
+            }
           },
           error => {
-            throw new Error(`Can't load SHA\n${error.message}`)
+            this.busy = false
+            eve.dispatchError( new Error(`Can't load SHA\n${error.message}`) )
           }
         )
     	}
     }
     catch ( error )
     {
+      this.busy = false
       eve.dispatchError( error )
     }
     
