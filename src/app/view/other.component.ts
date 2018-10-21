@@ -228,6 +228,7 @@ export class EditorViewChild_FullJson
   #ace {
     box-sizing: border-box;
     margin-left: 50px;
+    min-height: 100vh;
   }
   `],
   template: `
@@ -245,34 +246,32 @@ export class EditorViewChild_FullJson
 })
 export class EditorViewChild_FullJsonAce
 {
-	public buttons:{key:string,f:()=>void}[] = [
-	    {key:"💾",f:()=>this.save()},
-	    {key:"💿",f:()=>this.save()},
-	    {key:"📀",f:()=>this.save()},
-	    {key:"🔄",f:()=>this.refresh()},
-	  ]
-	  
-	 public options:any = {
-	   fontSize: `11px`,
-	   showGutter: true,
-	   fixedWidthGutter: true,
-	   showLineNumbers: false,
-	   showPrintMargin: false,
-	   fadeFoldWidgets: true,
-	   wrap: true,
-	   scrollPastEnd: 120,
-	   maxLines: Infinity,
-	 }
+  public buttons:{key:string,f:()=>void}[] = [
+    {key:"💾",f:()=>this.save()},
+    {key:"💿",f:()=>this.save()},
+    {key:"📀",f:()=>this.save()},
+    {key:"🔄",f:()=>this.refresh()},
+  ]
+  
+  public options:any = {
+    fontSize: `11px`,
+    showGutter: true,
+    fixedWidthGutter: true,
+    showLineNumbers: false,
+    showPrintMargin: false,
+    fadeFoldWidgets: true,
+    wrap: true,
+    scrollPastEnd: 120,
+    maxLines: Infinity,
+  }
+	 
+	public json:string = "{}\n"
   
   constructor( public world:WorldDataService ) { }
-  
-  public get json():string { return this.world.getJson() }
-  public set json(value:string) { this.world.applyData( value ) }
 
-  refresh() {
-  }
+  ngAfterViewInit() { this.refresh() }
+
+  refresh() { this.json = this.world.getJson() }
   
-  save() {
-    
-  }
+  save() { this.world.applyData( this.json ) }
 }
