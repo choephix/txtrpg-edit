@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Warning } from './../util/common'
 
 @Injectable({providedIn: 'root'})
 export class Logger
@@ -29,5 +30,13 @@ export class Logger
     console.error( title, error )
     this.toastr.error( `${typeof error}:\n${error.message}`, title, 
                        {positionClass:'toast-top-right',easeTime:150,disableTimeOut:true} )
+  }
+
+  public katch( error:any, title:string )
+  {
+    // if ( error instanceof Warning )
+    //   this.warning( error.message, error.title )
+    // else
+      this.error( <Error>error, title )
   }
 }
