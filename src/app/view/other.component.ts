@@ -208,3 +208,67 @@ export class EditorViewChild_FullJson
 //     console.log()
 //   }
 }
+
+@Component({
+  // selector: '',
+  styles: [`
+  #toolbar {
+    width:50px;
+    height:100%;
+    position: fixed;
+    background-color: #E8E8E8;
+    box-sizing: border-box;
+    outline:1px solid #999;
+  }
+  #toolbar button {
+    width:100%;
+    height:50px;
+    font-size: 20px;
+  }
+  #ace {
+    box-sizing: border-box;
+    margin-left: 50px;
+  }
+  `],
+  template: `
+    <div id="toolbar">
+		  <button 
+		    *ngFor='let b of buttons' 
+		    (click)="b.f()"
+		    >{{b.key}}</button>
+		</div>
+    <div ace-editor id="ace"
+         [(text)]="json"
+         [mode]="'javascript'"
+         [options]="options"
+         ></div>`
+})
+export class EditorViewChild_FullJsonAce
+{
+	public buttons:{key:string,f:()=>void}[] = [
+	    {key:"💾",f:()=>this.save()},
+	    {key:"💿",f:()=>this.save()},
+	    {key:"📀",f:()=>this.save()},
+	    {key:"🔄",f:()=>this.refresh()},
+	  ]
+	  
+	 public options:any = {
+	   fontSize: `.75vw`,
+	   showGutter: false,
+	   showPrintMargin: false,
+	   wrap: true,
+	   maxLines: Infinity,
+	 }
+  
+  constructor( public world:WorldDataService ) { }
+  
+  public get json():string { return this.world.getJson() }
+  public set json(value:string) { this.world.applyData( value ) }
+
+  refresh() {
+  }
+  
+  save() {
+    
+  }
+}

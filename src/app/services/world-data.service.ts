@@ -60,4 +60,17 @@ export class WorldDataService
     )
     return eve
   }
+  
+  public applyData( data:any )
+  {
+    if( typeof data === 'string' )
+      Object.assign( this.loader.data, JSON.parse(data) )
+    else
+      Object.assign( this.loader.data, data )
+  }
+  
+  public getJson()
+  {
+    return this.hasData ? JSON.stringify( this.loader.data, null, 2 ) : "{}"
+  }
 }

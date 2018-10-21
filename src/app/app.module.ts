@@ -17,6 +17,7 @@ import { Page404Component } from './404.component'
 import { EditorViewChild_NodesTable } from './view/other.component'
 import { EditorViewChild_NodeLinksTable } from './view/other.component'
 import { EditorViewChild_FullJson } from './view/other.component'
+import { EditorViewChild_FullJsonAce } from './view/other.component'
 import { EditorViewChild_Map } from './view/map.component'
 
 import { AutomodiPanelComponent } from './view-sidebar/sidebar-misc.component'
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
           { path: 'map', component: EditorViewChild_Map },
           { path: 'fulljson', component: EditorViewChild_FullJson },
+          { path: 'fulljson_ace', component: EditorViewChild_FullJsonAce },
           { path: 'nodes', component: EditorViewChild_NodesTable },
           { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
         ]
@@ -43,6 +45,7 @@ const appRoutes: Routes = [
   	EditorViewChild_NodesTable,
   	EditorViewChild_NodeLinksTable,
   	EditorViewChild_FullJson,
+  	EditorViewChild_FullJsonAce,
   	EditorViewChild_Map,
     AutomodiPanelComponent,
   ],

@@ -172,7 +172,7 @@ export class DataLoader
 
   public hasDataChanged():boolean { return this.dataOriginalJson != this.generateJson() }
 
-  private generateJson():string { return JSON.stringify( this.data, null, 2 ) }
+  public generateJson():string { return JSON.stringify( this.data, null, 2 ) }
 
   private generateCacheBust():string { return "" + new Date().valueOf() % 1000000 }
 }
