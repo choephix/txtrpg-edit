@@ -76,7 +76,7 @@ export class AutomodiPanelComponent
       this.branches[b] = true
   }
 
-  private getAllBranches():string[]
+  public getAllBranches():string[]
   { return Object.keys(this.branches) }
 
   private getSelectedBranches():string[]
