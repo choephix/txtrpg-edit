@@ -39,6 +39,12 @@
   width: 100%;
 }
 
+#current-view-spinner img {
+  transform: rotate(-90deg);
+  right: 24px;
+  position: absolute;
+}
+
 #sidebar { width:25vw }
 #current-view { margin-left: 25vw; height: 100vh; }
 </style>
@@ -87,8 +93,8 @@
   </div>
   
   <div id="current-view">
-    <router-outlet>
-    </router-outlet>
+    <div id="current-view-spinner" *ngIf="!world.hasData"><img src="assets/bars.svg" /></div>
+    <router-outlet *ngIf="world.hasData"></router-outlet>
   </div>
 
 </div>

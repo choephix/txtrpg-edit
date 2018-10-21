@@ -13,15 +13,15 @@ export class WorldDataService
 {
   private loader:DataLoader
   
-  constructor( private http:HttpClient, private logger:Logger ) {}
+  constructor( private http:HttpClient, private logger:Logger )
+  { this.loader = new DataLoader( this.http ) }
   
   public get data():any { return this.loader.data }
-  public get loaded():boolean { return this.loader.data != null }
+  public get hasData():boolean { return this.loader.data != null }
   
   public load( branch:string ):Eventu
   {
-    if ( !this.loader )
-      this.loader = new DataLoader( this.http )
+    this.loader.data = null
     
     let eve:Eventu = new Eventu()
     this.loader.setBranch( branch )

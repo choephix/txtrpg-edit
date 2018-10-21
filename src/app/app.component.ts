@@ -5,12 +5,15 @@ import { WorldDataService } from './services/world-data.service';
 import { SelectionService } from './services/selection.service';
 import { AutomodiPanelComponent } from './view/other.component'
 
-@NgModule({ declarations: [ AutomodiPanelComponent ] })
-@Component({ selector: 'app-root', templateUrl: './app.component.html' })
-export class AppComponent
+@Component({ selector: 'app-root', template: `<router-outlet></router-outlet>` })
+export class AppComponent {}
+
+// @NgModule({ declarations: [ AutomodiPanelComponent ] })
+@Component({ templateUrl: './app.component.html' })
+export class AppInnerComponent
 {
   public branches:string[] = ["shitbox","develop","lorem","poc","master"]
-	public pages:string[] = []
+	public pages:string[] = ["map","table"]
 	public sidetabs:string[] = ["json","automodi","else","elser"]
   
   public branch:string = "develop"
@@ -18,21 +21,24 @@ export class AppComponent
   public sidetab:string = this.sidetabs[0]
 
   constructor( public router:Router, 
-               private route:ActivatedRoute, 
+               public route:ActivatedRoute, 
                public world:WorldDataService, 
                public selection:SelectionService )
   {
     this.route.paramMap.subscribe( params => {
-    	this.branch = params.get("branch")
-    	if ( !this.branch ) console.warn("no branch?",params)
-    	else world.load(this.branch)
+    	let branch = params.get("branch")
+    	if ( !branch )
+    	  console.warn("no branch?",params)
+    	else
+    	  this.branch = branch
+    	  world.load(this.branch)
     } );
 
-		for ( const r of router.config )
-			if ( r.path === ":branch" )
-				for ( const pg of r.children )
-					if ( pg.path )
-						this.pages.push( pg.path )
+		// for ( const r of router.config )
+		// 	if ( r.path === ":branch" )
+		// 		for ( const pg of r.children )
+		// 			if ( pg.path )
+		// 				this.pages.push( pg.path )
   }
   
   private jsoneditor
@@ -46,11 +52,11 @@ export class AppComponent
   };
   @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
   ngAfterViewInit() {
-    this.jsoneditor = new JSONEditor(
-                          this.jsoneditor_ref.nativeElement, 
-                          this.jsoneditor_options,
-                          {} );
-    this.selection.callbacks_OnSelect.push( o => this.jsoneditor.set(o) )
+    // this.jsoneditor = new JSONEditor(
+    //                       this.jsoneditor_ref.nativeElement, 
+    //                       this.jsoneditor_options,
+    //                       {} );
+    // this.selection.callbacks_OnSelect.push( o => this.jsoneditor.set(o) )
   }
   
   onJsonDataChange()

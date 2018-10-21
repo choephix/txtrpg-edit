@@ -269,34 +269,34 @@ export class EditorViewChild_NodeLinksTable
 })
 export class EditorViewChild_FullJson
 {
-  @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
-  public get worldData() { return this.gitbub.data }
-	private gitbub
-  private jsoneditor
+//   @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
+//   public get worldData() { return this.gitbub.data }
+// 	private gitbub
+//   private jsoneditor
   
-  private jsoneditor_options = {
-    mode:'tree',
-    modes:['tree','view','form','code','text'],
-    navigationBar:true,
-    statusBar:true,
-    search:true,
-    onChange:()=>this.onJsonDataChange()
-  };
+//   private jsoneditor_options = {
+//     mode:'tree',
+//     modes:['tree','view','form','code','text'],
+//     navigationBar:true,
+//     statusBar:true,
+//     search:true,
+//     onChange:()=>this.onJsonDataChange()
+//   };
 
-  constructor( public world:WorldDataService )
-  { 
-    this.gitbub = world 
-  }
+//   constructor( public world:WorldDataService )
+//   { 
+//     this.gitbub = world 
+//   }
   
-  ngAfterViewInit() {
-    this.jsoneditor = new JSONEditor(
-                          this.jsoneditor_ref.nativeElement, 
-                          this.jsoneditor_options,
-                          this.worldData );
-  }
+//   ngAfterViewInit() {
+//     this.jsoneditor = new JSONEditor(
+//                           this.jsoneditor_ref.nativeElement, 
+//                           this.jsoneditor_options,
+//                           this.worldData );
+//   }
   
-  onJsonDataChange()
-  {
-    console.log()
-  }
+//   onJsonDataChange()
+//   {
+//     console.log()
+//   }
 }

@@ -12,7 +12,7 @@ import { AceEditorModule } from 'ng2-ace-editor';
 import { Eventu } from './util/common'
 import { WorldMapWrapper } from './util/world-map-wrapper'
 
-import { AppComponent } from './app.component'
+import { AppComponent, AppInnerComponent } from './app.component'
 import { Page404Component } from './404.component'
 import { EditorViewChild_NodesTable } from './view/other.component'
 import { EditorViewChild_NodeLinksTable } from './view/other.component'
@@ -22,7 +22,7 @@ import { EditorViewChild_Map } from './view/map.component'
 import { AutomodiPanelComponent } from './view/other.component'
 
 const appRoutes: Routes = [
-  { path: ':branch', component: Page404Component,
+  { path: ':branch', component: AppInnerComponent,
 	  children: [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
           { path: 'map', component: EditorViewChild_Map },
@@ -38,6 +38,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AppInnerComponent,
     Page404Component,
   	EditorViewChild_NodesTable,
   	EditorViewChild_NodeLinksTable,
