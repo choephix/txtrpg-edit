@@ -22,10 +22,15 @@
                 "id": "4908dcae-89d0-4341-9f61-68a2d70ea303",
                 "relativeUrl": "file://./src/app/view/map.component.html",
                 "additionalData": null
+              },
+              {
+                "id": "13107418-07a9-453d-94c9-191311bdc279",
+                "relativeUrl": "file://./src/app/util/data-loader.ts",
+                "additionalData": null
               }
             ],
             "subItems": [],
-            "activeItemIndex": 0
+            "activeItemIndex": 2
           },
           {
             "type": "stack",
@@ -63,9 +68,9 @@
         ],
         "activeItemIndex": 0
       },
-      "lastUsed": 1540157219564,
+      "lastUsed": 1540161458462,
       "fileTreeExpanded": true,
-      "selectedTabId": "3243fd1a-bf90-45ee-94e6-36817847de2f",
+      "selectedTabId": "13107418-07a9-453d-94c9-191311bdc279",
       "fileTreeWidth": 186
     }
   ],
