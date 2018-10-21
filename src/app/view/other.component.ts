@@ -253,10 +253,14 @@ export class EditorViewChild_FullJsonAce
 	  ]
 	  
 	 public options:any = {
-	   fontSize: `.75vw`,
-	   showGutter: false,
+	   fontSize: `11px`,
+	   showGutter: true,
+	   fixedWidthGutter: true,
+	   showLineNumbers: false,
 	   showPrintMargin: false,
+	   fadeFoldWidgets: true,
 	   wrap: true,
+	   scrollPastEnd: 120,
 	   maxLines: Infinity,
 	 }
   
