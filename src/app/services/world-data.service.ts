@@ -50,8 +50,7 @@ export class WorldDataService
         eve.dispatchResult( data )
       },
       error => {
-        console.log(typeof error)
-        if ( error instanceof Warning)
+        if ( error instanceof Warning )
       	  this.logger.warning( error.message, error.title )
       	else
       	  this.logger.error( error, `SAVE FAILED` )

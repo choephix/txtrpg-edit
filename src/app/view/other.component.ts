@@ -1,10 +1,7 @@
 import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WorldDataService } from './../services/world-data.service';
-import { SelectionService } from './../services/selection.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Logger } from './../services/logging.service';
-import { DataLoader } from './../util/data-loader'
 
 @Component({
   styles: [`#table { height:100%; width:100%; }`],
