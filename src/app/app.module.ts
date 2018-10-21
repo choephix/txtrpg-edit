@@ -19,7 +19,7 @@ import { EditorViewChild_NodeLinksTable } from './view/other.component'
 import { EditorViewChild_FullJson } from './view/other.component'
 import { EditorViewChild_Map } from './view/map.component'
 
-import { AutomodiPanelComponent } from './view/other.component'
+import { AutomodiPanelComponent } from './view-sidebar/sidebar-misc.component'
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,

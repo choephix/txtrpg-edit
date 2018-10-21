@@ -38,7 +38,7 @@ export class DataLoader
   /// 60 requests per hour max limit the API has otherwise. However, this 
   /// method does not retrieve a SHA, which means saving for the first time
   /// will make two requests.
-  public load( raw:boolean ):Eventu
+  public load( mode:"raw"|"api" ):Eventu
   {
     let eve:Eventu = new Eventu()
     
@@ -49,7 +49,7 @@ export class DataLoader
     	if ( !this.branch ) throw new Error(`Loader.branch is ${this.branch}`)
       
       this.busy = true
-      if ( raw )
+      if ( mode === "raw" )
       {
     		let bust:string = this.generateCacheBust()
         let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/`+
@@ -64,6 +64,7 @@ export class DataLoader
         );
       }
       else
+      if ( mode === "api" )
       {
     		let bust:string = this.generateCacheBust()
         let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/`+

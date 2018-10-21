@@ -25,7 +25,7 @@ export class WorldDataService
     
     let eve:Eventu = new Eventu()
     this.loader.setBranch( branch )
-    this.loader.load( true ).subscribe(
+    this.loader.load( "raw" ).subscribe(
       data => { 
         this.logger.info(`${this.loader.filename}, via Github API`,`LOADED ${this.loader.BRANCH}`) 
         eve.dispatchResult( data )
