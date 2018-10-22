@@ -1,3 +1,4 @@
+import { WorldData, Node, Subnode, Link } from './../types/data-models'
 
 export class WorldMapWrapper
 {
@@ -9,16 +10,19 @@ export class WorldMapWrapper
   public get subnodes():any[] { return this.data.world.subnodes }
   public get links():any[] { return this.data.world.links }
 
-  getNode( o )
+  getNodeOrSubnode( o )
   {
-  	if ( typeof o === 'string' || o instanceof String )
-	  	for ( let node of this.w.nodes )
+    if (typeof o === 'string' || o instanceof String) {
+      for (let node of this.w.nodes)
+        if (node.id == o)
+          return node
+	  	for ( let node of this.w.subnodes )
 	  		if ( node.id == o )
 	  			return node
+    }
   	if ( o.hasOwnProperty("id") )
   		return o;
-	  return this.w.nodes[o]
-  	// console.error( `${o} missing`,this.w.nodes)
+  	console.error( `${o} missing`,this.w.nodes)
   }
 
   getNodeIndex( o )
@@ -32,7 +36,6 @@ export class WorldMapWrapper
   addNode(x,y)
   {
 		let new_id = `node_${this.w.nodes.length}`
-		let title = new_id
   	let node = {
 			id:new_id,
 			loc_x:x,
@@ -42,10 +45,23 @@ export class WorldMapWrapper
 		return node
   }
 
+  addSubNode(x, y, parent)
+  {
+		let new_id = `subnode_${this.w.subnodes.length}`
+  	let node = {
+			id:new_id,
+			loc_x:x,
+			loc_y:y,
+      parent:parent.id
+		}
+		this.w.subnodes.push(node)
+		return node
+  }
+
   addLink(from,to)
   {
-  	let from_node = this.getNode(from)
-  	let to_node = this.getNode(to)
+  	let from_node = this.getNodeOrSubnode(from)
+  	let to_node = this.getNodeOrSubnode(to)
   	let link = {
   		from:from_node.id,
   		to:to_node.id,

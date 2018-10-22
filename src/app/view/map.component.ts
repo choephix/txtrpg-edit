@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { WorldMapWrapper } from './../util/world-map-wrapper';
 import { WorldDataService } from './../services/world-data.service';
 import { SelectionService } from './../services/selection.service';
+import { WorldData, Node, Subnode, Link } from './../types/data-models'
 
 @Component({ templateUrl: `map.component.html` })
 export class EditorViewChild_Map
@@ -11,23 +12,24 @@ export class EditorViewChild_Map
   offsetX = 0
   offsetY = 0
 
-  selectedNode:number|null = null
-  selectedLink:number|null = null
-
-  draggy = null
-  linking = false
+  dragging:Node = null
+  linking:Node = null
+  panning:boolean = false
 
   mouseX = 0
   mouseY = 0
 
-  getViewX( o ) { return this.w.getNode(o).loc_x + this.offsetX }
-  getViewY( o ) { return this.w.getNode(o).loc_y + this.offsetY }
+  getViewX( o ) { return this.w.getNodeOrSubnode(o).loc_x + this.offsetX }
+  getViewY( o ) { return this.w.getNodeOrSubnode(o).loc_y + this.offsetY }
 
   constructor( public world:WorldDataService, public selection:SelectionService )
   {
   	this.w = new WorldMapWrapper(world.data)
   	this.selection.callbacks_OnModify.push( new_o => this.onDataWillBeModified(new_o) )
   }
+
+  public get selected():any { return this.selection.selectedObject }
+  public set selected( o:any ) { this.selection.selectObject( o ) }
 
   onDataWillBeModified( new_o )
   {
@@ -46,67 +48,57 @@ export class EditorViewChild_Map
 
   mousemove(e)
   {
-	  this.mouseX = e.offsetX;
-	  this.mouseY = e.offsetY;
+	  this.mouseX = e.offsetX
+	  this.mouseY = e.offsetY
 
   	if ( this.linking )
   		return
 
-  	if ( e.buttons > 0 && e.button == 0 )
-  	{
-			if ( this.draggy )
-			{
-				this.draggy.loc_x = e.offsetX - this.offsetX;
-				this.draggy.loc_y = e.offsetY - this.offsetY;
-			}
-			else
-			{
-				this.offsetX += e.movementX;
-				this.offsetY += e.movementY;
-			}
-  	}
-  	else
-  	{
-	  	this.draggy = null;
-  	}
+    if ( this.dragging )
+    {
+      this.dragging.loc_x = e.offsetX - this.offsetX
+      this.dragging.loc_y = e.offsetY - this.offsetY
+    }
+    else
+    if ( this.panning )
+    {
+      this.offsetX += e.movementX
+      this.offsetY += e.movementY
+    }
   }
 
-  mousedown_node(e)
+  mousedown_node(e,node:Node,isSubnode:boolean)
   {
-  	let node_index = +e.target.attributes['data-index'].value
-  	this.draggy = this.w.getNode(node_index);
-  	this.linking = e.button == 2;
+    if ( e.button == 0 )
+      this.dragging = node
+    else
+    if ( e.button == 2 && !isSubnode )
+  	  this.linking = node
   }
 
-  mouseup_node(e)
+  mouseup_node(e,node:Node,isSubnode:boolean)
   {
-  	let node_index = +e.target.attributes['data-index'].value
-  	let node = this.w.getNode(node_index)
+    if (this.linking && this.linking != node)
+      this.w.addLink(this.linking.id, node.id);
+    this.linking = null
 
-  	if ( this.linking )
-  	{
-  		if ( this.draggy != null )
-  			this.w.addLink(this.draggy.id,node.id);
-  		else
-  			return
-  		this.linking = false
-  	}
-
-  	if ( e.button == 1 )
-  	{
+  	if ( e.button == 1 && !isSubnode )
+    {
   		let new_node =
   		this.w.addNode( node.loc_x + Math.random() * 96,
   		  							node.loc_y - Math.random() * 96)
   		this.w.addLink( node, new_node )
   		this.w.addLink( new_node, node )
-  	}
-  	else
-  	if ( e.button == 0 )
-  		this.selectNode( node_index )
-  	else
+    }
+    else
   	if ( e.button == 2 )
-      node.mini = !(node.mini)
-  	e.stopPropagation()
+  	{
+  		let new_node =
+  		this.w.addSubNode( node.loc_x + Math.random() * 96,
+  		  							   node.loc_y - Math.random() * 96,
+                         node )
+    }
+    // e.stopPropagation()
   }
 
   mouseup_link(e)
@@ -114,46 +106,28 @@ export class EditorViewChild_Map
   	let link_id = +e.target.attributes['data-index'].value
   	if ( e.button == 2 )
   		this.w.removeLink( link_id )
-  	else
-  	if ( e.button == 0 )
-  		this.selectLink( link_id )
-  	this.linking = false
+  	this.linking = null
   	e.stopPropagation()
-  }
-
-  selectLink( i )
-  {
-  	console.log(i)
-  	this.selectedNode = null
-  	this.selectedLink = i
-  }
-
-  selectNode( i )
-  {
-  	console.log(i)
-  	this.selectedLink = null
-  	this.selectedNode = i
-    this.selection.selectObject( this.w.w.nodes[i] );
   }
 
   mouseup_trash(e)
   {
-  	if ( this.draggy != null )
-  		this.w.removeNode(this.w.getNodeIndex(this.draggy))
-  	this.draggy = null;
+  	if ( this.dragging != null )
+  		this.w.removeNode(this.dragging)
+  	this.dragging = null
+  }
+
+  mousedown(e)
+  {
+    if (e.button == 0)
+      this.panning = true
   }
 
   mouseup(e)
   {
-  	this.draggy = null;
-  	this.linking = false;
-
-  	this.selectedNode = null
-  	this.selectedNode = null
-
-	  // console.log(e)
-  	if ( e.button == 1 )
-  	  console.log(JSON.stringify(this.w.w))
+  	this.dragging = null
+  	this.linking = null
+    this.panning = false
   }
 
   contextmenu(e) { return false; }

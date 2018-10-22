@@ -15,13 +15,14 @@
 </style>
 
 <svg id="lesvg" #lesvg
+			(mousedown)="mousedown($event)"
 			(mouseup)="mouseup($event)"
 			(mousemove)="mousemove($event)"
 			(contextmenu)="contextmenu($event)">
-	<ng-container *ngIf="linking&&draggy">
+	<ng-container *ngIf="linking">
 		<line
-			[attr.x1]="getViewX(draggy)"
-			[attr.y1]="getViewY(draggy)"
+			[attr.x1]="getViewX(linking)"
+			[attr.y1]="getViewY(linking)"
 			[attr.x2]="mouseX"
 			[attr.y2]="mouseY"
 			class="link tobe"/>
@@ -29,7 +30,6 @@
 
 	<ng-container *ngFor="let link of w.links; let i = index">
 		<line
-			[class.selected]="i==selectedLink"
 			[attr.data-index]="i"
 			[attr.x1]="getViewX(link.to)+5"
 			[attr.y1]="getViewY(link.to)+random(i,5)"
@@ -40,7 +40,6 @@
 	</ng-container>
 	<ng-container *ngFor="let node of w.subnodes; let i = index">
 		<line
-			[class.selected]="i==selectedLink"
 			[attr.data-index]="i"
 			[attr.x1]="getViewX(node)"
 			[attr.y1]="getViewY(node)"
@@ -51,12 +50,13 @@
 	<ng-container *ngFor="let node of w.nodes; let i = index">
 		<circle
 			[attr.data-index]="i"
-			[class.selected]="i==selectedNode"
+			[class.selected]="selected==node"
 			[attr.r]="16"
 			[attr.cx]="getViewX(node)"
 			[attr.cy]="getViewY(node)"
-			(mousedown)="mousedown_node($event)"
-			(mouseup)="mouseup_node($event)"
+			(mousedown)="mousedown_node($event,node,false)"
+			(mouseup)="mouseup_node($event,node,false)"
+      (click)="selected=node"
 			class="node"/>
 		<text
 			[attr.x]="getViewX(node)-14"
@@ -66,9 +66,13 @@
 	<ng-container *ngFor="let node of w.subnodes; let i = index">
 		<circle
 			[attr.data-index]="i"
+			[class.selected]="selected==node"
 			[attr.r]="8"
 			[attr.cx]="getViewX(node)"
 			[attr.cy]="getViewY(node)"
+			(mousedown)="mousedown_node($event,node,true)"
+			(mouseup)="mouseup_node($event,node,true)"
+      (click)="selected=node"
 			class="node subnode"/>
 		<text
 			[attr.x]="getViewX(node)-7"
@@ -78,7 +82,7 @@
 
 	<circle id="trash"
 					cx="10vh" cy="90vh" r=64
-					*ngIf="!linking&&draggy"
+					*ngIf="!linking&&dragging"
 					(mouseup)="mouseup_trash($event)"
 					>
 	</circle>

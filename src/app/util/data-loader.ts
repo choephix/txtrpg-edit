@@ -52,8 +52,8 @@ export class DataLoader
       if ( mode === "raw" )
       {
     		let bust:string = this.generateCacheBust()
-        let url:string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/`+
-                         `${this.branch}/${this.filename}?${bust}`
+        let url: string = `https://bitbucket.org/${ACCO}/${REPO}/raw/${this.branch}/${this.filename}`
+        console.debug("http.get()",url)
         this.http.get( url ).subscribe(
           data => {
       	    this.busy = false
@@ -157,6 +157,7 @@ export class DataLoader
   		  let bust:string = this.generateCacheBust()
         let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/`+
         								 `contents/${this.filename}?ref=${this.branch}&${bust}`
+        console.debug( "loading " + url )
         this.busy = true;
         this.http.get( url ).subscribe(
           data => {
