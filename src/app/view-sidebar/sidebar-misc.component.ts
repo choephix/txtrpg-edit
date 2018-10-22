@@ -41,7 +41,7 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 export class AutomodiPanelComponent
 {
   code:string = `
-  alert(this.aliases[0].alias)\n
+  alert(this.ini.spawn_node)\n
   // Use this space to code global changes
   // to the json map structure, like
   // creating new objects, deleting old ones

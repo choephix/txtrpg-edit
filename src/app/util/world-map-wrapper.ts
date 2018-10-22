@@ -1,34 +1,13 @@
 
 export class WorldMapWrapper
 {
-  public get w() { return this.gitbub.data }
+  constructor( private data ) { }
 
-	private gitbub = null;
+  public get w() { return this.data.world }
 
-  constructor(gitbub)
-  {
-    this.gitbub = gitbub;
-    // for ( let node of this.w.nodes ) node.loc_x -=500
-
-    // this.w.text_links = []
-    // for ( let link of this.w.node_links )
-    // {
-    // 	delete link.handle_goto;
-    // 	delete link.handle_gobackto;
-
-    // 	this.w.text_links.push({
-    // 		from: link.from, to: link.to, flags: [],
-    // 		handle: `Go to ${link.to}`,
-    // 		text: `I went to ${link.to}`
-    // 	})
-    // 	this.w.text_links.push({
-    // 		from: link.from, to: link.to, flags: ['back'],
-    // 		handle: `Go back to ${link.to}`,
-    // 		text: `I went returned to ${link.to}`
-    // 	})
-    // }
-    // console.log(JSON.stringify(this.w))
-  }
+  public get nodes():any[] { return this.data.world.nodes }
+  public get subnodes():any[] { return this.data.world.subnodes }
+  public get links():any[] { return this.data.world.links }
 
   getNode( o )
   {
@@ -56,7 +35,6 @@ export class WorldMapWrapper
 		let title = new_id
   	let node = {
 			id:new_id,
-			title:title,
 			loc_x:x,
 			loc_y:y,
 		}
@@ -71,17 +49,15 @@ export class WorldMapWrapper
   	let link = {
   		from:from_node.id,
   		to:to_node.id,
-  		handle_goto:`Go to ${to_node.title}`,
-  		handle_gobackto:`Return to ${to_node.title}`,
   	}
-  	this.w.node_links.push(link)
+  	this.w.links.push(link)
   	return link
   }
 
   removeNode( node_index )
   {
   	let node = this.w.nodes[node_index]
-		let links = this.w.node_links
+		let links = this.w.links
 		for ( let i = links.length - 1; i >= 0; i-- )
 			if ( links[i].to == node.id || links[i].from == node.id )
 				this.removeLink( i )
@@ -90,6 +66,6 @@ export class WorldMapWrapper
 
   removeLink( link_index )
   {
-  	this.w.node_links.splice( link_index, 1 )
+  	this.w.links.splice( link_index, 1 )
   }
 }
