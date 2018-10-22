@@ -59,6 +59,7 @@
 		<text
 			[attr.x]="getViewX(node)-14"
 			[attr.y]="getViewY(node)+26"
+			(mousedown)="mousedown_node($event,node,false)"
 			class="label">{{node.id}}</text>
 	</ng-container>
 	<ng-container *ngFor="let node of w.subnodes; let i = index">
@@ -75,6 +76,7 @@
 		<text
 			[attr.x]="getViewX(node)-7"
 			[attr.y]="getViewY(node)+18"
+			(mousedown)="mousedown_node($event,node,true)"
 			class="label subnode">{{node.id}}</text>
 	</ng-container>
 

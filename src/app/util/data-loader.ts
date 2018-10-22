@@ -52,7 +52,9 @@ export class DataLoader
       if ( mode === "raw" )
       {
     		let bust:string = this.generateCacheBust()
-        let url: string = `https://bitbucket.org/${ACCO}/${REPO}/raw/${this.branch}/${this.filename}`
+        let url: string = `https://raw.githubusercontent.com/${ACCO}/${REPO}/`+
+                          `${this.branch}/${this.filename}?${bust}`
+        // `https://bitbucket.org/${ACCO}/${REPO}/raw/${this.branch}/${this.filename}`
         console.debug("http.get()",url)
         this.http.get( url ).subscribe(
           data => {
