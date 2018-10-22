@@ -12,22 +12,23 @@ const FILE:string = "mock-world"
 export class WorldDataService
 {
   private loader:DataLoader
-  
+
   constructor( private http:HttpClient, private logger:Logger )
   { this.loader = new DataLoader( this.http ) }
-  
+
   public get data():any { return this.loader.data }
   public get hasData():boolean { return this.loader.data != null }
-  
+
   public load( branch:string ):Eventu
   {
     this.loader.data = null
-    
-    let eve:Eventu = new Eventu()
+
+    let eve: Eventu = new Eventu()
+    let method:"raw"|"api" = "raw"
     this.loader.setBranch( branch )
-    this.loader.load( "raw" ).subscribe(
-      data => { 
-        this.logger.info(`${this.loader.filename}, via Github API`,`LOADED ${this.loader.BRANCH}`) 
+    this.loader.load( method ).subscribe(
+      data => {
+        this.logger.info(`${this.loader.filename}, via Github ${method}`,`LOADED ${this.loader.BRANCH}`)
         eve.dispatchResult( data )
       },
       error => {
@@ -40,13 +41,13 @@ export class WorldDataService
     )
     return eve
   }
-  
+
   public save():Eventu
   {
     let eve:Eventu = new Eventu()
     this.loader.save().subscribe(
-      data => { 
-        this.logger.success(`${this.loader.filename}, via Github API`,`SAVED ${this.loader.BRANCH}`) 
+      data => {
+        this.logger.success(`${this.loader.filename}, via Github API`,`SAVED ${this.loader.BRANCH}`)
         eve.dispatchResult( data )
       },
       error => {
@@ -59,7 +60,7 @@ export class WorldDataService
     )
     return eve
   }
-  
+
   public applyData( data:any )
   {
     if( typeof data === 'string' )
@@ -67,7 +68,7 @@ export class WorldDataService
     else
       Object.assign( this.loader.data, data )
   }
-  
+
   public getJson()
   {
     return this.hasData ? JSON.stringify( this.loader.data, null, 2 ) : "{}"
