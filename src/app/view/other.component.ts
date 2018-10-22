@@ -102,11 +102,11 @@ class TableConfiguration
   dataFunc:()=>any[];
 }
 
-// 
+//
 
-// 
+//
 
-// 
+//
 
 @Component({
   // selector: '',
@@ -150,17 +150,17 @@ export class EditorViewChild_NodeLinksTable
   }
 }
 
-// 
+//
 
-// 
+//
 
-// 
+//
 
 @Component({
   // selector: '',
   styles: [`
   #panel {
-    
+
   }
   #jsoneditor {
     box-sizing: border-box;
@@ -174,36 +174,36 @@ export class EditorViewChild_NodeLinksTable
 })
 export class EditorViewChild_FullJson
 {
-//   @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
-//   public get worldData() { return this.gitbub.data }
-// 	private gitbub
-//   private jsoneditor
-  
-//   private jsoneditor_options = {
-//     mode:'tree',
-//     modes:['tree','view','form','code','text'],
-//     navigationBar:true,
-//     statusBar:true,
-//     search:true,
-//     onChange:()=>this.onJsonDataChange()
-//   };
+  //   @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
+  //   public get worldData() { return this.gitbub.data }
+  // 	private gitbub
+  //   private jsoneditor
 
-//   constructor( public world:WorldDataService )
-//   { 
-//     this.gitbub = world 
-//   }
-  
-//   ngAfterViewInit() {
-//     this.jsoneditor = new JSONEditor(
-//                           this.jsoneditor_ref.nativeElement, 
-//                           this.jsoneditor_options,
-//                           this.worldData );
-//   }
-  
-//   onJsonDataChange()
-//   {
-//     console.log()
-//   }
+  //   private jsoneditor_options = {
+  //     mode:'tree',
+  //     modes:['tree','view','form','code','text'],
+  //     navigationBar:true,
+  //     statusBar:true,
+  //     search:true,
+  //     onChange:()=>this.onJsonDataChange()
+  //   };
+
+  //   constructor( public world:WorldDataService )
+  //   {
+  //     this.gitbub = world
+  //   }
+
+  //   ngAfterViewInit() {
+  //     this.jsoneditor = new JSONEditor(
+  //                           this.jsoneditor_ref.nativeElement,
+  //                           this.jsoneditor_options,
+  //                           this.worldData );
+  //   }
+
+  //   onJsonDataChange()
+  //   {
+  //     console.log()
+  //   }
 }
 
 @Component({
@@ -230,8 +230,8 @@ export class EditorViewChild_FullJson
   `],
   template: `
     <div id="toolbar">
-		  <button 
-		    *ngFor='let b of buttons' 
+		  <button
+		    *ngFor='let b of buttons'
 		    (click)="b.f()"
 		    >{{b.key}}</button>
 		</div>
@@ -249,7 +249,7 @@ export class EditorViewChild_FullJsonAce
     {key:"📀",f:()=>this.save()},
     {key:"🔄",f:()=>this.refresh()},
   ]
-  
+
   public options:any = {
     fontSize: `10px`,
     showGutter: true,
@@ -261,12 +261,12 @@ export class EditorViewChild_FullJsonAce
     scrollPastEnd: 120,
     maxLines: Infinity,
   }
-	 
+
 	public json:string = "{}\n"
-  
+
   constructor( public world:WorldDataService ) { this.refresh() }
 
   refresh() { this.json = this.world.getJson() }
-  
+
   save() { this.world.applyData( this.json ) }
 }

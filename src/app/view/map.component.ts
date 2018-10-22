@@ -25,7 +25,7 @@ export class EditorViewChild_Map
 
   constructor( public world:WorldDataService, public selection:SelectionService )
   {
-  	this.w = new WorldMapWrapper(world)
+  	this.w = new WorldMapWrapper(world.data)
   	this.selection.callbacks_OnModify.push( new_o => this.onDataWillBeModified(new_o) )
   }
 
@@ -48,7 +48,7 @@ export class EditorViewChild_Map
   {
 	  this.mouseX = e.offsetX;
 	  this.mouseY = e.offsetY;
-	  
+
   	if ( this.linking )
   		return
 
@@ -103,6 +103,9 @@ export class EditorViewChild_Map
   	else
   	if ( e.button == 0 )
   		this.selectNode( node_index )
+  	else
+  	if ( e.button == 2 )
+      node.mini = !(node.mini)
   	e.stopPropagation()
   }
 
