@@ -12,7 +12,7 @@
   outline:1px solid #999;
 }
 #sidebar .panel {
-  padding: .5vh 1vw; 
+  padding: .5vh 1vw;
   padding-bottom: 2vh;
   border-bottom:1px solid #CCC;
 }
@@ -22,7 +22,7 @@
 }
 #sidebar .nav-button {
   display:block;
-  text-decoration: none; 
+  text-decoration: none;
   color:#235;
 }
 #sidebar .nav-button:hover {
@@ -50,20 +50,20 @@
 </style>
 
 <div class="container">
-  
+
   <div id="sidebar">
-    
+
     <div id="navi" class="panel">
       <p style="font-size:10px">branch:</p>
       <h2>{{branch.toUpperCase()}}</h2>
       <div id="navi-branches">
-        <a *ngFor="let b of branches" 
+        <a *ngFor="let b of branches"
            class="nav-button"
-           routerLink="{{router.url.replace(branch,b)}}" 
+           routerLink="{{router.url.replace(branch,b)}}"
            routerLinkActive="active">🌍 {{b}}</a>
       </div>
     </div>
-    
+
     <div class="panel">
       <p style="font-size:10px">pages:</p>
       <a *ngFor="let pg of pages"
@@ -71,27 +71,31 @@
          routerLink="{{pg}}"
          routerLinkActive="active">⚪ {{pg}}</a>
     </div>
-    
+
     <div>
       <table class="tabs">
         <tr>
-          <th *ngFor='let tab of sidetabs' 
+          <th *ngFor='let tab of sidetabs'
               [class.selected]='tab == sidetab'
               (click)="sidetab=tab">{{tab}}</th>
         </tr>
       </table>
-      
+
       <div id="jsoneditor" #jsoneditor
            [style.display]="sidetab=='json'?'block':'none'"
            ></div>
-           
+
       <automodi id="automodi" #automodi
                 [style.display]="sidetab=='automodi'?'block':'none'"
                 ></automodi>
+
+      <jsonace id="jsonace" #jsonace
+                [style.display]="sidetab=='selection'?'block':'none'"
+                ></jsonace>
     </div>
-    
+
   </div>
-  
+
   <div id="current-view">
     <div id="current-view-spinner" *ngIf="!world.hasData"><img src="assets/bars.svg" /></div>
     <router-outlet *ngIf="world.hasData"></router-outlet>

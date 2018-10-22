@@ -14,15 +14,15 @@ export class AppInnerComponent
 {
   public branches:string[] = ["shitbox","develop","lorem","poc","master"]
 	public pages:string[] = []
-	public sidetabs:string[] = ["json","automodi","else","elser"]
-  
+	public sidetabs:string[] = ["json","automodi","selection"]
+
   public branch:string = "develop"
   public page:string = null
   public sidetab:string = this.sidetabs[0]
 
-  constructor( public router:Router, 
-               public route:ActivatedRoute, 
-               public world:WorldDataService, 
+  constructor( public router:Router,
+               public route:ActivatedRoute,
+               public world:WorldDataService,
                public selection:SelectionService )
   {
     this.route.paramMap.subscribe( params => {
@@ -40,7 +40,7 @@ export class AppInnerComponent
 					if ( pg.path )
 						this.pages.push( pg.path )
   }
-  
+
   private jsoneditor
   private jsoneditor_options = {
     mode:'form',
@@ -53,12 +53,12 @@ export class AppInnerComponent
   @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
   ngAfterViewInit() {
     // this.jsoneditor = new JSONEditor(
-    //                       this.jsoneditor_ref.nativeElement, 
+    //                       this.jsoneditor_ref.nativeElement,
     //                       this.jsoneditor_options,
     //                       {} );
     // this.selection.callbacks_OnSelect.push( o => this.jsoneditor.set(o) )
   }
-  
+
   onJsonDataChange()
   {
     this.selection.dispatchObjectModified( this.jsoneditor.get() )
