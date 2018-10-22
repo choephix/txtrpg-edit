@@ -4,13 +4,13 @@ export class WorldMapWrapper
 {
   constructor( private data ) { }
 
-  public get w() { return this.data.world }
+  public get w():WorldData { return this.data.world }
 
-  public get nodes():any[] { return this.data.world.nodes }
-  public get subnodes():any[] { return this.data.world.subnodes }
-  public get links():any[] { return this.data.world.links }
+  public get nodes():Node[] { return this.data.world.nodes }
+  public get subnodes():Subnode[] { return this.data.world.subnodes }
+  public get links():Link[] { return this.data.world.links }
 
-  getNodeOrSubnode( o )
+  getNodeOrSubnode( o ):Node
   {
     if (typeof o === 'string' || o instanceof String) {
       for (let node of this.w.nodes)
@@ -25,15 +25,7 @@ export class WorldMapWrapper
   	console.error( `${o} missing`,this.w.nodes)
   }
 
-  getNodeIndex( o )
-  {
-  	let nodes = this.w.nodes;
-  	for ( let i in nodes )
-  		if ( nodes[i] == o || nodes[i].id == o )
-  			return i
-  }
-
-  addNode(x,y)
+  addNode(x,y):Node
   {
 		let new_id = `node_${this.w.nodes.length}`
   	let node = {
@@ -45,7 +37,7 @@ export class WorldMapWrapper
 		return node
   }
 
-  addSubNode(x, y, parent)
+  addSubNode(x, y, parent):Subnode
   {
 		let new_id = `subnode_${this.w.subnodes.length}`
   	let node = {
@@ -58,7 +50,7 @@ export class WorldMapWrapper
 		return node
   }
 
-  addLink(from,to)
+  addLink(from,to):Link
   {
   	let from_node = this.getNodeOrSubnode(from)
   	let to_node = this.getNodeOrSubnode(to)
@@ -70,7 +62,7 @@ export class WorldMapWrapper
   	return link
   }
 
-  removeNode( node:Node ):void
+  removeNode( node:Node|Subnode ):void
   {
 		let links = this.w.links
 		for ( let i = links.length - 1; i >= 0; i-- )
@@ -81,20 +73,24 @@ export class WorldMapWrapper
 			if ( subs[i].parent == node.id )
 				this.removeNode( subs[i] )
     let i: number
-    i = this.w.nodes.indexOf(node)
-    if (i >= 0) {
-      this.w.nodes.splice(i, 1)
-      return
+    if ( node instanceof Node )
+    {
+      i = this.w.nodes.indexOf(node)
+      if (i >= 0) {
+        this.w.nodes.splice(i, 1)
+      }
     }
-    i = this.w.subnodes.indexOf(node)
-    if (i >= 0) {
-      this.w.subnodes.splice(i, 1)
-		  return
+    else
+    {
+      i = this.w.subnodes.indexOf(<Subnode>node)
+      if (i >= 0) {
+        this.w.subnodes.splice(i, 1)
+      }
     }
     console.error("Can't find node I was supposed to remove...")
   }
 
-  removeLink( link_index )
+  removeLink( link_index ):void
   {
   	this.w.links.splice( link_index, 1 )
   }

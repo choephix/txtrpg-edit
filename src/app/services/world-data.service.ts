@@ -61,7 +61,7 @@ export class WorldDataService
     return eve
   }
 
-  public applyData( data:any )
+  public applyData( data:any ):void
   {
     if( typeof data === 'string' )
       Object.assign( this.loader.data, JSON.parse(data) )
@@ -69,7 +69,7 @@ export class WorldDataService
       Object.assign( this.loader.data, data )
   }
 
-  public getJson()
+  public getJson():string
   {
     return this.hasData ? JSON.stringify( this.loader.data, null, 2 ) : "{}"
   }

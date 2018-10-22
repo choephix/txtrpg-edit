@@ -36,7 +36,7 @@ export class EditorViewChild_Map
     const old_o = this.selection.selectedObject
     const old_id = old_o.id
     console.log("MODI",new_o,old_o)
-    for ( const link of this.w.w.node_links )
+    for ( const link of this.w.links )
     {
       if ( link.from == old_id )
         link.from = new_o.id
