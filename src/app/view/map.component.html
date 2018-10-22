@@ -35,12 +35,11 @@
 			[attr.y1]="getViewY(link.to)+random(i,5)"
 			[attr.x2]="getViewX(link.from)-5"
 			[attr.y2]="getViewY(link.from)-random(i,5)"
-			(mouseup)="mouseup_link($event)"
+			(mouseup)="mouseup_link($event,i)"
 			class="link"/>
 	</ng-container>
 	<ng-container *ngFor="let node of w.subnodes; let i = index">
 		<line
-			[attr.data-index]="i"
 			[attr.x1]="getViewX(node)"
 			[attr.y1]="getViewY(node)"
 			[attr.x2]="getViewX(node.parent)"
@@ -49,7 +48,6 @@
 	</ng-container>
 	<ng-container *ngFor="let node of w.nodes; let i = index">
 		<circle
-			[attr.data-index]="i"
 			[class.selected]="selected==node"
 			[attr.r]="16"
 			[attr.cx]="getViewX(node)"

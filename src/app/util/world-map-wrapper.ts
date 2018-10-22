@@ -70,14 +70,28 @@ export class WorldMapWrapper
   	return link
   }
 
-  removeNode( node_index )
+  removeNode( node:Node ):void
   {
-  	let node = this.w.nodes[node_index]
 		let links = this.w.links
 		for ( let i = links.length - 1; i >= 0; i-- )
 			if ( links[i].to == node.id || links[i].from == node.id )
 				this.removeLink( i )
-		this.w.nodes.splice(node_index, 1)
+		let subs = this.w.subnodes
+		for ( let i = subs.length - 1; i >= 0; i-- )
+			if ( subs[i].parent == node.id )
+				this.removeNode( subs[i] )
+    let i: number
+    i = this.w.nodes.indexOf(node)
+    if (i >= 0) {
+      this.w.nodes.splice(i, 1)
+      return
+    }
+    i = this.w.subnodes.indexOf(node)
+    if (i >= 0) {
+      this.w.subnodes.splice(i, 1)
+		  return
+    }
+    console.error("Can't find node I was supposed to remove...")
   }
 
   removeLink( link_index )

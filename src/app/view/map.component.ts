@@ -101,11 +101,10 @@ export class EditorViewChild_Map
     // e.stopPropagation()
   }
 
-  mouseup_link(e)
+  mouseup_link(e,link_index)
   {
-  	let link_id = +e.target.attributes['data-index'].value
   	if ( e.button == 2 )
-  		this.w.removeLink( link_id )
+  		this.w.removeLink( link_index )
   	this.linking = null
   	e.stopPropagation()
   }
