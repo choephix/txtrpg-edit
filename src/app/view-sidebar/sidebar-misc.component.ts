@@ -35,7 +35,7 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
   styles: [`
   table { width:100%; }
   button { width:100%; padding:.5vh 0; }
-  #ace { min-height:49vh }
+  #ace { min-height:20vh }
   `]
 })
 export class AutomodiPanelComponent

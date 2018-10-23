@@ -18,13 +18,13 @@ import { SelectionService } from './../services/selection.service';
   styles: [`
   table { width:100%; }
   button { width:100%; padding:.5vh 0; }
-  #ace { min-height:49vh }
+  #ace { min-height:20vh }
   `]
 })
 export class JsonAcePanelComponent
 {
 	public options:any = {
-	  fontSize: `1vw`,
+	  fontSize: `.9vw`,
 	  showGutter: false,
     showLineNumbers: false,
 	  showPrintMargin: false,
