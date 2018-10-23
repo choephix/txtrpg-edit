@@ -10,6 +10,12 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 @Component({
   selector: 'automodi',
   template: `
+    <div ace-editor id="ace"
+         [(text)]="code"
+         [mode]="'javascript'"
+         [options]="options"
+         ></div>
+
 		<table class="tabs">
 			<tr>
 				<th *ngFor='let b of buttons' (click)="b.f()">
@@ -17,12 +23,6 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 				</th>
 			</tr>
 		</table>
-
-    <div ace-editor id="ace"
-         [(text)]="code"
-         [mode]="'javascript'"
-         [options]="options"
-         ></div>
 
     <form>
       <label *ngFor="let b of getAllBranches()">

@@ -1,6 +1,6 @@
 import { environment } from '../environments/environment'
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes, ActivatedRoute } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,9 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular'
 import { AceEditorModule } from 'ng2-ace-editor';
-
-import { Eventu } from './util/common'
-import { WorldMapWrapper } from './util/world-map-wrapper'
 
 import { AppComponent, AppInnerComponent } from './app.component'
 import { Page404Component } from './404.component'

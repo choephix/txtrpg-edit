@@ -73,6 +73,7 @@
     </div>
 
     <div>
+
       <table class="tabs">
         <tr>
           <th *ngFor='let tab of sidetabs'
@@ -81,17 +82,18 @@
         </tr>
       </table>
 
-      <div id="jsoneditor" #jsoneditor
-           [style.display]="sidetab=='json'?'block':'none'"
-           ></div>
+      <jsonace id="jsonace" #jsonace
+                [style.display]="sidetab=='json'?'block':'none'"
+                ></jsonace>
 
       <automodi id="automodi" #automodi
                 [style.display]="sidetab=='automodi'?'block':'none'"
                 ></automodi>
 
-      <jsonace id="jsonace" #jsonace
-                [style.display]="sidetab=='selection'?'block':'none'"
-                ></jsonace>
+      <div id="jsoneditor" #jsoneditor
+           [style.display]="sidetab=='oldjson'?'block':'none'"
+           ></div>
+                
     </div>
 
   </div>

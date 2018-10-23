@@ -14,7 +14,7 @@ export class AppInnerComponent
 {
   public branches:string[] = ["shitbox","develop","lorem","poc","master"]
 	public pages:string[] = []
-	public sidetabs:string[] = ["json","automodi","selection"]
+	public sidetabs:string[] = ["json","automodi","null"]
 
   public branch:string = "develop"
   public page:string = null
