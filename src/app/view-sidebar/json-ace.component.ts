@@ -24,7 +24,7 @@ import { SelectionService } from './../services/selection.service';
 export class JsonAcePanelComponent
 {
 	public options:any = {
-	  fontSize: `.75vw`,
+	  fontSize: `1vw`,
 	  showGutter: false,
     showLineNumbers: false,
 	  showPrintMargin: false,
@@ -33,8 +33,8 @@ export class JsonAcePanelComponent
 	  maxLines: Infinity
 	}
 
-  public get code():string { return JSON.stringify(this.sele,null,2) }
-  public set code(value:string) { Object.assign(this.sele,JSON.parse(value)) }
+  public get code():string { return JSON.stringify(this.sele.selectedObject,null,2) }
+  public set code(value:string) { Object.assign(this.sele.selectedObject,JSON.parse(value)) }
 
   constructor( private sele:SelectionService ) {}
 }
