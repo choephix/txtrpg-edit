@@ -1,13 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UID_GenerationService } from '../services/id-gen.service';
-import { SelectionService } from './../services/selection.service';
-import { WorldDataService } from './../services/world-data.service';
-import { Node } from './../types/data-models';
-import { WorldMapWrapper } from './../util/world-map-wrapper';
+import { SelectionService } from '../services/selection.service';
+import { WorldDataService } from '../services/world-data.service';
+import { Node } from '../types/data-models';
+import { WorldMapWrapper } from '../util/world-map-wrapper';
 
-declare var angular:any
-
-@Component({ templateUrl: `map.component.html` })
+@Component({ templateUrl: `map-view.component.html` })
 export class EditorViewChild_Map
 {
   w:WorldMapWrapper

@@ -12,11 +12,11 @@ import { AceEditorModule } from 'ng2-ace-editor';
 
 import { AppComponent, AppInnerComponent } from './app.component'
 import { Page404Component } from './404.component'
-import { EditorViewChild_NodesTable } from './view/other.component'
-import { EditorViewChild_NodeLinksTable } from './view/other.component'
-import { EditorViewChild_FullJson } from './view/other.component'
-import { EditorViewChild_FullJsonAce } from './view/other.component'
-import { EditorViewChild_Map } from './view/map.component'
+import { EditorViewChild_NodesTable } from './view/other-views'
+import { EditorViewChild_NodeLinksTable } from './view/other-views'
+import { EditorViewChild_FullJson } from './view/other-views'
+import { EditorViewChild_FullJsonAce } from './view/json-ace.view.component'
+import { EditorViewChild_Map } from './view/map-view.component'
 
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
