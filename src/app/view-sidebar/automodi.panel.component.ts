@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { WorldDataService } from './../services/world-data.service';
-import { Logger } from './../services/logging.service';
-import { DataLoader } from './../util/data-loader'
+import { WorldDataService } from '../services/world-data.service';
+import { Logger } from '../services/logging.service';
+import { DataLoader } from '../util/data-loader'
 
 const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 

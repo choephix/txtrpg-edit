@@ -18,7 +18,7 @@ import { EditorViewChild_FullJson } from './view/other.component'
 import { EditorViewChild_FullJsonAce } from './view/other.component'
 import { EditorViewChild_Map } from './view/map.component'
 
-import { AutomodiPanelComponent } from './view-sidebar/sidebar-misc.component'
+import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 import { JsonAcePanelComponent } from './view-sidebar/json-ace.component'
 
 const appRoutes: Routes = [
