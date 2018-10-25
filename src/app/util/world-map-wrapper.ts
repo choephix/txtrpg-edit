@@ -30,7 +30,7 @@ export class WorldMapWrapper
   {
     let slug = `node_${this.w.nodes.length}`
     let uid = this.uidgen.generateHash(8)
-  	let node = { uid:uid,slug:slug,x:x,y:y }
+  	let node = { slug:slug,uid:uid,x:x,y:y }
 		this.w.nodes.push(node)
 		return node
   }
@@ -39,7 +39,7 @@ export class WorldMapWrapper
   {
     let slug = `node_${this.w.nodes.length}`
     let uid = this.uidgen.generateHash(8)
-    let subnode = { uid:uid,slug:slug,x:x,y:y,parent:parent.uid }
+    let subnode = { slug:slug,uid:uid,parent:parent.uid,x:x,y:y }
 		this.w.subnodes.push(subnode)
 		return subnode
   }
