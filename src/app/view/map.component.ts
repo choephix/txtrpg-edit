@@ -3,28 +3,35 @@ import { WorldMapWrapper } from './../util/world-map-wrapper';
 import { WorldDataService } from './../services/world-data.service';
 import { SelectionService } from './../services/selection.service';
 import { WorldData, Node, Subnode, Link } from './../types/data-models'
+import { UID_GenerationService } from '../services/id-gen.service';
 
 @Component({ templateUrl: `map.component.html` })
 export class EditorViewChild_Map
 {
   w:WorldMapWrapper
 
-  offsetX = 0
-  offsetY = 0
+  offsetX:number = 0
+  offsetY:number = 0
+
+  mouseX:number = 0
+  mouseY:number = 0
 
   dragging:Node = null
   linking:Node = null
   panning:boolean = false
 
-  mouseX = 0
-  mouseY = 0
+  getViewX( o ) {
+    try { return this.w.getNodeOrSubnode(o).x + this.offsetX }
+    catch(e) { return 0 }
+  }
+  getViewY( o ) {
+    try { return this.w.getNodeOrSubnode(o).y + this.offsetY }
+    catch(e) { return 0 }
+  }
 
-  getViewX( o ) { return this.w.getNodeOrSubnode(o).loc_x + this.offsetX }
-  getViewY( o ) { return this.w.getNodeOrSubnode(o).loc_y + this.offsetY }
-
-  constructor( public world:WorldDataService, public selection:SelectionService )
+  constructor( public world:WorldDataService, public selection:SelectionService, uidgen:UID_GenerationService )
   {
-  	this.w = new WorldMapWrapper(world.data)
+  	this.w = new WorldMapWrapper( world.data, uidgen )
   	this.selection.callbacks_OnModify.push( new_o => this.onDataWillBeModified(new_o) )
   }
 
@@ -56,8 +63,8 @@ export class EditorViewChild_Map
 
     if ( this.dragging )
     {
-      this.dragging.loc_x = e.offsetX - this.offsetX
-      this.dragging.loc_y = e.offsetY - this.offsetY
+      this.dragging.x = e.offsetX - this.offsetX
+      this.dragging.y = e.offsetY - this.offsetY
     }
     else
     if ( this.panning )
@@ -79,23 +86,24 @@ export class EditorViewChild_Map
   mouseup_node(e,node:Node,isSubnode:boolean)
   {
     if (this.linking && this.linking != node)
-      this.w.addLink(this.linking.id, node.id);
+      this.w.addLink(this.linking.uid, node.uid);
     this.linking = null
 
   	if ( e.button == 1 && !isSubnode )
     {
   		let new_node =
-  		this.w.addNode( node.loc_x + Math.random() * 96,
-  		  							node.loc_y - Math.random() * 96)
+      this.selected = 
+  		this.w.addNode( node.x + Math.random() * 96,
+  		  							node.y - Math.random() * 96)
   		this.w.addLink( node, new_node )
   		this.w.addLink( new_node, node )
     }
     else
   	if ( e.button == 2 )
   	{
-  		let new_node =
-  		this.w.addSubNode( node.loc_x + Math.random() * 96,
-  		  							   node.loc_y - Math.random() * 96,
+  		this.selected = 
+  		this.w.addSubNode( node.x + Math.random() * 96,
+  		  							   node.y - Math.random() * 96,
                          node )
     }
     // e.stopPropagation()

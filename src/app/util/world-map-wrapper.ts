@@ -1,8 +1,9 @@
 import { WorldData, Node, Subnode, Link } from './../types/data-models'
+import { UID_GenerationService } from '../services/id-gen.service';
 
 export class WorldMapWrapper
 {
-  constructor( private data ) { }
+  constructor( private data, private uidgen:UID_GenerationService ) { }
 
   public get w():WorldData { return this.data.world }
 
@@ -14,40 +15,33 @@ export class WorldMapWrapper
   {
     if (typeof o === 'string' || o instanceof String) {
       for (let node of this.w.nodes)
-        if (node.id == o)
+        if ( node.uid == o || node.slug == o )
           return node
 	  	for ( let node of this.w.subnodes )
-	  		if ( node.id == o )
+	  		if ( node.uid == o || node.slug == o )
 	  			return node
     }
-  	if ( o.hasOwnProperty("id") )
+  	if ( o.hasOwnProperty("uid") )
   		return o;
   	console.error( `${o} missing`,this.w.nodes)
   }
 
   addNode(x,y):Node
   {
-		let new_id = `node_${this.w.nodes.length}`
-  	let node = {
-			id:new_id,
-			loc_x:x,
-			loc_y:y,
-		}
+    let slug = `node_${this.w.nodes.length}`
+    let uid = this.uidgen.generateHash(8)
+  	let node = { uid:uid,slug:slug,x:x,y:y }
 		this.w.nodes.push(node)
 		return node
   }
 
   addSubNode(x, y, parent):Subnode
   {
-		let new_id = `subnode_${this.w.subnodes.length}`
-  	let node = {
-			id:new_id,
-			loc_x:x,
-			loc_y:y,
-      parent:parent.id
-		}
-		this.w.subnodes.push(node)
-		return node
+    let slug = `node_${this.w.nodes.length}`
+    let uid = this.uidgen.generateHash(8)
+    let subnode = { uid:uid,slug:slug,x:x,y:y,parent:parent.uid }
+		this.w.subnodes.push(subnode)
+		return subnode
   }
 
   addLink(from,to):Link
@@ -55,8 +49,8 @@ export class WorldMapWrapper
   	let from_node = this.getNodeOrSubnode(from)
   	let to_node = this.getNodeOrSubnode(to)
   	let link = {
-  		from:from_node.id,
-  		to:to_node.id,
+  		from:from_node.uid,
+  		to:to_node.uid,
   	}
   	this.w.links.push(link)
   	return link
@@ -66,28 +60,19 @@ export class WorldMapWrapper
   {
 		let links = this.w.links
 		for ( let i = links.length - 1; i >= 0; i-- )
-			if ( links[i].to == node.id || links[i].from == node.id )
+			if ( links[i].to == node.uid || links[i].from == node.uid )
 				this.removeLink( i )
 		let subs = this.w.subnodes
 		for ( let i = subs.length - 1; i >= 0; i-- )
-			if ( subs[i].parent == node.id )
+			if ( subs[i].parent == node.uid )
 				this.removeNode( subs[i] )
     let i: number
-    if ( node instanceof Node )
-    {
-      i = this.w.nodes.indexOf(node)
-      if (i >= 0) {
-        this.w.nodes.splice(i, 1)
-      }
-    }
-    else
-    {
-      i = this.w.subnodes.indexOf(<Subnode>node)
-      if (i >= 0) {
-        this.w.subnodes.splice(i, 1)
-      }
-    }
-    console.error("Can't find node I was supposed to remove...")
+    i = this.w.nodes.indexOf(node)
+    if (i >= 0)
+      this.w.nodes.splice(i, 1)
+    i = this.w.subnodes.indexOf(<Subnode>node)
+    if (i >= 0)
+      this.w.subnodes.splice(i, 1)
   }
 
   removeLink( link_index ):void
