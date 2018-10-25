@@ -12,9 +12,12 @@
 .label.subnode { fill: #456; font-weight:100; }
 .node:hover { opacity : .9 }
 .link:hover { opacity : .7 }
+
+.info { position:fixed; padding-left:1vw; top:0; font-family: monospace; opacity:.4; }
 </style>
 
-<svg id="lesvg" #lesvg
+<svg id="lesvg" #lesvg mousewheel
+			(wheel)="mousewheel($event)" 
 			(mousedown)="mousedown($event)"
 			(mouseup)="mouseup($event)"
 			(mousemove)="mousemove($event)"
@@ -87,3 +90,7 @@
 					>
 	</circle>
 </svg>
+
+<div class="info">
+	<div *ngIf="zoom!=1.0">Zoom: {{zoom}}</div>
+</div>

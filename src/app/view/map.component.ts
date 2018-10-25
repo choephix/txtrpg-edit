@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-import { WorldMapWrapper } from './../util/world-map-wrapper';
-import { WorldDataService } from './../services/world-data.service';
-import { SelectionService } from './../services/selection.service';
-import { WorldData, Node, Subnode, Link } from './../types/data-models'
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UID_GenerationService } from '../services/id-gen.service';
+import { SelectionService } from './../services/selection.service';
+import { WorldDataService } from './../services/world-data.service';
+import { Node } from './../types/data-models';
+import { WorldMapWrapper } from './../util/world-map-wrapper';
+
+declare var angular:any
 
 @Component({ templateUrl: `map.component.html` })
 export class EditorViewChild_Map
@@ -12,6 +14,7 @@ export class EditorViewChild_Map
 
   offsetX:number = 0
   offsetY:number = 0
+  zoom:number = 1.0
 
   mouseX:number = 0
   mouseY:number = 0
@@ -20,37 +23,34 @@ export class EditorViewChild_Map
   linking:Node = null
   panning:boolean = false
 
-  getViewX( o ) {
-    try { return this.w.getNodeOrSubnode(o).x + this.offsetX }
-    catch(e) { return 0 }
-  }
-  getViewY( o ) {
-    try { return this.w.getNodeOrSubnode(o).y + this.offsetY }
-    catch(e) { return 0 }
-  }
+  @ViewChild("lesvg") svg:ElementRef;
 
-  constructor( public world:WorldDataService, public selection:SelectionService, uidgen:UID_GenerationService )
+  constructor( private el:ElementRef, private world:WorldDataService, private selection:SelectionService, uidgen:UID_GenerationService )
   {
   	this.w = new WorldMapWrapper( world.data, uidgen )
-  	this.selection.callbacks_OnModify.push( new_o => this.onDataWillBeModified(new_o) )
   }
 
   public get selected():any { return this.selection.selectedObject }
   public set selected( o:any ) { this.selection.selectObject( o ) }
 
-  onDataWillBeModified( new_o )
+  public get centerX():number { return this.svg.nativeElement.clientWidth * .5 }
+  public get centerY():number { return this.svg.nativeElement.clientHeight * .5 }
+
+  getViewX( o ) {
+    try { return ( this.w.getNodeOrSubnode(o).x + this.offsetX ) * this.zoom + this.centerX }
+    catch(e) { return 0 }
+  }
+  getViewY( o ) {
+    try { return ( this.w.getNodeOrSubnode(o).y + this.offsetY ) * this.zoom + this.centerY }
+    catch(e) { return 0 }
+  }
+
+  mousewheel( e:WheelEvent )
   {
-    const old_o = this.selection.selectedObject
-    const old_id = old_o.id
-    console.log("MODI",new_o,old_o)
-    for ( const link of this.w.links )
-    {
-      if ( link.from == old_id )
-        link.from = new_o.id
-      else
-      if ( link.to == old_id )
-        link.to = new_o.id
-    }
+    let delta = e.wheelDelta > 0 ? 1.25 : 1.0/1.25;
+    this.zoom *= delta
+    if ( this.zoom > .99 && this.zoom < 1.01)
+      this.zoom = 1.00
   }
 
   mousemove(e)
@@ -63,14 +63,16 @@ export class EditorViewChild_Map
 
     if ( this.dragging )
     {
-      this.dragging.x = e.offsetX - this.offsetX
-      this.dragging.y = e.offsetY - this.offsetY
+      // this.dragging.x = ( e.offsetX - this.offsetX )
+      // this.dragging.y = ( e.offsetY - this.offsetY )
+      this.dragging.x += e.movementX / this.zoom
+      this.dragging.y += e.movementY / this.zoom
     }
     else
     if ( this.panning )
     {
-      this.offsetX += e.movementX
-      this.offsetY += e.movementY
+      this.offsetX += e.movementX / this.zoom
+      this.offsetY += e.movementY / this.zoom
     }
   }
 
