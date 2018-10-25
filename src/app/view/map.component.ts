@@ -74,6 +74,12 @@ export class EditorViewChild_Map
     }
   }
 
+  click_node(e,node:Node,isSubnode:boolean)
+  {
+    if ( e.buttons == 0 && e.button == 0 )
+      this.selected = this.selected == node ? null : node
+  }
+
   mousedown_node(e,node:Node,isSubnode:boolean)
   {
     if ( e.button == 0 )

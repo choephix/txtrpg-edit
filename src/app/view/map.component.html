@@ -57,7 +57,7 @@
 			[attr.cy]="getViewY(node)"
 			(mousedown)="mousedown_node($event,node,false)"
 			(mouseup)="mouseup_node($event,node,false)"
-      (click)="selected=node"
+      (click)="click_node($event,node,false)"
 			class="node"/>
 		<text
 			[attr.x]="getViewX(node)-14"
@@ -74,7 +74,7 @@
 			[attr.cy]="getViewY(node)"
 			(mousedown)="mousedown_node($event,node,true)"
 			(mouseup)="mouseup_node($event,node,true)"
-      (click)="selected=node"
+      (click)="click_node($event,node,true)"
 			class="node subnode"/>
 		<text
 			[attr.x]="getViewX(node)-7"

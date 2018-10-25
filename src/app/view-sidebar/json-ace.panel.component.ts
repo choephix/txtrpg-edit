@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SelectionService } from './../services/selection.service';
+import { SelectionService } from '../services/selection.service';
 
 @Component({
   selector: 'jsonace',
@@ -13,7 +13,7 @@ import { SelectionService } from './../services/selection.service';
   styles: [`
   table { width:100%; }
   button { width:100%; padding:.5vh 0; }
-  #ace { min-height:20vh }
+  #ace { min-height:10vh }
   `]
 })
 export class JsonAcePanelComponent
@@ -31,7 +31,7 @@ export class JsonAcePanelComponent
   public get code():string
   { return JSON.stringify(this.sele.selectedObject,null,2) }
   public set code(value:string) 
-  { if(value) Object.assign(this.sele.selectedObject,JSON.parse(value)) }
+  { if(value&&value!="null") Object.assign(this.sele.selectedObject,JSON.parse(value)) }
 
   constructor( private sele:SelectionService ) {}
 }
