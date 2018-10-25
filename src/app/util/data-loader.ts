@@ -102,7 +102,7 @@ export class DataLoader
   }
 
   ///
-  public save():Eventu
+  public save(commit_message:string=null):Eventu
   {
     let eve:Eventu = new Eventu()
 
@@ -120,7 +120,8 @@ export class DataLoader
     	let actuallySave = () =>
     	{
         let url:string = `https://api.github.com/repos/${ACCO}/${REPO}/contents/${this.filename}`
-        let commit_message:string = `update ${this.filename} via online editor`
+        if ( !commit_message )
+          commit_message = `update ${this.filename} via online editor`
     		let author:string = "txt-rpg-online-editor"
     		let email:string = "dev@thechoephix.com"
 

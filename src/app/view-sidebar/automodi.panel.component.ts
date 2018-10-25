@@ -126,7 +126,7 @@ export class AutomodiPanelComponent
       world.load( "api" ).subscribe(
         data => {
             this.modify.call(data,this.code,this.uidgen)
-            world.save().subscribe(
+            world.save("Batch change (probably structural) via online editor Automodi").subscribe(
               data => this.logger.success("wohoo...",`${branch} :: Updated!`),
               error => this.logger.katch(error,`Can't commit to ${branch}`)
             )
