@@ -19,7 +19,7 @@ import { EditorViewChild_FullJsonAce } from './view/other.component'
 import { EditorViewChild_Map } from './view/map.component'
 
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
-import { JsonAcePanelComponent } from './view-sidebar/json-ace.component';
+import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
 import { MouseWheelDirective } from './util/mouse-wheel.directive'
 
 const appRoutes: Routes = [
