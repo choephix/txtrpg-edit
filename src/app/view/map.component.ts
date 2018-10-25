@@ -63,8 +63,6 @@ export class EditorViewChild_Map
 
     if ( this.dragging )
     {
-      // this.dragging.x = ( e.offsetX - this.offsetX )
-      // this.dragging.y = ( e.offsetY - this.offsetY )
       this.dragging.x += e.movementX / this.zoom
       this.dragging.y += e.movementY / this.zoom
     }
@@ -90,25 +88,6 @@ export class EditorViewChild_Map
     if (this.linking && this.linking != node)
       this.w.addLink(this.linking.uid, node.uid);
     this.linking = null
-
-  	if ( e.button == 1 && !isSubnode )
-    {
-  		let new_node =
-      this.selected = 
-  		this.w.addNode( node.x + Math.random() * 96,
-  		  							node.y - Math.random() * 96)
-  		this.w.addLink( node, new_node )
-  		this.w.addLink( new_node, node )
-    }
-    else
-  	if ( e.button == 2 )
-  	{
-  		this.selected = 
-  		this.w.addSubNode( node.x + Math.random() * 96,
-  		  							   node.y - Math.random() * 96,
-                         node )
-    }
-    // e.stopPropagation()
   }
 
   mouseup_link(e,link_index)
@@ -128,12 +107,32 @@ export class EditorViewChild_Map
 
   mousedown(e)
   {
-    if (e.button == 0)
-      this.panning = true
+    this.panning = e.button == 0 && e.buttons <= 1
   }
 
   mouseup(e)
   {
+    if ( this.selected && !this.dragging && e.buttons > 0 )
+    {
+      let prev:Node = this.selected
+      let x:number = ( this.mouseX - this.centerX ) / this.zoom-+ this.offsetX
+      let y:number = ( this.mouseY - this.centerY ) / this.zoom-+ this.offsetY
+
+      if ( e.button == 0 && !prev.hasOwnProperty("parent") )
+      {
+        let node =
+        this.selected = 
+        this.w.addNode( x, y )
+        this.w.addLink( node, prev )
+        this.w.addLink( prev, node )
+      }
+      else
+      if ( e.button == 2 )
+      {
+        this.w.addSubNode( x, y, prev )
+      }
+    }
+
   	this.dragging = null
   	this.linking = null
     this.panning = false
