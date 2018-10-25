@@ -1,7 +1,6 @@
-import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { WorldDataService } from './../services/world-data.service';
-import { Logger } from './../services/logging.service';
+import { Node, WorldData } from './../types/data-models';
 
 @Component({
   styles: [`#table { height:100%; width:100%; }`],
@@ -30,16 +29,17 @@ import { Logger } from './../services/logging.service';
 })
 export class EditorViewChild_NodesTable
 {
-	public gitbub
+	public data
 
-  public get w() { return this.gitbub.data }
+  public get w():WorldData { return this.data.world }
+  public get j() { return this.data.journal }
   public get rowData():any[] { return this.config.dataFunc() }
   public get columnDefs():any[] { return this.config.columnDefs }
 
   objectKeys = Object.keys;
   configs = {
   	"ALIASES" : {
-	  	dataFunc : () => this.w.aliases,
+	  	dataFunc : () => this.j.aliases,
 	  	columnDefs : [
 	      { editable:true, field:'key' ,  headerName:'key',  suppressSizeToFit:true },
 	      { editable:true, field:'alias', headerName:'alias' },
@@ -49,12 +49,12 @@ export class EditorViewChild_NodesTable
   	"NODES" : {
 	  	dataFunc : () => this.w.nodes,
 	  	columnDefs : [
-	      { editable:true, field:'id' ,   headerName:'ID',   suppressSizeToFit:true },
-	      { editable:true, field:'title', headerName:'title' },
+	      { editable:true, field:'uid' , headerName:'UID'  },
+	      { editable:true, field:'slug', headerName:'slug' },
 		  ]
 	  },
   	"TEXT/LINKS" : {
-	  	dataFunc : () => this.w.text_node_links,
+	  	dataFunc : () => this.j.actions.goto,
 	  	columnDefs : [
 	      { editable:true, field:'from',   headerName:'from',   suppressSizeToFit:true },
 	      { editable:true, field:'to',     headerName:'to',     suppressSizeToFit:true },
@@ -68,7 +68,7 @@ export class EditorViewChild_NodesTable
 
 	aggapi:any
 
-  constructor( public world:WorldDataService ) { this.gitbub = world }
+  constructor( public world:WorldDataService ) { this.data = world.data }
 
   onGridReady(params)
   {
