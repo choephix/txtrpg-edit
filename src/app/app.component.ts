@@ -1,14 +1,11 @@
-import { NgModule } from '@angular/core'
 import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WorldDataService } from './services/world-data.service';
 import { SelectionService } from './services/selection.service';
-import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 
 @Component({ selector: 'app-root', template: `<router-outlet></router-outlet>` })
 export class AppComponent {}
 
-// @NgModule({ declarations: [ AutomodiPanelComponent ] })
 @Component({ templateUrl: './app.component.html' })
 export class AppInnerComponent
 {
