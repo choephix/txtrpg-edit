@@ -1,3 +1,4 @@
+import { UID_GenerationService } from './../services/id-gen.service';
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WorldDataService } from '../services/world-data.service';
@@ -40,7 +41,7 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 export class AutomodiPanelComponent
 {
   code:string = `
-  alert(this.ini.spawn_node)\n
+  for ( let node of this.world.nodes )\n\tconsole.log(node) \n
   // Use this space to code global changes
   // to the json map structure, like
   // creating new objects, deleting old ones
@@ -65,11 +66,17 @@ export class AutomodiPanelComponent
 
   public branches = {}
 
-  private modify = function(code):void { eval(code); console.log(this) }
+  private modify = function(code,uidgen):void 
+  {
+    function hash(len=6) { return uidgen.generateHash(len) }
+    eval(code);
+    console.log(this)
+  }
 
   constructor( private http:HttpClient,
                private globalWorld:WorldDataService,
-               private logger:Logger )
+               private logger:Logger,
+               private uidgen:UID_GenerationService )
   {
     for ( let b of ALL_BRANCHES )
       this.branches[b] = true
@@ -89,7 +96,7 @@ export class AutomodiPanelComponent
 
   private testCurrent()
   {
-    this.modify.call( this.globalWorld.data, this.code )
+    this.modify.call( this.globalWorld.data, this.code, this.uidgen )
     console.log( this.globalWorld.data )
   }
 
@@ -101,7 +108,7 @@ export class AutomodiPanelComponent
       let world = new DataLoader( this.http )
       world.setBranch( branch )
       world.load( "raw" ).subscribe(
-        data => this.modify.call(data,this.code),
+        data => this.modify.call(data,this.code,this.uidgen),
         error => this.logger.katch(error,`Can't load ${branch}`)
         )
 		}
@@ -118,7 +125,7 @@ export class AutomodiPanelComponent
       world.setBranch( branch )
       world.load( "api" ).subscribe(
         data => {
-            this.modify.call(data,this.code)
+            this.modify.call(data,this.code,this.uidgen)
             world.save().subscribe(
               data => this.logger.success("wohoo...",`${branch} :: Updated!`),
               error => this.logger.katch(error,`Can't commit to ${branch}`)
