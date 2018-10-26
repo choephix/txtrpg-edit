@@ -1,31 +1,63 @@
 import { Component } from '@angular/core';
 import { WorldDataService } from '../services/world-data.service';
-import { Node, WorldData } from '../types/data-models';
+import { Node, WorldData, JournalData } from '../types/data-models';
 
 @Component({
-  styles: [`#table { height:100%; width:100%; }`],
+  styles: [`
+  #toolbar {
+    width:50px;
+    height:100%;
+    position: fixed;
+    background-color: #E8E8E8;
+    box-sizing: border-box;
+    outline:1px solid #999;
+  }
+  #toolbar button {
+    width:100%;
+    height:50px;
+    font-size: 20px;
+  }
+  #table {
+    height:100%;
+    width:100%; 
+    min-height: 100vh;
+    padding-left: 50px;
+    box-sizing: border-box;
+  }
+  .ag-body-viewport {
+    overflow-x: hidden;
+  }
+  .ag-header-cell, .ag-header-group-cell {
+    padding-left: 6px;
+    padding-right: 0 !important;
+  }
+  `],
   template: `
-		<ag-grid-angular
-			id="table"
-			class="ag-theme-balham"
-			rowSelection='single'
-			[singleClickEdit]="true"
-			[stopEditingWhenGridLosesFocus]="true"
-			[enableFilter]="true"
-			[enableSorting]="true"
-			[rowData]="rowData"
-			[columnDefs]="columnDefs"
-			(gridReady)="onGridReady($event)"
-			(rowClicked)='onSelectionChanged($event)'
-			*ngIf="config!=undefined"
-			>
-		</ag-grid-angular>
-	  <ng-container *ngFor="let c of objectKeys(configs)">
-		  <button (click)="config=configs[c]">{{c}}</button>
-	  </ng-container>
-		<br/>
-		<button (click)="clone()">➕</button>
-		`
+  <div id="toolbar">
+    <button *ngFor='let b of buttons' (click)="b.f()">{{b.key}}</button>
+    <br/>
+    <br/>
+    <ng-container *ngFor="let c of configs">
+      <button (click)="config=configs[c]">{{c.buttonChar}}</button>
+    </ng-container>
+  </div>
+  <ag-grid-angular
+    id="table"
+    class="ag-theme-balham"
+    rowSelection='single'
+    [singleClickEdit]="true"
+    [stopEditingWhenGridLosesFocus]="true"
+    [enableFilter]="true"
+    [enableSorting]="true"
+    [enableColResize]="true"
+    [(rowData)]="rowData"
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+    (rowClicked)='onSelectionChanged($event)'
+    *ngIf="config!=undefined"
+    >
+  </ag-grid-angular>
+  `
 })
 export class EditorViewChild_NodesTable
 {
@@ -36,35 +68,49 @@ export class EditorViewChild_NodesTable
   public get rowData():any[] { return this.config.dataFunc() }
   public get columnDefs():any[] { return this.config.columnDefs }
 
-  objectKeys = Object.keys;
-  configs = {
-  	"ALIASES" : {
+  public configs:TableConfiguration[] = [
+    {
+      buttonChar:"🌄",
+	  	dataFunc : () => this.j.actions.goto,
+	  	columnDefs : [
+	      { width: 60, editable:true, field:'from',   headerName:'from',   suppressSizeToFit:true },
+	      { width: 60, editable:true, field:'to',     headerName:'to',     suppressSizeToFit:true },
+	      { width: 60, editable:true, field:'params', headerName:'params', suppressSizeToFit:true },
+	      { editable:true, field:'handle', headerName:'handle', autoHeight:true },
+	      { editable:true, field:'text',   headerName:'text',   autoHeight:true }
+		  ]
+	  },
+  	{
+      buttonChar:"📌",
 	  	dataFunc : () => this.j.aliases,
 	  	columnDefs : [
-	      { editable:true, field:'key' ,  headerName:'key',  suppressSizeToFit:true },
+	      { editable:true, field:'uid' ,  headerName:'uid',  suppressSizeToFit:true },
 	      { editable:true, field:'alias', headerName:'alias' },
 	      { editable:true, field:'type',  headerName:'type'  },
 		  ]
 	  },
-  	"NODES" : {
+  	// "🔖" : {
+	  // 	dataFunc : () => this.j.snippets,
+	  // 	columnDefs : [
+	  //     { editable:true, field:'key' , headerName:'key'  },
+	  //     { editable:true, field:'text', headerName:'text' },
+		//   ]
+	  // },
+  	{
+      buttonChar:"🔵",
 	  	dataFunc : () => this.w.nodes,
 	  	columnDefs : [
 	      { editable:true, field:'uid' , headerName:'UID'  },
 	      { editable:true, field:'slug', headerName:'slug' },
 		  ]
 	  },
-  	"TEXT/LINKS" : {
-	  	dataFunc : () => this.j.actions.goto,
-	  	columnDefs : [
-	      { editable:true, field:'from',   headerName:'from',   suppressSizeToFit:true },
-	      { editable:true, field:'to',     headerName:'to',     suppressSizeToFit:true },
-	      { editable:true, field:'flags',  headerName:'flags',  suppressSizeToFit:true },
-	      { editable:true, field:'handle', headerName:'handle', autoHeight:true },
-	      { editable:true, field:'text',   headerName:'text',   autoHeight:true }
-		  ]
-	  },
-  }
-  config:TableConfiguration = this.configs["ALIASES"]
+  ]
+  config:TableConfiguration = this.configs[0]
+
+  public buttons:{key:string,f:()=>void}[] = [
+    {key:"➕",f:()=>this.add()},
+    {key:"❌",f:()=>this.del()},
+  ]
 
 	aggapi:any
 
@@ -82,22 +128,37 @@ export class EditorViewChild_NodesTable
   	console.log(e)
   }
 
-  clone()
+  del(): void {
+    try {
+      let sele = this.aggapi.getSelectedNodes()[0]
+      let data = sele.data
+      let index = sele.childIndex
+      this.aggapi.updateRowData( { remove:[data] } )
+      this.config.dataFunc().splice( index, 1 )      
+    }
+    catch(e) {}
+  }
+
+  add()
   {
-  	let from = this.aggapi.getSelectedRows()[0]
-  	let i = this.rowData.indexOf(from)+1
+    let data = {}
+    let index = 0
+    try {
+      let sele = this.aggapi.getSelectedNodes()[0]
+      let source_data = sele.data
+      index = sele.childIndex
+      Object.assign( data, source_data )
+    }
+    catch(e) {}
 
-  	console.log(i,from,this.aggapi)
-
-  	let o = {}
-  	Object.assign(o,from)
-
-  	this.aggapi.updateRowData( { add:[o], addIndex:i } )
+    this.aggapi.updateRowData( { add:[data], addIndex:index } )
+    this.config.dataFunc().splice( index, 0, data )
   }
 }
 
 class TableConfiguration
 {
+  buttonChar:string = ""
   columnDefs:any[] = []
   dataFunc:()=>any[];
 }
@@ -109,7 +170,6 @@ class TableConfiguration
 //
 
 @Component({
-  // selector: '',
   styles: [`#table { height:100vh; width:100%; }`],
   template: `
   <ag-grid-angular
@@ -120,7 +180,7 @@ class TableConfiguration
 	    [enableFilter]="true"
   		[enableSorting]="true"
     	[enableColResize]="true"
-	    [rowData]="worldData.text_node_links"
+	    [rowData]="journal.actions.goto"
 	    [columnDefs]="columnDefs"
 	    (gridReady)="onGridReady($event)"
 	    >
@@ -128,7 +188,7 @@ class TableConfiguration
 })
 export class EditorViewChild_NodeLinksTable
 {
-  public get worldData() { return this.gitbub.data }
+  public get journal():JournalData { return this.world.data.journal }
 
   public columnDefs = [
       { editable:true, field: 'from' , headerName: 'from', suppressSizeToFit:true },
@@ -138,10 +198,7 @@ export class EditorViewChild_NodeLinksTable
       { editable:true, field: 'text', headerName: 'text', autoHeight: true }
   ];
 
-	private gitbub
-
-  constructor( public world:WorldDataService )
-  { this.gitbub = world }
+  constructor( public world:WorldDataService ) {}
 
   onGridReady(params)
   {

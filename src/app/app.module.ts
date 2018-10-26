@@ -27,10 +27,10 @@ const appRoutes: Routes = [
 	  children: [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
           { path: 'map', component: EditorViewChild_Map },
-          { path: 'fulljson', component: EditorViewChild_FullJson },
+          // { path: 'fulljson', component: EditorViewChild_FullJson },
           { path: 'fulljson_ace', component: EditorViewChild_FullJsonAce },
-          { path: 'nodes', component: EditorViewChild_NodesTable },
-          { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
+          { path: 'aggrid', component: EditorViewChild_NodesTable },
+          // { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
         ]
   },
   { path: '', redirectTo: 'develop', pathMatch: 'full' },
