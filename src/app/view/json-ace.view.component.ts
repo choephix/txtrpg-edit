@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { WorldDataService } from '../services/world-data.service';
+import { Logger } from '../services/logging.service';
 
 @Component({
   // selector: '',
@@ -40,16 +41,16 @@ export class EditorViewChild_FullJsonAce
 {
   public buttons:{key:string,f:()=>void}[] = [
     {key:"💾",f:()=>this.save()},
-    {key:"💿",f:()=>this.save()},
-    {key:"📀",f:()=>this.save()},
     {key:"🔄",f:()=>this.refresh()},
+    // {key:"#️⃣",f:()=>this.options.showLineNumbers=!this.options.showLineNumbers},
+    // {key:"◀",f:()=>this.options.showGutter=!this.options.showGutter},
   ]
 
   public options:any = {
     fontSize: `10px`,
     showGutter: true,
     fixedWidthGutter: true,
-    showLineNumbers: false,
+    showLineNumbers: true,
     showPrintMargin: false,
     fadeFoldWidgets: true,
     wrap: true,
@@ -59,9 +60,23 @@ export class EditorViewChild_FullJsonAce
 
 	public json:string = "{}\n"
 
-  constructor( public world:WorldDataService ) { this.refresh() }
+  constructor( public world:WorldDataService, private logger:Logger ) { this.refresh() }
+  
+  refresh() 
+  {
+    this.json = this.world.getJson() 
+    this.logger.info("Fresh data loaded.","Ace JSON Editor")
+    console.log(this.options)
+  }
 
-  refresh() { this.json = this.world.getJson() }
-
-  save() { this.world.applyData( this.json ) }
+  save()
+  {
+    try
+    {
+      this.world.applyData( this.json )
+      this.logger.info("Changes applied!","Ace JSON Editor")
+    }
+    catch ( e )
+    { this.logger.katch( e,"JSON Editor (Ace)" ) }
+  }
 }
