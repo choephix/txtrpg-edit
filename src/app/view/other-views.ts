@@ -73,9 +73,9 @@ export class EditorViewChild_NodesTable
       buttonChar:"🌄",
 	  	dataFunc : () => this.j.actions.goto,
 	  	columnDefs : [
-	      { width: 60, editable:true, field:'from',   headerName:'from',   suppressSizeToFit:true },
-	      { width: 60, editable:true, field:'to',     headerName:'to',     suppressSizeToFit:true },
-	      { width: 60, editable:true, field:'params', headerName:'params', suppressSizeToFit:true },
+	      { width: 80, editable:true, field:'from',   headerName:'from',   suppressSizeToFit:true },
+	      { width: 80, editable:true, field:'to',     headerName:'to',     suppressSizeToFit:true },
+	      { width: 80, editable:true, field:'params', headerName:'params', suppressSizeToFit:true },
 	      { editable:true, field:'handle', headerName:'handle', autoHeight:true },
 	      { editable:true, field:'text',   headerName:'text',   autoHeight:true },
 		  ]
@@ -109,6 +109,7 @@ export class EditorViewChild_NodesTable
 
   public buttons:{key:string,f:()=>void}[] = [
     {key:"➕",f:()=>this.add()},
+    {key:"➕",f:()=>this.add(1)},
     {key:"❌",f:()=>this.del()},
   ]
 
@@ -139,14 +140,14 @@ export class EditorViewChild_NodesTable
     catch(e) {}
   }
 
-  add()
+  add(offset=0)
   {
     let data = {}
-    let index = 0
+    let index = offset === 0 ? 0 : this.config.dataFunc().length
     try {
       let sele = this.aggapi.getSelectedNodes()[0]
       let source_data = sele.data
-      index = sele.childIndex
+      index = sele.childIndex + offset
       Object.assign( data, source_data )
     }
     catch(e) {}
