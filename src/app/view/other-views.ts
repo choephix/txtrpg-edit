@@ -73,10 +73,10 @@ export class EditorViewChild_NodesTable
       buttonChar:"🌄",
 	  	dataFunc : () => this.j.actions.goto,
 	  	columnDefs : [
-	      { width: 80, editable:true, field:'from',   headerName:'from',   suppressSizeToFit:true },
-	      { width: 80, editable:true, field:'to',     headerName:'to',     suppressSizeToFit:true },
-	      { width: 80, editable:true, field:'params', headerName:'params', suppressSizeToFit:true },
-	      { editable:true, field:'handle', headerName:'handle', autoHeight:true },
+	      { editable:true, field:'from',    headerName:'from',   width: 80, suppressSizeToFit:true },
+	      { editable:true, field:'to',      headerName:'to',     width: 80, suppressSizeToFit:true },
+	      { editable:true, field:'params',  headerName:'params', width: 80, suppressSizeToFit:true },
+	      { editable:true, field:'handle', headerName:'handle', autoHeight:false },
 	      { editable:true, field:'text',   headerName:'text',   autoHeight:true },
 		  ]
 	  },
@@ -121,7 +121,7 @@ export class EditorViewChild_NodesTable
   {
   	this.aggapi = params.api;
   	params.api.sizeColumnsToFit()
-    params.api.resetRowHeights()
+    // params.api.resetRowHeights()
   }
 
   onSelectionChanged(e)
