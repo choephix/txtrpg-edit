@@ -1,6 +1,13 @@
+<div>
+    <input type="text" spellcheck="false" class="input" [(ngModel)]="filter.from">
+    <input type="text" spellcheck="false" class="input" [(ngModel)]="filter.to">
+    <input type="text" spellcheck="false" class="input" [(ngModel)]="filter.search">
+</div>
+
 <div class="forms-list" #thelist>
 
   <ng-container *ngFor="let o of gamedata.data.journal.actions.goto; let i = index">
+  <ng-container *ngIf="passesFilter(o)">
     <div class="item" (mousedown)="selection.selectObject(o)" [class.selected]="o===selection.selectedObject">
       <div class="item-inner">
 
@@ -13,14 +20,14 @@
           </tr>
           <tr>
             <td><input type="text" spellcheck="false" 
-                       class="input field-from" 
-                       [(ngModel)]="o.from"></td>
+                      class="input field-from" 
+                      [(ngModel)]="o.from"></td>
             <td><input type="text" spellcheck="false" 
-                       class="input field-to"
-                       [(ngModel)]="o.to"></td>
+                      class="input field-to"
+                      [(ngModel)]="o.to"></td>
             <td><input type="text" spellcheck="false" 
-                       class="input field-condition"
-                       [(ngModel)]="o.condition"></td>
+                      class="input field-condition"
+                      [(ngModel)]="o.condition"></td>
             <td style="text-align: right; color: silver;">{{i}}</td>
           </tr>
         </table>
@@ -50,6 +57,7 @@
 
       </div>
     </div>
+  </ng-container>
   </ng-container>
 
 </div>

@@ -12,7 +12,22 @@ import { WorldDataService } from './../services/world-data.service';
 })
 export class EditorViewChild_Words 
 {
+  filter = {
+    from:"",
+    to:"",
+    search:""
+  }
+
   constructor( public gamedata:WorldDataService, public selection:SelectionService ) { }
+
+  passesFilter( o ):boolean
+  {
+    if ( this.filter.from && !String(o.from).includes( this.filter.from ) ) return false
+    if ( this.filter.to && !String(o.to).includes( this.filter.to ) ) return false
+    if ( this.filter.search && !String(o.handle).includes( this.filter.search )
+                            && !String(o.text).includes( this.filter.search ) ) return false
+    return true
+  }
 
   move( item, index, offset )
   {
