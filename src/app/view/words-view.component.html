@@ -31,7 +31,6 @@
   <ng-container *ngFor="let o of data; let i = index">
   <ng-container *ngIf="passesFilter(o)">
     <div class="item" (mousedown)="selection.selectObject(o)" [class.selected]="o===selection.selectedObject">
-      <div class="item-inner">
 
         <div class="flex-row">
           <div class="cell" style="flex-grow: 1">
@@ -83,7 +82,6 @@
           <button type="button" (click)="cloneTo(o,i+1)">⬇ clone after</button>
         </div>
 
-      </div>
     </div>
   </ng-container>
   </ng-container>
