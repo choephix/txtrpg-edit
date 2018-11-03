@@ -5,7 +5,7 @@ export class SelectionService
 {
   public selectedObject = null
   
-  public callbacks_OnSelect:((selectedObject:any)=>void)[] = [ o=>console.log("Selected Object",o) ]
+  public callbacks_OnSelect:((selectedObject:any)=>void)[] = [ ]
   public callbacks_OnModify:((newProperties:any)=>void)[] = [ ]
   
   public selectObject( o )

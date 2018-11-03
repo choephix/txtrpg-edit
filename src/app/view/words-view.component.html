@@ -28,7 +28,7 @@
 
 <div class="darkform items-list" #thelist spellcheck="false">
 
-  <ng-container *ngFor="let o of gamedata.data.journal.actions.goto; let i = index">
+  <ng-container *ngFor="let o of data; let i = index">
   <ng-container *ngIf="passesFilter(o)">
     <div class="item" (mousedown)="selection.selectObject(o)" [class.selected]="o===selection.selectedObject">
       <div class="item-inner">
@@ -36,29 +36,42 @@
         <div class="flex-row">
           <div class="cell" style="flex-grow: 1">
             <div><label>from</label></div>
-            <div><input type="text" class="input field-from" [(ngModel)]="o.from"></div>
+            <div><input type="text"
+                        class="input field-from" 
+                        [(class.dirty)]="o.from!=data_original[i].from"
+                        [(ngModel)]="o.from"></div>
           </div>
           <div class="cell" style="flex-grow: 1">
             <div><label>to</label></div>
-            <div><input type="text" class="input field-to" [(ngModel)]="o.to"></div>
+            <div><input type="text" 
+                        class="input field-to"
+                        [class.dirty]="o.to!=data_original[i].to"
+                        [(ngModel)]="o.to"></div>
           </div>
           <div class="cell" style="flex-grow: 3">
             <div><label>condition</label></div>
-            <div><input type="text" class="input field-condition" [(ngModel)]="o.condition"></div>
+            <div><input type="text" 
+                        class="input field-condition" 
+                        [class.dirty]="o.condition!=data_original[i].condition"
+                        [(ngModel)]="o.condition"></div>
           </div>
         </div>
 
         <div>
           <label for="goto.handle">handle</label>
-          <input spellcheck="false" class="input field-handle" type="text" [(ngModel)]="o.handle">
+          <input type="text"
+                 class="input field-handle" 
+                 [class.dirty]="o.handle!=data_original[i].handle"
+                 [(ngModel)]="o.handle">
         </div>
 
         <div>
           <label for="goto.text">text</label>
-          <div class="textarea-wrapper">
+          <div class="textarea-wrapper input" [class.dirty]="o.text!=data_original[i].text">
             <textarea autosize 
                       class="input field-text" 
                       (click)="fixTextarea($event.target)"
+                      [class.dirty]="o.text!=data_original[i].text"
                       [(ngModel)]="o.text"></textarea>
           </div>
         </div>
@@ -66,7 +79,6 @@
         <div class="toolbar">
           <button type="button" (click)="move(o,i,-1)">⬆ move up</button>
           <button type="button" (click)="move(o,i,1)">⬇ move down</button>
-          <span> // </span>
           <button type="button" (click)="cloneTo(o,i)">⬆ clone before</button>
           <button type="button" (click)="cloneTo(o,i+1)">⬇ clone after</button>
         </div>

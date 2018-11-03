@@ -1,9 +1,6 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SelectionService } from './../services/selection.service';
-import { ChangeDetectionStrategy, Component, ViewChildren } from '@angular/core';
 import { WorldDataService } from './../services/world-data.service';
-
-// @Directive({selector: 'textareafix'})
-// class ChildDirective {}
 
 @Component({
   templateUrl: './words-view.component.html',
@@ -14,7 +11,13 @@ export class EditorViewChild_Words
 {
   filter:Filter = new Filter
 
-  constructor( public gamedata:WorldDataService, public selection:SelectionService ) { }
+  get data() { return this.gamedata.data.journal.actions.goto }
+  get data_original() { return this.gamedata.originalData.journal.actions.goto }
+
+  constructor( public gamedata:WorldDataService, public selection:SelectionService ) 
+  {
+    this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.data ) )
+  }
 
   passesFilter( o ):boolean
   {

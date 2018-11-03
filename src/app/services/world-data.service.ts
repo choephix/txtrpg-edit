@@ -17,6 +17,7 @@ export class WorldDataService
   { this.loader = new DataLoader( this.http ) }
 
   public get data():any { return this.loader.data }
+  public get originalData():any { return this.loader.data_original }
   public get hasData():boolean { return this.loader.data != null }
 
   public load( branch:string ):Eventu
@@ -72,5 +73,17 @@ export class WorldDataService
   public getJson():string
   {
     return this.hasData ? JSON.stringify( this.loader.data, null, 2 ) : "{}"
+  }
+
+  //
+
+  public static deleteEmpties( data:any=null ):void
+  {
+    for ( let key in data )
+      if ( data[key] == null || data[key] == "" )
+        delete data[key]
+      else
+      if ( typeof data[key] === 'object' )
+        this.deleteEmpties( data[key])
   }
 }

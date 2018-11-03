@@ -10,9 +10,41 @@
     color: #AAA;
     font-size: 10px;
     box-sizing: border-box;
+    transition: color .150s, opacity .150s;
 
     ::selection      { background: #6f70c25e; }
     ::-moz-selection { background: #6f70c25e; }
+  }
+
+  button {
+    background: none;
+    border:none;
+    outline:none;
+    color: rgb(170, 170, 170);
+    font-weight: 100;
+    margin: 0;
+    margin-right: 20px;
+    transition: color .250s;
+  }
+
+  button:hover {
+    color: rgb(255, 155, 217);
+  }
+
+  th {
+    text-align: left;
+    font-weight: 100;
+  }
+  td {
+    padding-right: 8px;
+  }
+  textarea {
+    background: none;
+    border:none;
+    outline: none !important;
+    min-height: 5rem;
+    padding: 0 2px;
+    resize: none;
   }
 
   .item {
@@ -37,64 +69,36 @@
       border:none;
     }
   
-    .textarea-wrapper, input {
+    .input {
       background: #383838;
       padding: 4px 6px;
       outline: 1px solid #222;
       border:none;
     }
+  
+    .input.dirty {
+      outline: 1px solid rgb(253, 173, 0);
+    }
 
     .field-index { text-align: right; color: silver; }
-    .toolbar { visibility: hidden; }
+    .toolbar { opacity: 0; }
   }
 
   .item:hover {
     background: #464646;
 
-    .toolbar { visibility: visible; opacity:.2; }
+    .toolbar { opacity:.7; }
     .toolbar:hover { opacity:1; }
   }
 
   .item.selected {
     background: #4d4d4d;
     label { color: #999; }
-    .input { color: #EEE; }
-    .textarea-wrapper, input { background: #333; }
-    .toolbar { visibility: visible; opacity:1.0; }
+    .input { color: #EEE; background: #333; }
     .input.field-from, .input.field-to { color: #8acdea; }
     .input.field-condition { color: #ceb3ff; }
     .input.field-handle { color: #ead38a; }
     .field-index { color: yellowgreen; font-weight: bolder; }
-  }
-
-  button {
-    background: none;
-    border:none;
-    outline:none;
-    color: rgb(170, 170, 170);
-    font-weight: 100;
-    margin: 0;
-    margin-right: 2px;
-  }
-
-  button:hover {
-    color: rgb(255, 155, 217);
-  }
-
-  th {
-    text-align: left;
-    font-weight: 100;
-  }
-  td {
-    padding-right: 8px;
-  }
-  textarea {
-    background: none;
-    border:none;
-    outline: none !important;
-    min-height: 5rem;
-    padding: 0 2px;
-    resize: none;
   }
 }
 

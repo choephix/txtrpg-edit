@@ -15,7 +15,8 @@ export class DataLoader
 
   public sha:string
   public data:any
-  public dataOriginalJson:string
+  public data_original:any
+  public data_original_json:string
 
   public headers_save:HttpHeaders =
          new HttpHeaders({ 'Authorization':"token "+"5535751a"+"806280e0e6d50e52"+"d0b9d53b732dea8e" })
@@ -61,7 +62,8 @@ export class DataLoader
       	    this.busy = false
             this.sha = null
             this.data = data
-            this.dataOriginalJson = this.generateJson()
+            this.data_original = JSON.parse(JSON.stringify(data))
+            this.data_original_json = this.generateJson()
           	eve.dispatchResult( data )
           },
           error => {
@@ -80,9 +82,10 @@ export class DataLoader
           data => {
       	    this.busy = false
       	    this.sha = data['sha']
-      	    this.dataOriginalJson = B64UTF8.Decode(data['content'])
-      	    this.data = JSON.parse(this.dataOriginalJson)
-      	    this.dataOriginalJson = this.generateJson()
+      	    this.data_original_json = B64UTF8.Decode(data['content'])
+      	    this.data = JSON.parse(this.data_original_json)
+      	    this.data_original = JSON.parse(this.data_original_json)
+      	    this.data_original_json = this.generateJson()
           	eve.dispatchResult( this.data )
           },
           error => {
@@ -114,7 +117,7 @@ export class DataLoader
     	if ( !this.data ) throw new Error(`Loader.data is ${this.data}`)
 
     	const json = this.generateJson();
-      if ( json == this.dataOriginalJson )
+      if ( json == this.data_original_json )
         throw new Warning( this.filename + " was not saved", "Nothin' changed!" );
 
     	let actuallySave = () =>
@@ -139,7 +142,8 @@ export class DataLoader
               console.log( "saved data", data );
               this.busy = false
               this.sha = data['content']['sha'];
-              this.dataOriginalJson = json;
+              this.data_original = JSON.parse(json)
+              this.data_original_json = json;
           	  eve.dispatchResult( data )
             },
             error => {
@@ -190,7 +194,7 @@ export class DataLoader
     return eve
   }
 
-  public hasDataChanged():boolean { return this.dataOriginalJson != this.generateJson() }
+  public hasDataChanged():boolean { return this.data_original_json != this.generateJson() }
 
   public generateJson():string { return JSON.stringify( this.data, null, 2 ) }
 
