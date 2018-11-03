@@ -1,0 +1,55 @@
+<div class="forms-list" #thelist>
+
+  <ng-container *ngFor="let o of gamedata.data.journal.actions.goto; let i = index">
+    <div class="item" (mousedown)="selection.selectObject(o)" [class.selected]="o===selection.selectedObject">
+      <div class="item-inner">
+
+        <table>
+          <tr>
+            <th><label for="goto.from">from</label></th>
+            <th><label for="goto.to">to</label></th>
+            <th><label for="goto.condition">condition</label></th>
+            <th style="text-align: right;"><label></label></th>
+          </tr>
+          <tr>
+            <td><input type="text" spellcheck="false" 
+                       class="input field-from" 
+                       [(ngModel)]="o.from"></td>
+            <td><input type="text" spellcheck="false" 
+                       class="input field-to"
+                       [(ngModel)]="o.to"></td>
+            <td><input type="text" spellcheck="false" 
+                       class="input field-condition"
+                       [(ngModel)]="o.condition"></td>
+            <td style="text-align: right; color: silver;">{{i}}</td>
+          </tr>
+        </table>
+
+        <div>
+          <label for="goto.handle">handle</label>
+          <input spellcheck="false" class="input field-handle" type="text" [(ngModel)]="o.handle">
+        </div>
+
+        <div>
+          <label for="goto.text">text</label>
+          <div class="textarea-wrapper">
+            <textarea autosize spellcheck="false"
+                      class="input field-text" 
+                      (click)="fixTextarea($event.target)"
+                      [(ngModel)]="o.text"></textarea>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <button type="button" (click)="move(o,i,-1)">⬆ move up</button>
+          <button type="button" (click)="move(o,i,1)">⬇ move down</button>
+          <span> // </span>
+          <button type="button" (click)="cloneTo(o,i)">⬆ clone before</button>
+          <button type="button" (click)="cloneTo(o,i+1)">⬇ clone after</button>
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+
+</div>

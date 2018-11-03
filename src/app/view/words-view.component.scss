@@ -1,0 +1,109 @@
+
+.forms-list {
+  min-height: 99vh;
+  background: #444;
+  font-family:monospace;
+  box-sizing: border-box;
+
+  * {
+    color: #AAA;
+    font-size: 10px;
+    box-sizing: border-box;
+
+    ::selection      { background: #6f70c25e; }
+    ::-moz-selection { background: #6f70c25e; }
+  }
+
+  .item {
+    padding: 4px 8px;
+    border-top: 1px solid #555;
+    border-bottom: 1px solid #111;
+
+    .item-inner {
+      display: block;
+    }
+
+    label {
+      color: #888;
+      font-size: .8em;
+      font-style: italic;
+    }
+
+    table,
+    textarea, input, label {
+      width:100%;
+      font-family:monospace;
+      border:none;
+    }
+  
+    .textarea-wrapper, input {
+      background: #383838;
+      padding: 4px 6px;
+      outline: 1px solid #222;
+      border:none;
+    }
+
+    .toolbar {
+      visibility: hidden;
+    }
+  }
+
+  .item:hover {
+    background: #464646;
+
+    .toolbar { visibility: visible; opacity:.2; }
+    .toolbar:hover { opacity:1; }
+  }
+
+  .item.selected {
+    background: #4d4d4d;
+    label { color: #999; }
+    .input { color: #EEE; }
+    .textarea-wrapper, input {
+      background: #333;
+    }
+    .toolbar { visibility: visible; opacity:1.0; }
+
+    .input.field-from, .input.field-to {
+      color: #8acdea;
+    }
+
+    .input.field-condition {
+      color: #ceb3ff;
+    }
+
+    .input.field-handle {
+      color: #ead38a;
+    }
+  }
+
+  button {
+    background: none;
+    border:none;
+    outline:none;
+    color: rgb(170, 170, 170);
+    font-weight: 100;
+    margin: 0;
+    margin-right: 2px;
+  }
+
+  button:hover {
+    color: rgb(255, 155, 217);
+  }
+
+  th {
+    text-align: left;
+    font-weight: 100;
+  }
+  td {
+    padding-right: 8px;
+  }
+  textarea {
+    background: none;
+    border:none;
+    outline: none !important;
+    min-height: 5rem;
+    padding: 0 2px;
+    resize: none;
+  }
+}

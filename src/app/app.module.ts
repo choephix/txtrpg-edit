@@ -9,28 +9,27 @@ import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular'
 import { AceEditorModule } from 'ng2-ace-editor';
+import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 
 import { AppComponent, AppInnerComponent } from './app.component'
 import { Page404Component } from './404.component'
-import { EditorViewChild_NodesTable } from './view/other-views'
-import { EditorViewChild_NodeLinksTable } from './view/other-views'
-import { EditorViewChild_FullJson } from './view/other-views'
+import { EditorViewChild_AGGrid } from './view/other-views'
+import { EditorViewChild_Words } from './view/words-view.component'
 import { EditorViewChild_FullJsonAce } from './view/json-ace.view.component'
 import { EditorViewChild_Map } from './view/map-view.component'
 
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
-import { MouseWheelDirective } from './util/mouse-wheel.directive'
+import { MouseWheelDirective } from './util/mouse-wheel.directive';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
 	  children: [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
           { path: 'map', component: EditorViewChild_Map },
-          // { path: 'fulljson', component: EditorViewChild_FullJson },
+          { path: 'words', component: EditorViewChild_Words },
           { path: 'fulljson_ace', component: EditorViewChild_FullJsonAce },
-          { path: 'aggrid', component: EditorViewChild_NodesTable },
-          // { path: 'text/node_links', component: EditorViewChild_NodeLinksTable },
+          { path: 'aggrid', component: EditorViewChild_AGGrid },
         ]
   },
   { path: '', redirectTo: 'develop', pathMatch: 'full' },
@@ -42,9 +41,8 @@ const appRoutes: Routes = [
     AppComponent,
     AppInnerComponent,
     Page404Component,
-  	EditorViewChild_NodesTable,
-  	EditorViewChild_NodeLinksTable,
-  	EditorViewChild_FullJson,
+  	EditorViewChild_AGGrid,
+  	EditorViewChild_Words,
   	EditorViewChild_FullJsonAce,
   	EditorViewChild_Map,
     AutomodiPanelComponent,
@@ -61,6 +59,7 @@ const appRoutes: Routes = [
     ToastrModule.forRoot({easeTime:150}),
     AgGridModule.withComponents([]),
     AceEditorModule,
+    TextareaAutosizeModule
   ],
   exports: [RouterModule],
   providers: [],

@@ -59,7 +59,7 @@ import { Node, WorldData, JournalData } from '../types/data-models';
   </ag-grid-angular>
   `
 })
-export class EditorViewChild_NodesTable
+export class EditorViewChild_AGGrid
 {
 	public data
 
@@ -162,50 +162,6 @@ class TableConfiguration
   buttonChar:string = ""
   columnDefs:any[] = []
   dataFunc:()=>any[];
-}
-
-//
-
-//
-
-//
-
-@Component({
-  styles: [`#table { height:100vh; width:100%; }`],
-  template: `
-  <ag-grid-angular
-	  	id="table"
-	    class="ag-theme-balham"
-	    [singleClickEdit]="true"
-	    [stopEditingWhenGridLosesFocus]="true"
-	    [enableFilter]="true"
-  		[enableSorting]="true"
-    	[enableColResize]="true"
-	    [rowData]="journal.actions.goto"
-	    [columnDefs]="columnDefs"
-	    (gridReady)="onGridReady($event)"
-	    >
-		</ag-grid-angular>`
-})
-export class EditorViewChild_NodeLinksTable
-{
-  public get journal():JournalData { return this.world.data.journal }
-
-  public columnDefs = [
-      { editable:true, field: 'from' , headerName: 'from', suppressSizeToFit:true },
-      { editable:true, field: 'to', headerName: 'to', suppressSizeToFit:true },
-      { editable:true, field: 'flags', headerName: 'flags', suppressSizeToFit:true },
-      { editable:true, field: 'handle', headerName: 'handle', autoHeight: true },
-      { editable:true, field: 'text', headerName: 'text', autoHeight: true }
-  ];
-
-  constructor( public world:WorldDataService ) {}
-
-  onGridReady(params)
-  {
-    params.api.sizeColumnsToFit();
-    params.api.resetRowHeights()
-  }
 }
 
 //
