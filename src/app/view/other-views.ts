@@ -151,7 +151,7 @@ export class EditorViewChild_AGGrid
       Object.assign( data, source_data )
     }
     catch(e) {}
-
+    
     this.aggapi.updateRowData( { add:[data], addIndex:index } )
     this.config.dataFunc().splice( index, 0, data )
   }
@@ -162,60 +162,4 @@ class TableConfiguration
   buttonChar:string = ""
   columnDefs:any[] = []
   dataFunc:()=>any[];
-}
-
-//
-
-//
-
-//
-
-@Component({
-  // selector: '',
-  styles: [`
-  #panel {
-
-  }
-  #jsoneditor {
-    box-sizing: border-box;
-    height: 100vh;
-  }
-  `],
-  template: `
-  <div id="edit-properties-panel">
-	  <div id="jsoneditor" #jsoneditor></div>
-  </div>`
-})
-export class EditorViewChild_FullJson
-{
-  //   @ViewChild('jsoneditor') jsoneditor_ref:ElementRef;
-  //   public get worldData() { return this.gitbub.data }
-  // 	private gitbub
-  //   private jsoneditor
-
-  //   private jsoneditor_options = {
-  //     mode:'tree',
-  //     modes:['tree','view','form','code','text'],
-  //     navigationBar:true,
-  //     statusBar:true,
-  //     search:true,
-  //     onChange:()=>this.onJsonDataChange()
-  //   };
-
-  //   constructor( public world:WorldDataService )
-  //   {
-  //     this.gitbub = world
-  //   }
-
-  //   ngAfterViewInit() {
-  //     this.jsoneditor = new JSONEditor(
-  //                           this.jsoneditor_ref.nativeElement,
-  //                           this.jsoneditor_options,
-  //                           this.worldData );
-  //   }
-
-  //   onJsonDataChange()
-  //   {
-  //     console.log()
-  //   }
 }
