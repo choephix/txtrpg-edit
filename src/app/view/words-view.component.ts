@@ -12,11 +12,7 @@ import { WorldDataService } from './../services/world-data.service';
 })
 export class EditorViewChild_Words 
 {
-  filter = {
-    from:"",
-    to:"",
-    search:""
-  }
+  filter:Filter = new Filter
 
   constructor( public gamedata:WorldDataService, public selection:SelectionService ) { }
 
@@ -49,6 +45,10 @@ export class EditorViewChild_Words
   }
 }
 
+class Filter
+{
+  constructor( public from:string='', public to:string='', public search:string='' ) {}
+}
 
 // for ( let link of this.world.links )
 // {

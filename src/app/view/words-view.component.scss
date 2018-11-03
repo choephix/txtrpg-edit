@@ -44,9 +44,8 @@
       border:none;
     }
 
-    .toolbar {
-      visibility: hidden;
-    }
+    .field-index { text-align: right; color: silver; }
+    .toolbar { visibility: hidden; }
   }
 
   .item:hover {
@@ -60,22 +59,12 @@
     background: #4d4d4d;
     label { color: #999; }
     .input { color: #EEE; }
-    .textarea-wrapper, input {
-      background: #333;
-    }
+    .textarea-wrapper, input { background: #333; }
     .toolbar { visibility: visible; opacity:1.0; }
-
-    .input.field-from, .input.field-to {
-      color: #8acdea;
-    }
-
-    .input.field-condition {
-      color: #ceb3ff;
-    }
-
-    .input.field-handle {
-      color: #ead38a;
-    }
+    .input.field-from, .input.field-to { color: #8acdea; }
+    .input.field-condition { color: #ceb3ff; }
+    .input.field-handle { color: #ead38a; }
+    .field-index { color: yellowgreen; font-weight: bolder; }
   }
 
   button {
@@ -107,4 +96,27 @@
     padding: 0 2px;
     resize: none;
   }
+}
+
+////
+
+.flex-row {
+  width:100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  .cell {
+    flex-direction: column;
+    flex-grow:1;
+    margin:4px;
+  }
+}
+
+.divider {
+  height:2px;
+  background: rgb(77, 55, 105); 
+  transition: background-color .250s;
+}
+.divider.active {
+  background: #9856ee;
 }
