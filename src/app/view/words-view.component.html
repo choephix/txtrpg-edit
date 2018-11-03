@@ -1,10 +1,15 @@
-<div>
-    <input type="text" spellcheck="false" class="input" [(ngModel)]="filter.from">
-    <input type="text" spellcheck="false" class="input" [(ngModel)]="filter.to">
-    <input type="text" spellcheck="false" class="input" [(ngModel)]="filter.search">
+<div class="darkform">
+  <div class="item">
+    <label>Filtering options</label>
+    <table>
+      <tr><td style="width:50px">from</td><td><input type="text" class="input" [(ngModel)]="filter.from"></td></tr>
+      <tr><td style="width:50px">to</td><td><input type="text" class="input" [(ngModel)]="filter.to"></td></tr>
+      <tr><td style="width:50px">search</td><td><input type="text" class="input" [(ngModel)]="filter.search"></td></tr>
+    </table>
+  </div>
 </div>
 
-<div class="forms-list" #thelist>
+<div class="darkform items-list" #thelist spellcheck="false">
 
   <ng-container *ngFor="let o of gamedata.data.journal.actions.goto; let i = index">
   <ng-container *ngIf="passesFilter(o)">
@@ -19,13 +24,13 @@
             <th style="text-align: right;"><label></label></th>
           </tr>
           <tr>
-            <td><input type="text" spellcheck="false" 
+            <td><input type="text" 
                       class="input field-from" 
                       [(ngModel)]="o.from"></td>
-            <td><input type="text" spellcheck="false" 
+            <td><input type="text" 
                       class="input field-to"
                       [(ngModel)]="o.to"></td>
-            <td><input type="text" spellcheck="false" 
+            <td><input type="text" 
                       class="input field-condition"
                       [(ngModel)]="o.condition"></td>
             <td style="text-align: right; color: silver;">{{i}}</td>
@@ -40,7 +45,7 @@
         <div>
           <label for="goto.text">text</label>
           <div class="textarea-wrapper">
-            <textarea autosize spellcheck="false"
+            <textarea autosize 
                       class="input field-text" 
                       (click)="fixTextarea($event.target)"
                       [(ngModel)]="o.text"></textarea>
