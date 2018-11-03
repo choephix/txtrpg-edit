@@ -21,6 +21,7 @@ import { EditorViewChild_Map } from './view/map-view.component'
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
 import { MouseWheelDirective } from './util/mouse-wheel.directive';
+import { SidebarComponent } from './view-sidebar/sidebar.component';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     AutomodiPanelComponent,
     JsonAcePanelComponent,
     MouseWheelDirective,
+    SidebarComponent,
   ],
   imports: [
     RouterModule.forRoot( appRoutes, { enableTracing: false } ),
