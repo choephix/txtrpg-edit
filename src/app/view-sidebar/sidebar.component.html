@@ -28,9 +28,13 @@ h2 {
   display:block;
   text-decoration: none;
   color:#939393;
+  transition: color 100ms, transform 100ms;
 }
 .nav-button:hover {
   color:#4CE;
+}
+.nav-button.pg:hover {
+  transform: translate(4px,0);
 }
 .panel.filler {
   flex-grow: 1;
@@ -45,20 +49,18 @@ h2 {
 
 <div id="sidebar" class="dark-theme">
   <div id="navi" class="panel padded">
-    <div class="label">branch:</div>
     <h2>{{branch.toUpperCase()}}</h2>
     <div id="navi-branches">
       <a *ngFor="let b of branches"
-          class="nav-button"
+          class="nav-button branch"
           routerLink="{{router.url.replace(branch,b)}}"
           routerLinkActive="active">🌍 {{b}}</a>
     </div>
   </div>
 
   <div class="panel padded">
-    <div class="label">pages:</div>
     <a *ngFor="let pg of pages"
-        class="nav-button"
+        class="nav-button pg"
         routerLink="{{pg}}"
         routerLinkActive="active">⚜ {{pg}}</a>
   </div>

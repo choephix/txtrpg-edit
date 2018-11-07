@@ -17,9 +17,10 @@ export class EditorViewChild_Map
   mouseX:number = 0
   mouseY:number = 0
 
+  panning:boolean = false
   dragging:Node = null
   linking:Node = null
-  panning:boolean = false
+  focused:Node = null
 
   @ViewChild("lesvg") svg:ElementRef;
 
@@ -137,7 +138,7 @@ export class EditorViewChild_Map
       if ( e.button == 0 && !prev.hasOwnProperty("parent") )
       {
         let node =
-        this.selected = 
+        this.selected =
         this.w.addNode( x, y )
         this.w.addLink( node, prev )
         this.w.addLink( prev, node )

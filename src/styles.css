@@ -1,7 +1,7 @@
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
-/* html, body 
+/* html, body
 {
   min-height: 100vh;
   height: auto;
@@ -25,7 +25,7 @@ body {
   box-sizing: border-box;
 }
 
-#toast-container 
+#toast-container
 {
   font-family: "Calibri", monospace !important
 }
@@ -46,7 +46,10 @@ body {
   font-weight: normal;
   font-size: 11px;
   cursor: pointer;
-  transition: color .150s, background-color .150s, border-color .150s, text-shadow .200s;
+  transition: color .150s,
+              background-color .150s,
+              border-color .150s,
+              text-shadow .200s;
 }
 .dark-theme button:hover {
   background: #FFFFFF0A;
