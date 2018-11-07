@@ -25,8 +25,6 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 		</table>
 
     <form>
-
-
       <label *ngFor="let b of getAllBranches()">
         <p (click)="branches[b]=!branches[b]" 
            [class.true]="branches[b]"
@@ -38,9 +36,10 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
   #ace { min-height:20vh }
   table { width:100%; }
   form { margin:8px; }
-  p { cursor: pointer }
+  p { cursor: pointer; }
   p.false { text-decoration: line-through; }
   p.true { color: #DEF; }
+  * { transition: color .150s, background .150s, border .150s, transform .150s; }
   `]
 })
 export class AutomodiPanelComponent

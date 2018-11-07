@@ -34,6 +34,18 @@ export class EditorViewChild_Map
   public get centerX():number { return this.svg.nativeElement.clientWidth * .5 }
   public get centerY():number { return this.svg.nativeElement.clientHeight * .5 }
 
+  globalizeViewX( o ) {
+    // console.log( ( o + this.offsetX ) * this.zoom + this.centerX )
+    // return ( o + this.offsetX ) * this.zoom + this.centerX
+    try { return ( o + this.offsetX ) * this.zoom + this.centerX }
+    catch(e) { return 0 }
+  }
+  globalizeViewY( o ) {
+    // console.log( ( o + this.offsetY ) * this.zoom + this.centerY )
+    try { return ( o + this.offsetY ) * this.zoom + this.centerY }
+    catch(e) { return 0 }
+  }
+
   getViewX( o ) {
     try { return ( this.w.getNodeOrSubnode(o).x + this.offsetX ) * this.zoom + this.centerX }
     catch(e) { return 0 }

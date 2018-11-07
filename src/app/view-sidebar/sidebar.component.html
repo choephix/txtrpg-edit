@@ -1,12 +1,11 @@
 <style type="scss/text">
 #sidebar {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column;
   flex: 0 0 200px;
   width:200px;
   height:100%;
   user-select: none;
-  background-color: #515151;
   border-right:1px solid #000;
   font-family: monospace;
   color: #999;
@@ -33,6 +32,15 @@ h2 {
 .nav-button:hover {
   color:#4CE;
 }
+.panel.filler {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  color: #000A;
+  text-shadow: 0 1px 0px #FFF2;
+  font-weight: bold;
+}
+
 </style>
 
 <div id="sidebar" class="dark-theme">
@@ -66,5 +74,8 @@ h2 {
     <app-collapsable label="jsonace" expanded="true" class="panel">
       <jsonace id="jsonace" #jsonace></jsonace>
     </app-collapsable>
+  </div>
+  <div class="panel filler">
+    -cx
   </div>
 </div>
