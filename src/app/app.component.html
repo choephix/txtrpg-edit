@@ -1,22 +1,59 @@
 <style type="scss/text">
 
+#main {
+  background: rgb(255, 77, 77);
+  /* list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between; */
+  /* height:100vh; */
+  height: 100%;
+  overflow: hidden;
+  margin: 0px;
+  display: flex;
+}
+
+#sidebar {
+  display: flex;
+  flex-flow: column wrap;
+  flex: 0 0 200px;
+  width:200px;
+  user-select: none;
+  background-color: #EEE;
+  border-right:1px solid #999;
+  font-family: monospace;
+}
+
+#current-view {
+  background: white;
+  width:100%;
+  display:flex;
+  flex-flow: wrap-reverse;
+  flex: 1 1;
+  align-content: stretch;
+  overflow-y: auto;
+}
+
+#current-view-container {
+  width:100%;
+}
+
 #current-view-spinner img {
   transform: rotate(-90deg);
   right: 24px;
   position: absolute;
 }
-
-#sidebar { width:25vw }
-#current-view { margin-left: 25vw; height: 100vh; }
 </style>
 
-<div class="container">
+<div id="main">
 
-  <app-sidebar></app-sidebar>
+  <app-sidebar id="sidebar"></app-sidebar>
 
   <div id="current-view">
-    <div id="current-view-spinner" *ngIf="!world.hasData"><img src="assets/bars.svg" /></div>
-    <router-outlet *ngIf="world.hasData"></router-outlet>
+    <div id="current-view-container">
+      <div id="current-view-spinner" *ngIf="!world.hasData"><img src="assets/bars.svg" /></div>
+      <router-outlet *ngIf="world.hasData"></router-outlet>
+    </div>
   </div>
 
 </div>

@@ -1,97 +1,61 @@
 <style type="scss/text">
-  #sidebar {
-    position: fixed;
-    height:100%;
-    top: 0;
-    left: 0;
-    background-color: #EEE;
-    overflow-x: hidden;
-    font-family: monospace;
-    user-select: none;
-    box-sizing: border-box;
-    outline:1px solid #999;
-  }
-  #sidebar .panel {
-    padding: .5vh 1vw;
-    padding-bottom: 2vh;
-    border-bottom:1px solid #CCC;
-  }
-  #sidebar h2 {
-    margin:0;
-    padding:0;
-  }
-  #sidebar .nav-button {
-    display:block;
-    text-decoration: none;
-    color:#235;
-  }
-  #sidebar .nav-button:hover {
-    color:#4CE;
-  }
-  
-  #sidebar table.tabs { width:100%; }
-  #sidebar table.tabs th { outline:1px solid #CCC; padding:.5vh 0vh; background:#e8e8e8; }
-  #sidebar table.tabs th.selected { color:#26D; background:white; }
-  #sidebar table.tabs th:hover { color:#6BF; }
-  
-  #sidebar #jsoneditor {
-    background-color:white;
-    width: 100%;
-  }
-  
-  #sidebar { width:25vw }
-  #current-view { margin-left: 25vw; height: 100vh; }
-  </style>
-  
+.label {
+  font-size:10px;
+}
+.panel {
+  border-bottom:1px solid #CCC;
+}
+.padded {
+  padding: 2px 8px;
+  padding-bottom: 8px;
+}
+.nav-button {
+  display:block;
+  text-decoration: none;
+  color:#235;
+}
+.nav-button:hover {
+  color:#4CE;
+}
 
+table.tabs { width:100%; }
+table.tabs th { outline:1px solid #CCC; padding:.5vh 0vh; background:#e8e8e8; }
+table.tabs th.selected { color:#26D; background:white; }
+table.tabs th:hover { color:#6BF; }
 
-<div id="sidebar">
+</style>
+  
+<ng-content></ng-content>
 
-  <div id="navi" class="panel">
-    <p style="font-size:10px">branch:</p>
-    <h2>{{branch.toUpperCase()}}</h2>
-    <div id="navi-branches">
-      <a *ngFor="let b of branches"
-          class="nav-button"
-          routerLink="{{router.url.replace(branch,b)}}"
-          routerLinkActive="active">🌍 {{b}}</a>
-    </div>
+<div id="navi" class="panel padded">
+  <div class="label">branch:</div>
+  <h2>{{branch.toUpperCase()}}</h2>
+  <div id="navi-branches">
+    <a *ngFor="let b of branches"
+        class="nav-button"
+        routerLink="{{router.url.replace(branch,b)}}"
+        routerLinkActive="active">🌍 {{b}}</a>
   </div>
+</div>
+
+<div class="panel padded">
+  <div class="label">pages:</div>
+  <a *ngFor="let pg of pages"
+      class="nav-button"
+      routerLink="{{pg}}"
+      routerLinkActive="active">⚪ {{pg}}</a>
+</div>
+
+<div>
 
   <div class="panel">
-    <p style="font-size:10px">pages:</p>
-    <a *ngFor="let pg of pages"
-        class="nav-button"
-        routerLink="{{pg}}"
-        routerLinkActive="active">⚪ {{pg}}</a>
+    <app-collapsable label="automodi" expanded="false">
+      <automodi id="automodi" #automodi></automodi>
+    </app-collapsable>
   </div>
 
-  <div>
-
-    <table class="tabs">
-      <tr>
-        <th *ngFor='let tab of sidetabs'
-            [class.selected]='tab == sidetab'
-            (click)="sidetab=tab">{{tab}}</th>
-      </tr>
-    </table>
-
-    <jsonace id="jsonace" #jsonace
-              [style.display]="sidetab=='json'?'block':'none'"
-              ></jsonace>
-
-    <automodi id="automodi" #automodi
-              [style.display]="sidetab=='automodi'?'block':'none'"
-              ></automodi>
-
-    <div id="jsoneditor" #jsoneditor
-          [style.display]="sidetab=='oldjson'?'block':'none'"
-          ></div>
-              
-  </div>
-
-  <p>
-    sidebar works!
-  </p>
+  <app-collapsable label="jsonace" expanded="true" class="panel">
+    <jsonace id="jsonace" #jsonace></jsonace>
+  </app-collapsable>
 
 </div>

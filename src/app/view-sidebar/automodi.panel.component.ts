@@ -41,14 +41,22 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 export class AutomodiPanelComponent
 {
   code:string = `
-  for ( let node of this.world.nodes )\n\tconsole.log(node) \n
-  // Use this space to code global changes
-  // to the json map structure, like
-  // creating new objects, deleting old ones
-  // or populating/truncating arrays, etc.
-  // Code is run and for all branches one by one.
-  // Have a good time, and don't break anything!
-  \n\n\n\n\n\n\n\n`;
+let list = this.journal
+               .actions
+               .goto
+
+for ( let o of list )
+    console.log(o)
+
+// Use this space to code global 
+// changes to the json game data, 
+// like creating new objects, 
+// deleting old ones or 
+// populating/truncating arrays, 
+// etcetera.
+//
+// Don't break anything!
+\n\n\n\n\n\n\n\n`;
 
 	public buttons:{key:string,f:()=>void}[] = [
 	    {key:"TEST CURRENT",f:()=>this.testCurrent()},
@@ -57,7 +65,7 @@ export class AutomodiPanelComponent
 	  ]
 
 	public options:any = {
-	  fontSize: `.75vw`,
+	  fontSize: `10px`,
 	  showGutter: false,
 	  showPrintMargin: false,
 	  wrap: true,

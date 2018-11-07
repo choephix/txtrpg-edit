@@ -19,7 +19,7 @@ import { SelectionService } from '../services/selection.service';
 export class JsonAcePanelComponent
 {
 	public options:any = {
-	  fontSize: `.9vw`,
+	  fontSize: `9px`,
 	  showGutter: false,
     showLineNumbers: false,
 	  showPrintMargin: false,

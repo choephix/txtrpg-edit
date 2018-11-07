@@ -22,6 +22,7 @@ import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
 import { MouseWheelDirective } from './util/mouse-wheel.directive';
 import { SidebarComponent } from './view-sidebar/sidebar.component';
+import { CollapsableComponent } from './common/collapsable.component';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     JsonAcePanelComponent,
     MouseWheelDirective,
     SidebarComponent,
+    CollapsableComponent,
   ],
   imports: [
     RouterModule.forRoot( appRoutes, { enableTracing: false } ),
