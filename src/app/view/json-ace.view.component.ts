@@ -9,14 +9,13 @@ import { Logger } from '../services/logging.service';
     width:50px;
     height:100%;
     position: fixed;
-    background-color: #E8E8E8;
     box-sizing: border-box;
-    outline:1px solid #999;
   }
   #toolbar button {
     width:100%;
     height:50px;
     font-size: 20px;
+    color: #FFF;
   }
   #ace {
     box-sizing: border-box;
@@ -25,7 +24,7 @@ import { Logger } from '../services/logging.service';
   }
   `],
   template: `
-    <div id="toolbar">
+    <div id="toolbar" class="dark-theme">
 		  <button
 		    *ngFor='let b of buttons'
 		    (click)="b.f()"

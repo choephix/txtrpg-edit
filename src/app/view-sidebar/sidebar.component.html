@@ -1,9 +1,25 @@
 <style type="scss/text">
+#sidebar {
+  display: flex;
+  flex-flow: column wrap;
+  flex: 0 0 200px;
+  width:200px;
+  height:100%;
+  user-select: none;
+  background-color: #515151;
+  border-right:1px solid #000;
+  font-family: monospace;
+  color: #999;
+}
+h2 {
+  color: #AAA;
+}
 .label {
   font-size:10px;
 }
 .panel {
-  border-bottom:1px solid #CCC;
+  border-top:1px solid #666;
+  border-bottom:1px solid #111;
 }
 .padded {
   padding: 2px 8px;
@@ -12,50 +28,43 @@
 .nav-button {
   display:block;
   text-decoration: none;
-  color:#235;
+  color:#939393;
 }
 .nav-button:hover {
   color:#4CE;
 }
-
-table.tabs { width:100%; }
-table.tabs th { outline:1px solid #CCC; padding:.5vh 0vh; background:#e8e8e8; }
-table.tabs th.selected { color:#26D; background:white; }
-table.tabs th:hover { color:#6BF; }
-
 </style>
-  
-<ng-content></ng-content>
 
-<div id="navi" class="panel padded">
-  <div class="label">branch:</div>
-  <h2>{{branch.toUpperCase()}}</h2>
-  <div id="navi-branches">
-    <a *ngFor="let b of branches"
-        class="nav-button"
-        routerLink="{{router.url.replace(branch,b)}}"
-        routerLinkActive="active">🌍 {{b}}</a>
+<div id="sidebar" class="dark-theme">
+  <div id="navi" class="panel padded">
+    <div class="label">branch:</div>
+    <h2>{{branch.toUpperCase()}}</h2>
+    <div id="navi-branches">
+      <a *ngFor="let b of branches"
+          class="nav-button"
+          routerLink="{{router.url.replace(branch,b)}}"
+          routerLinkActive="active">🌍 {{b}}</a>
+    </div>
   </div>
-</div>
 
-<div class="panel padded">
-  <div class="label">pages:</div>
-  <a *ngFor="let pg of pages"
-      class="nav-button"
-      routerLink="{{pg}}"
-      routerLinkActive="active">⚪ {{pg}}</a>
-</div>
+  <div class="panel padded">
+    <div class="label">pages:</div>
+    <a *ngFor="let pg of pages"
+        class="nav-button"
+        routerLink="{{pg}}"
+        routerLinkActive="active">⚜ {{pg}}</a>
+  </div>
 
-<div>
-
+  <div>
+    <div class="panel">
+      <app-collapsable label="automodi" expanded="false">
+        <automodi id="automodi" #automodi></automodi>
+      </app-collapsable>
+    </div>
+  </div>
   <div class="panel">
-    <app-collapsable label="automodi" expanded="false">
-      <automodi id="automodi" #automodi></automodi>
+    <app-collapsable label="jsonace" expanded="true" class="panel">
+      <jsonace id="jsonace" #jsonace></jsonace>
     </app-collapsable>
   </div>
-
-  <app-collapsable label="jsonace" expanded="true" class="panel">
-    <jsonace id="jsonace" #jsonace></jsonace>
-  </app-collapsable>
-
 </div>

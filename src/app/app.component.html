@@ -1,27 +1,10 @@
 <style type="scss/text">
 
 #main {
-  background: rgb(255, 77, 77);
-  /* list-style: none;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between; */
-  /* height:100vh; */
   height: 100%;
   overflow: hidden;
   margin: 0px;
   display: flex;
-}
-
-#sidebar {
-  display: flex;
-  flex-flow: column wrap;
-  flex: 0 0 200px;
-  width:200px;
-  user-select: none;
-  background-color: #EEE;
-  border-right:1px solid #999;
-  font-family: monospace;
 }
 
 #current-view {
@@ -47,7 +30,7 @@
 
 <div id="main">
 
-  <app-sidebar id="sidebar"></app-sidebar>
+  <app-sidebar></app-sidebar>
 
   <div id="current-view">
     <div id="current-view-container">

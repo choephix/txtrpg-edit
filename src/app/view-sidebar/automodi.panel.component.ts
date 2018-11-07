@@ -19,31 +19,35 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 		<table class="tabs">
 			<tr>
 				<th *ngFor='let b of buttons' (click)="b.f()">
-				  <button>{{b.key}}</button>
+				  <button class="dark">{{b.key}}</button>
 				</th>
 			</tr>
 		</table>
 
     <form>
+
+
       <label *ngFor="let b of getAllBranches()">
-        <input type="checkbox" [(ngModel)]="branches[b]" name="{b}">
-        <code>  {{b}}</code>
-        <br/>
+        <p (click)="branches[b]=!branches[b]" 
+           [class.true]="branches[b]"
+           [class.false]="!branches[b]">{{b}}</p>
       </label>
     </form>
   `,
   styles: [`
-  table { width:100%; }
-  button { width:100%; padding:.5vh 0; }
   #ace { min-height:20vh }
+  table { width:100%; }
+  form { margin:8px; }
+  p { cursor: pointer }
+  p.false { text-decoration: line-through; }
+  p.true { color: #DEF; }
   `]
 })
 export class AutomodiPanelComponent
 {
   code:string = `
-let list = this.journal
-               .actions
-               .goto
+let list = this
+    .journal.actions.goto
 
 for ( let o of list )
     console.log(o)

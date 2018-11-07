@@ -29,3 +29,34 @@ body {
 {
   font-family: "Calibri", monospace !important
 }
+
+/*** DARK THEME /**/
+
+.dark-theme {
+  background-color: #515151;
+}
+
+.dark-theme button {
+  background: #FFFFFF06;
+  color: #FFF8;
+  border: 1px solid #666;
+  outline: 1px solid #000;
+  box-sizing: border-box;
+  padding: 8px 4px;
+  font-weight: normal;
+  font-size: 11px;
+  cursor: pointer;
+  transition: color .150s, background-color .150s, border-color .150s, text-shadow .200s;
+}
+.dark-theme button:hover {
+  background: #FFFFFF0A;
+  border: 1px solid #777;
+  color: #ddd;
+}
+.dark-theme button:hover:active {
+  background: #0001;
+  border-color: #555;
+  text-shadow: 0 0 2px #0084ff;
+  color: #8ed5ff;
+  transition:none;
+}
