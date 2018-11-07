@@ -2,16 +2,28 @@
 #lesvg { height:99.5vh; width:100%; }
 #trash { fill:rgba(255,0,0,.05); }
 #trash:hover { fill:rgba(255,0,0,.25); stroke:rgba(255,0,0,.1); stroke-width:4 }
-.node { stroke:rgba(100,200,250,0.5); stroke-width:4; fill:rgba(50,100,200,1.0) }
-.node.mini { fill:rgba(100,150,200,1.0) }
-.node.selected { fill:rgba(255,225,150,1.0) }
 .link { stroke:rgba(100,200,250,0.5); stroke-width:4 }
 .link.tobe { stroke:rgba(0,0,0,0.125); stroke-width:8 }
 .link.selected { stroke:rgba(255,225,150,1.0) }
 .label { font: bold 10px monospace, sans-serif; fill: #456; user-select: none;  }
 .label.subnode { fill: #456; font-weight:100; }
-.node:hover { opacity : .9 }
 .link:hover { opacity : .7 }
+
+@keyframes node-become { from { opacity: 0.0; r: 12; } }
+.node {
+	fill:rgba(50,100,200,1.0);
+	stroke:rgba(100,200,250,0.5); 
+	stroke-width:4; 
+	animation-name: node-become;
+  animation-duration: .100s;
+}
+.node.mini { fill:rgba(100,150,200,1.0) }
+.node.selected { fill:rgba(255,225,150,1.0) }
+.node:hover { opacity : .9; }
+
+* {
+	transition: color .150s, opacity .150s, r 150s;
+}
 
 .info { position:fixed; padding-left:1vw; top:0; font-family: monospace; opacity:.4; }
 </style>
