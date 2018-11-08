@@ -1,5 +1,5 @@
 {
-  "name": "txtrpg-poc-angular",
+  "name": "txtrpg-poc-edit",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "firebase-deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
@@ -27,7 +28,6 @@
     "ag-grid-community": "^19.0.0",
     "core-js": "^2.5.4",
     "ng2-ace-editor": "^0.3.8",
-    "ngx-textarea-autosize": "^2.0.0",
     "ngx-toastr": "^9.1.1",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"

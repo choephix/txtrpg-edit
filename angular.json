@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "txtrpg-poc-angular": {
+    "txtrpg-poc-edit": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -54,22 +54,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "txtrpg-poc-angular:build"
+            "browserTarget": "txtrpg-poc-edit:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "txtrpg-poc-angular:build:production"
+              "browserTarget": "txtrpg-poc-edit:build:production"
             }
           }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular-devkit/build-edit:extract-i18n",
           "options": {
-            "browserTarget": "txtrpg-poc-angular:build"
+            "browserTarget": "txtrpg-poc-edit:build"
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-devkit/build-edit:tslint",
           "options": {
             "tsConfig": [
               "src/tsconfig.app.json",
@@ -83,5 +83,5 @@
       }
     }
   },
-  "defaultProject": "txtrpg-poc-angular"
+  "defaultProject": "txtrpg-poc-edit"
 }
