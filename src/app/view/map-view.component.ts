@@ -87,6 +87,11 @@ export class EditorViewChild_Map
 
   click_node(e,node:Node,isSubnode:boolean)
   {
+    console.dir(this.svg.nativeElement )
+    console.dir(this.svg.nativeElement.getBoundingClientRect() )
+    console.dir(this.svg.nativeElement.offsetWidth )
+    console.dir(this)
+    console.dir(document)
     if ( e.buttons == 0 && e.button == 0 )
       this.selected = this.selected == node ? null : node
   }
@@ -109,10 +114,12 @@ export class EditorViewChild_Map
 
   mouseup_link(e,link_index)
   {
-  	if ( e.button == 2 )
+    if ( e.button == 2 )
+    {
   		this.w.removeLink( link_index )
+      e.stopPropagation()
+    }
   	this.linking = null
-  	e.stopPropagation()
   }
 
   mouseup_trash(e)
@@ -158,4 +165,6 @@ export class EditorViewChild_Map
   contextmenu(e) { return false; }
   random(seed,max) { return ( seed * 16807 % 2147483647 ) % max  }
   log(o) { console.log(o) }
+
+  get prettyZoom():string { return Math.round(this.zoom*100) + "%" }
 }
