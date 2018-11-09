@@ -1,23 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SelectionService } from '../services/selection.service';
 
 @Component({
   selector: 'jsonace',
   template: `
-    <div ace-editor id="ace"
-         [(text)]="code"
-         [mode]="'json'"
-         [options]="options"
-         ></div>
+    <ace-editor id="ace"
+        [theme]="theme"
+        [mode]="mode"
+        [options]="options"
+        [(text)]="code"
+         ></ace-editor>
   `,
   styles: [`
-  table { width:100%; }
-  button { width:100%; padding:.5vh 0; }
   #ace { min-height:10vh }
   `]
 })
 export class JsonAcePanelComponent
 {
+  @Input() theme:string = "ambiance"
+  @Input() mode:string = "json"
+
 	public options:any = {
 	  fontSize: `9px`,
 	  showGutter: false,
@@ -29,8 +31,8 @@ export class JsonAcePanelComponent
 	}
 
   public get code():string
-  { return JSON.stringify(this.sele.selectedObject,null,2) }
-  public set code(value:string) 
+  { return JSON.stringify(this.sele.selectedObject,null,2)+"\n" }
+  public set code(value:string)
   { if(value&&value!="null") Object.assign(this.sele.selectedObject,JSON.parse(value)) }
 
   constructor( private sele:SelectionService ) {}

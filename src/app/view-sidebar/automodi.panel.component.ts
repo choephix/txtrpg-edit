@@ -10,11 +10,12 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 @Component({
   selector: 'automodi',
   template: `
-    <div ace-editor id="ace"
+    <ace-editor id="ace"
+         mode="typescript"
+         theme="ambiance"
          [(text)]="code"
-         [mode]="'javascript'"
          [options]="options"
-         ></div>
+         ></ace-editor>
 
 		<table class="tabs">
 			<tr>
