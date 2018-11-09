@@ -5,7 +5,7 @@ const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
 @Injectable({providedIn: 'root'})
 export class UID_GenerationService
 {
-  public generateHash( length:number = 6 )
+  public make( length:number = 6 )
   {
     let hashy = ""
     let a_len = ALPHABET.length

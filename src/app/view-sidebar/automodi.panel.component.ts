@@ -26,7 +26,7 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 
     <form>
       <label *ngFor="let b of getAllBranches()">
-        <p (click)="branches[b]=!branches[b]" 
+        <p (click)="branches[b]=!branches[b]"
            [class.true]="branches[b]"
            [class.false]="!branches[b]">{{b}}</p>
       </label>
@@ -51,12 +51,15 @@ let list = this
 for ( let o of list )
     console.log(o)
 
-// Use this space to code global 
-// changes to the json game data, 
-// like creating new objects, 
-// deleting old ones or 
-// populating/truncating arrays, 
+// Use this space to code global
+// changes to the json game data,
+// like creating new objects,
+// deleting old ones or
+// populating/truncating arrays,
 // etcetera.
+//
+// tricks:
+// hash(len) - new uid
 //
 // Don't break anything!
 \n\n\n\n\n\n\n\n`;
@@ -77,9 +80,9 @@ for ( let o of list )
 
   public branches = {}
 
-  private modify = function(code,uidgen):void 
+  private modify = function(code,uidgen):void
   {
-    function hash(len=6) { return uidgen.generateHash(len) }
+    function hash(len=6) { return uidgen.make(len) }
     eval(code);
     console.log(this)
   }
