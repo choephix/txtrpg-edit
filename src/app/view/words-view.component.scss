@@ -25,6 +25,7 @@
     margin: 0;
     margin-right: 20px;
     transition: color .250s;
+    cursor:pointer;
   }
   button:hover {
     color: rgb(255, 155, 217);
@@ -102,6 +103,7 @@
   }
 }
 .dirty:not(.uid) { border: 1px solid rgb(253, 173, 0) !important; }
+.final-item-plus { cursor:pointer; }
 
 ////
 
