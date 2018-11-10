@@ -62,8 +62,8 @@ export class EditorViewChild_Words
 
   move( item, index, offset )
   {
-    this.gamedata.data.journal.actions.goto.splice(index,1)
-    this.gamedata.data.journal.actions.goto.splice(index+offset,0,item)
+    this.data.splice(index,1)
+    this.data.splice(index+offset,0,item)
   }
 
   add( index )

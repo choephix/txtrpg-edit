@@ -23,6 +23,7 @@ import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
 import { MouseWheelDirective } from './util/mouse-wheel.directive';
 import { SidebarComponent } from './view-sidebar/sidebar.component';
 import { CollapsableComponent } from './common/collapsable.component';
+import { SequenceTreeViewComponent } from './view/sequence-tree-view.component';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
           { path: 'map', component: EditorViewChild_Map },
           { path: 'words', component: EditorViewChild_Words },
+          { path: 'convos', component: SequenceTreeViewComponent },
           { path: 'fulljson_ace', component: EditorViewChild_FullJsonAce },
           { path: 'aggrid', component: EditorViewChild_AGGrid },
         ]
@@ -52,6 +54,7 @@ const appRoutes: Routes = [
     MouseWheelDirective,
     SidebarComponent,
     CollapsableComponent,
+    SequenceTreeViewComponent,
   ],
   imports: [
     RouterModule.forRoot( appRoutes, { enableTracing: false } ),
@@ -67,6 +70,7 @@ const appRoutes: Routes = [
   ],
   exports: [RouterModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SequenceTreeViewComponent]
 })
 export class AppModule { }

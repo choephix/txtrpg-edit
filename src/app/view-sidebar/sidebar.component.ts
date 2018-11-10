@@ -28,7 +28,11 @@ export class SidebarComponent
     	  console.warn("no branch?",params)
     	else
     	  this.branch = branch
-    	  world.load(this.branch)
+        world.load(this.branch)
+
+      for (const pg of this.pages)
+        if ( this.router.url.includes( pg ) )
+          this.page = pg
     } );
 
 		for ( const r of router.config )

@@ -33,6 +33,9 @@ h2 {
 .nav-button:hover {
   color:#4CE;
 }
+.nav-button.pg.current {
+  color:#CCC;
+}
 .nav-button.pg:hover {
   transform: translate(4px,0);
 }
@@ -61,6 +64,7 @@ h2 {
   <div class="panel padded">
     <a *ngFor="let pg of pages"
         class="nav-button pg"
+        [class.current]="pg == page"
         routerLink="{{pg}}"
         routerLinkActive="active">⚜ {{pg}}</a>
   </div>

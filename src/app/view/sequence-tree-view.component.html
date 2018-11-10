@@ -1,0 +1,199 @@
+<div id="full-page" class="darkform" style="display: flex; flex-direction: row;">
+
+    <div class="list" style="flex-grow: 618; border-right: 1px solid #111;">
+
+      <div>
+        <div class="item">GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES </div>
+        <div class="filter item" *ngIf="filter.active">
+          <div class="flex-row">
+            <div class="cell" style="flex-grow: 2">
+              <div><label>trigger</label></div>
+              <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.trigger"></div>
+            </div>
+            <div class="cell" style="flex-grow: 1">
+              <div><label>type</label></div>
+              <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.type"></div>
+            </div>
+            <div class="cell" style="flex-grow: 6">
+              <div><label>search</label></div>
+              <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.search"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider" [class.active]="currentTrigger"></div>
+
+      <ng-container *ngIf="currentTrigger">
+        <div class="item" (click)="gobackto(0)"  noselect><p>{{currentTrigger.handle}}</p></div>
+      </ng-container>
+
+      <ng-container *ngFor="let breadcrum of breadcrums.slice().reverse(); let i = index">
+        <div class="item" (click)="gobackto(i+1)" noselect>
+          <p>{{breadcrum.node.text}}</p>
+          <p>{{breadcrum.choice.handle}}</p>
+        </div>
+      </ng-container>
+
+      <!-- LIST OF TRIGGERS -->
+
+      <div class="items-list" *ngIf="!currentTrigger">
+        <ng-container *ngFor="let trigger of listVisibleTriggers; let i = index">
+        <div class="item"
+             [class.selected]="trigger===selection.selectedObject"
+             (mousedown)="selection.selectObject(trigger)">
+
+          <div class="flex-row">
+            <div class="cell" style="flex-grow: 2">
+              <label>handle</label>
+              <div class="textarea-wrapper input">
+                <textarea autosize
+                          class="input field-trigger-text"
+                          (click)="fixTextarea($event.target)"
+                          [(ngModel)]="trigger.handle"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-row">
+            <div class="cell" style="">
+              <div><label>location</label></div>
+              <div><input type="text"
+                          class="input field-trigger-node"
+                          [(ngModel)]="trigger.node"></div>
+            </div>
+            <div class="cell" style="flex-grow: 13">
+              <div><label>condition</label></div>
+              <div><input type="text"
+                          class="input field-trigger-condition"
+                          [(ngModel)]="trigger.condition"></div>
+            </div>
+            <div class="cell" style="">
+              <div><label>uid</label></div>
+              <div><input type="text"
+                          class="input field-trigger-uid"
+                          [(ngModel)]="trigger.uid"></div>
+            </div>
+            <div class="cell" style="">
+              <div><label>select</label></div>
+              <div class="item inner" (click)="currentTrigger=trigger">
+                <button style="width:100%;height:100%;"> >> </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        </ng-container>
+        <div class="item spawner" (click)="addTrigger(data_triggers.length)" style="cursor:pointer">＋ trigger</div>
+      </div>
+
+      <!-- LIST OF NODES -->
+
+      <div class="items-list" *ngIf="currentTrigger">
+        <ng-container *ngFor="let node of listVisibleNodes; let i = index">
+          <div class="item"
+               [class.selected]="node === selection.selectedObject"
+               (mouseup)="selection.selectObject(node)">
+
+            <div>
+              <label for="goto.text">text</label>
+              <div class="textarea-wrapper input"
+                   [class.dirty]="isDirty(node,'text')">
+                <textarea autosize
+                          class="input field-text"
+                          (click)="fixTextarea($event.target)"
+                          [(ngModel)]="node.text"></textarea>
+              </div>
+            </div>
+
+            <div class="flex-row">
+              <div class="cell" style="flex-grow: 1">
+                <div><label>uid</label></div>
+                <div><input type="text"
+                            class="input field-uid"
+                            disabled="true"
+                            [(ngModel)]="node.uid"></div>
+              </div>
+              <div class="cell" style="flex-grow: 1">
+                <div><label>cause</label></div>
+                <div><input type="text"
+                            class="input field-cause"
+                            disabled="true"
+                            [(ngModel)]="node.cause"></div>
+              </div>
+              <div class="cell" style="flex-grow: 13">
+                <div><label>condition</label></div>
+                <div><input type="text"
+                            class="input field-condition"
+                            [(ngModel)]="node.condition"></div>
+              </div>
+              <div class="cell" style="flex-grow: 1">
+                <div><label>type</label></div>
+                <div><input type="text"
+                            class="input field-type"
+                            [(ngModel)]="node.type"></div>
+              </div>
+            </div>
+
+            <div><label>choices</label></div>
+            <div class="item inner" *ngFor="let choice of node.choices">
+              <div class="flex-row">
+                <div class="cell" style="flex-grow: 15">
+                  <div><label>handle</label></div>
+                  <div><input type="text"
+                              class="input field-handle"
+                              [(ngModel)]="choice.handle"></div>
+                </div>
+                <div class="cell" style="width:120px">
+                  <div><label>go there >></label></div>
+                  <div class="item inner" (click)="goto(node,choice)">
+                    <button style="width:100%;height:100%;"> >> </button>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-row">
+                <div class="cell" style="flex-grow: 15">
+                  <label for="goto.text">condition</label>
+                  <div><input type="text" class="input field-condition" [(ngModel)]="choice.condition"></div>
+                </div>
+                <div class="cell" style="width:120px">
+                  <div><label>next</label></div>
+                  <div><input type="text" class="input field-next" [(ngModel)]="choice.next"></div>
+                </div>
+              </div>
+            </div>
+            <div class="item inner spawner" (click)="addChoice(node)" style="cursor:pointer">+ choice</div>
+
+          </div>
+        </ng-container>
+        <div class="item spawner" (click)="addNode(data_nodes.length)" style="cursor:pointer">+ node</div>
+      </div>
+
+    </div>
+
+    <!-- SPLIT -->
+
+    <div class="list" style="flex-grow: 382; border-left: 1px solid #555;">
+
+      <div>
+        <div class="item">SNIPPETS + ALIASES</div>
+        <div class="item">
+          <div class="flex-row">
+            <div class="cell" style="flex-grow: 3">
+              <div><label>search</label></div>
+              <div><input type="text" class="input" [(ngModel)]="gaaliba"></div>
+            </div>
+          </div>
+          <div>- ♯</div>
+        </div>
+      </div>
+
+      <div class="divider" [class.active]="false"></div>
+
+      <div class="items-list" #thelist spellcheck="false">
+          <div class="item">-- {{gaaliba}}</div>
+      </div>
+
+    </div>
+
+  </div>
