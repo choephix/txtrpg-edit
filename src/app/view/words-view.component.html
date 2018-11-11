@@ -1,32 +1,28 @@
 <div id="full-page" class="darkform" style="display: flex; flex-direction: row;">
 
-  <div class="list" style="flex-grow: 618; border-right: 1px solid #111;">
+  <div class="pane" style="width: 61.8%;">
 
-    <div>
-      <div class="item">GAMEDATA / JOURNAL / ACTIONS / GOTO -- (TEXT)</div>
-      <div class="item">
-        <div class="flex-row">
-          <!-- <div class="cell" *ngFor="let field of filter | keyvalue">
-            <div><label>{{field.key}}</label></div>
-            <div title="{{field.key}}"><input type="text" class="input" [(ngModel)]="field.value"></div>
-          </div> -->
-
-          <div class="cell" style="flex-grow: 1">
-            <div><label>from</label></div>
-            <div><input type="text" class="input" [(ngModel)]="filter.from"></div>
-          </div>
-          <div class="cell" style="flex-grow: 1">
-            <div><label>to</label></div>
-            <div><input type="text" class="input" [(ngModel)]="filter.to"></div>
-          </div>
-          <div class="cell" style="flex-grow: 3">
-            <div><label>search</label></div>
-            <div><input type="text" class="input" [(ngModel)]="filter.search"></div>
-          </div>
+    <div class="item">GAMEDATA / JOURNAL / ACTIONS / GOTO -- (TEXT)</div>
+    <div class="item">
+      <div class="flex-row">
+        <div class="cell zabit100" style="flex-grow: 0">
+          <label>from</label>
+          <input type="text" class="input" [(ngModel)]="filter.from">
         </div>
-        <div class="toolbar">
-          <button type="button" (click)="add(0)">＋ add new</button>
+        <div pebble></div>
+        <div class="cell zabit100" style="flex-grow: 0">
+          <label>to</label>
+          <input type="text" class="input" [(ngModel)]="filter.to">
         </div>
+        <div pebble></div>
+        <div class="cell" style="flex-grow: 1">
+          <label>search</label>
+          <input type="text" class="input" [(ngModel)]="filter.search">
+        </div>
+      </div>
+      <div pebble></div>
+      <div class="toolbar">
+        <button clear (click)="add(0)">＋ add new</button>
       </div>
     </div>
 
@@ -42,26 +38,28 @@
              (mousedown)="selection.selectObject(o)">
 
             <div class="flex-row">
-              <div class="cell" style="flex-grow: 1">
-                <div><label>from</label></div>
-                <div><input type="text"
-                            class="input field-from"
-                            [class.dirty]="isDirty(o,'from')"
-                            [(ngModel)]="o.from"></div>
+              <div class="cell zabit100" style="flex-grow: 0">
+                <label>from</label>
+                <input type="text"
+                       class="input field-from"
+                       [class.dirty]="isDirty(o,'from')"
+                       [(ngModel)]="o.from">
               </div>
-              <div class="cell" style="flex-grow: 1">
-                <div><label>to</label></div>
-                <div><input type="text"
-                            class="input field-to"
-                            [class.dirty]="isDirty(o,'to')"
-                            [(ngModel)]="o.to"></div>
+              <div pebble></div>
+              <div class="cell zabit100" style="flex-grow: 0">
+                <label>to</label>
+                <input type="text"
+                       class="input field-to"
+                       [class.dirty]="isDirty(o,'to')"
+                       [(ngModel)]="o.to">
               </div>
-              <div class="cell" style="flex-grow: 3">
-                <div><label>condition</label></div>
-                <div><input type="text"
-                            class="input field-condition"
-                            [class.dirty]="isDirty(o,'condition')"
-                            [(ngModel)]="o.condition"></div>
+              <div pebble></div>
+              <div class="cell" style="flex-grow: 1;">
+                <label>condition</label>
+                <input type="text"
+                       class="input field-condition"
+                       [class.dirty]="isDirty(o,'condition')"
+                       [(ngModel)]="o.condition">
               </div>
             </div>
 
@@ -75,20 +73,20 @@
 
             <div>
               <label for="goto.text">text</label>
-              <div class="textarea-wrapper input"
-                   [class.dirty]="isDirty(o,'text')">
-                <textarea autosize
-                          class="input field-text"
-                          (click)="fixTextarea($event.target)"
-                          [(ngModel)]="o.text"></textarea>
-              </div>
+              <textarea autosize
+                        (click)="fixTextarea($event.target)"
+                        class="field-text"
+                        style="min-height: 80px;"
+                        [class.dirty]="isDirty(o,'text')"
+                        [(ngModel)]="o.text"></textarea>
             </div>
 
             <div class="toolbar">
-              <button type="button" (click)="move(o,i,-1)">⬆ move up</button>
-              <button type="button" (click)="move(o,i,1)">⬇ move down</button>
-              <button type="button" (click)="cloneTo(o,i)">⬆ clone before</button>
-              <button type="button" (click)="cloneTo(o,i+1)">⬇ clone after</button>
+              <button clear class="delete" (click)="delete(i)">delete</button>
+              <button clear class="move"   (click)="move(o,i,-1)">⬆ move up</button>
+              <button clear class="move"   (click)="move(o,i,1)">⬇ move down</button>
+              <button clear class="clone"  (click)="cloneTo(o,i)">⬆ clone before</button>
+              <button clear class="clone"  (click)="cloneTo(o,i+1)">⬇ clone after</button>
             </div>
             <div class="uid" [class.dirty]="isDirtyNew(o)">{{o.uid}}</div>
 
@@ -104,7 +102,7 @@
 
   <!-- SPLIT -->
 
-  <div class="list" style="flex-grow: 382; border-left: 1px solid #555;">
+  <div class="pane" style="width: 38.2%; border-left: 1px solid #555;">
 
     <div>
       <div class="item">SNIPPETS + ALIASES</div>

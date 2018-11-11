@@ -87,8 +87,9 @@ $pebble-size: 8px;
   textarea {
     background: none;
     border:none;
-    min-height: calc(100% - 8px);
     resize: none;
+    min-height: calc(100% - 9px);
+    overflow: hidden;
   }
   textarea, input, label {
     font-family:monospace;
@@ -235,7 +236,7 @@ $pebble-size: 8px;
 
   /// HADNLE THE DIRTIES
 
-  .dirty:not(.uid) { border: 1px solid rgb(253, 173, 0) !important; }
+  .dirty:not(.uid) { outline: 1px solid rgb(253, 173, 0); }
   .uid.dirty { color: rgb(253, 173, 0); font-weight: bold; opacity: 1; }
 
   ///

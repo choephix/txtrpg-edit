@@ -5,8 +5,8 @@ import { UID_GenerationService } from '../services/id-gen.service';
 
 @Component({
   templateUrl: './words-view.component.html',
-  styleUrls: ['./words-view.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./../darkform.scss','./words-view.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorViewChild_Words
 {
@@ -60,6 +60,11 @@ export class EditorViewChild_Words
     return null
   }
 
+  delete( index )
+  {
+    this.data.splice(index,1)
+  }
+
   move( item, index, offset )
   {
     this.data.splice(index,1)
@@ -83,10 +88,7 @@ export class EditorViewChild_Words
     this.data_original.splice(index,0,{})
   }
 
-  fixTextarea(el)
-  {
-    el.style.height = el.scrollHeight + "px"
-  }
+  fixTextarea(el) { el.style.height = el.scrollHeight + "px" }
 }
 
 class Filter

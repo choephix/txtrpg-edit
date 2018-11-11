@@ -2,9 +2,7 @@
 
     <div class="pane" style="width: 61.8%;">
 
-      <div>
-        <div class="item not-selectable">GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES </div>
-      </div>
+      <div class="item not-selectable">GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES </div>
 
       <ng-container *ngIf="currentTrigger">
         <div class="item breadcrum" (click)="gobackto(0)"><p>►  {{currentTrigger.handle}}</p></div>
@@ -93,6 +91,7 @@
               </div>
             </div>
 
+            <div space></div>
             <label>choices</label>
             <div class="item inner" *ngFor="let choice of node.choices; let j=index; trackBy:trackByFn">
               <button class="swapper" *ngIf="j>0" (click)="move(node.choices,node,-1)" clear>⬆⬇</button>
@@ -128,7 +127,7 @@
 
             <div space></div>
             <div class="toolbar">
-                <button clear type="button" class="delete" (click)="delete(data_nodes,node)">delete</button>
+                <button clear class="delete" (click)="delete(data_nodes,node)">delete</button>
             </div>
             <div class="uid" [class.dirty]="isDirtyNew(node)">{{node.uid}}</div>
 
@@ -143,7 +142,7 @@
 
     <!-- SPLIT -->
 
-    <div class="pane" style="width: 38.2%; border-left: 1px solid #555;">
+    <div class="pane" style="width: 38.2%;">
 
       <div>
         <div class="item">LOCATION NODES</div>
