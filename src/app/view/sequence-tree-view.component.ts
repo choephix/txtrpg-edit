@@ -6,7 +6,7 @@ import { WorldDataService } from './../services/world-data.service';
 @Component({
   selector: 'app-sequence-tree-view',
   templateUrl: './sequence-tree-view.component.html',
-  styleUrls: ['./sequence-tree-view.component.scss']
+  styleUrls: ['./../darkform.scss','./sequence-tree-view.component.scss']
 })
 export class SequenceTreeViewComponent
 {
@@ -17,6 +17,7 @@ export class SequenceTreeViewComponent
   get data_triggers_original() { return this.gamedata.originalData.journal.sequences.triggers }
 
   filter:Filter = new Filter
+  filterLocations:string= ''
 
   breadcrums:Breadcrum[] = []
   currentTrigger:SequenceTrigger = null
@@ -101,18 +102,16 @@ export class SequenceTreeViewComponent
   {
     if ( !o.choices ) o.choices = []
     let index = o.choices.length
-    let item:SequenceChoice = {handle:"...",next:""}
+    let item:SequenceChoice = {handle:"...",next:this.uidgen.make(12)}
     o.choices.splice(index,0,item)
   }
 
-  cloneTo( source, index )
+  move( array, target, offset )
   {
-    throw new EvalError("Non-functinoal placeholder method called")
-  }
-
-  move( item, index, offset )
-  {
-    throw new EvalError("Non-functinoal placeholder method called")
+    let index = array.indexOf(target)
+    if ( index >= 0 )
+    array.splice(index,1)
+    array.splice(index+offset,0,target)
   }
 
   fixTextarea(el)

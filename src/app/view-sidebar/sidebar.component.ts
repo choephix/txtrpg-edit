@@ -29,11 +29,13 @@ export class SidebarComponent
     	else
     	  this.branch = branch
         world.load(this.branch)
+    } );
 
+    this.router.events.subscribe(event => {
       for (const pg of this.pages)
         if ( this.router.url.includes( pg ) )
           this.page = pg
-    } );
+    });
 
 		for ( const r of router.config )
 			if ( r.path === ":branch" )

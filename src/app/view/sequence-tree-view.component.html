@@ -1,90 +1,79 @@
-<div id="full-page" class="darkform" style="display: flex; flex-direction: row;">
+<div id="full-page" class="darkform">
 
-    <div class="list" style="flex-grow: 618; border-right: 1px solid #111;">
+    <div class="pane" style="width: 61.8%;">
 
       <div>
         <div class="item">GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES </div>
         <div class="filter item" *ngIf="filter.active">
           <div class="flex-row">
             <div class="cell" style="flex-grow: 2">
-              <div><label>trigger</label></div>
+              <label>trigger</label>
               <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.trigger"></div>
             </div>
             <div class="cell" style="flex-grow: 1">
-              <div><label>type</label></div>
+              <label>type</label>
               <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.type"></div>
             </div>
             <div class="cell" style="flex-grow: 6">
-              <div><label>search</label></div>
+              <label>search</label>
               <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.search"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="divider" [class.active]="currentTrigger"></div>
-
       <ng-container *ngIf="currentTrigger">
-        <div class="item" (click)="gobackto(0)"  noselect><p>{{currentTrigger.handle}}</p></div>
+        <div class="item" (click)="gobackto(0)"  noselect><p>►  {{currentTrigger.handle}}</p></div>
       </ng-container>
 
       <ng-container *ngFor="let breadcrum of breadcrums.slice().reverse(); let i = index">
         <div class="item" (click)="gobackto(i+1)" noselect>
           <p>{{breadcrum.node.text}}</p>
-          <p>{{breadcrum.choice.handle}}</p>
+          <p>•  {{breadcrum.choice.handle}}</p>
         </div>
       </ng-container>
+
+      <div class="divider" [class.active]="currentTrigger"></div>
 
       <!-- LIST OF TRIGGERS -->
 
       <div class="items-list" *ngIf="!currentTrigger">
-        <ng-container *ngFor="let trigger of listVisibleTriggers; let i = index">
         <div class="item"
+             *ngFor="let trigger of listVisibleTriggers; let i = index"
              [class.selected]="trigger===selection.selectedObject"
              (mousedown)="selection.selectObject(trigger)">
-
+          <button class="swapper" *ngIf="i>0" (click)="move(data_triggers,trigger,-1)" clear>⬆⬇</button>
           <div class="flex-row">
-            <div class="cell" style="flex-grow: 2">
-              <label>handle</label>
-              <div class="textarea-wrapper input">
-                <textarea autosize
-                          class="input field-trigger-text"
-                          (click)="fixTextarea($event.target)"
-                          [(ngModel)]="trigger.handle"></textarea>
+            <div class="cell form" style="flex-grow: 15">
+              <div class="flex-row">
+                <div class="cell" style="flex-grow: 2">
+                  <label>handle</label>
+                  <input type="text" class="input field-handle" [(ngModel)]="trigger.handle">
+                </div>
+              </div>
+              <div class="flex-row">
+                <div class="cell" style="width:80px">
+                  <label>location</label>
+                  <input type="text" class="input field-node" [(ngModel)]="trigger.node">
+                </div>
+                <div class="cell" style="flex-grow: 13">
+                  <label>condition</label>
+                  <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
+                </div>
+                <div class="cell" style="width:80px">
+                  <label>uid</label>
+                  <input type="text" class="input field-uid" [(ngModel)]="trigger.uid">
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="flex-row">
-            <div class="cell" style="">
-              <div><label>location</label></div>
-              <div><input type="text"
-                          class="input field-trigger-node"
-                          [(ngModel)]="trigger.node"></div>
-            </div>
-            <div class="cell" style="flex-grow: 13">
-              <div><label>condition</label></div>
-              <div><input type="text"
-                          class="input field-trigger-condition"
-                          [(ngModel)]="trigger.condition"></div>
-            </div>
-            <div class="cell" style="">
-              <div><label>uid</label></div>
-              <div><input type="text"
-                          class="input field-trigger-uid"
-                          [(ngModel)]="trigger.uid"></div>
-            </div>
-            <div class="cell" style="">
-              <div><label>select</label></div>
-              <div class="item inner" (click)="currentTrigger=trigger">
-                <button style="width:100%;height:100%;"> >> </button>
-              </div>
+            <div class="cell" style="width:50px">
+              <button (click)="currentTrigger=trigger">select</button>
             </div>
           </div>
-
         </div>
-        </ng-container>
-        <div class="item spawner" (click)="addTrigger(data_triggers.length)" style="cursor:pointer">＋ trigger</div>
+        <div class="item spawner" (click)="addTrigger(data_triggers.length)" style="cursor:pointer">
+          ＋ trigger
+        </div>
       </div>
 
       <!-- LIST OF NODES -->
@@ -95,103 +84,98 @@
                [class.selected]="node === selection.selectedObject"
                (mouseup)="selection.selectObject(node)">
 
-            <div>
-              <label for="goto.text">text</label>
-              <div class="textarea-wrapper input"
-                   [class.dirty]="isDirty(node,'text')">
-                <textarea autosize
-                          class="input field-text"
+            <button class="swapper" *ngIf="i>0" (click)="move(data_nodes,node,-1)" clear>⬆⬇</button>
+
+            <div class="flex-row">
+              <div class="cell" style="flex-grow: 15">
+                <label>text</label>
+                <textarea autosize class="field-text"
                           (click)="fixTextarea($event.target)"
                           [(ngModel)]="node.text"></textarea>
               </div>
-            </div>
-
-            <div class="flex-row">
-              <div class="cell" style="flex-grow: 1">
-                <div><label>uid</label></div>
-                <div><input type="text"
-                            class="input field-uid"
-                            disabled="true"
-                            [(ngModel)]="node.uid"></div>
-              </div>
-              <div class="cell" style="flex-grow: 1">
-                <div><label>cause</label></div>
-                <div><input type="text"
-                            class="input field-cause"
-                            disabled="true"
-                            [(ngModel)]="node.cause"></div>
-              </div>
-              <div class="cell" style="flex-grow: 13">
-                <div><label>condition</label></div>
-                <div><input type="text"
-                            class="input field-condition"
-                            [(ngModel)]="node.condition"></div>
-              </div>
-              <div class="cell" style="flex-grow: 1">
-                <div><label>type</label></div>
-                <div><input type="text"
-                            class="input field-type"
-                            [(ngModel)]="node.type"></div>
+              <div class="cell" style="width:100px">
+                <label>condition</label>
+                <input type="text" class="field-condition" [(ngModel)]="node.condition">
+                <div space></div>
+                <label>type</label>
+                <input type="text" class="field-type" [(ngModel)]="node.type">
+                <div space></div>
+                <label>cause</label>
+                <input type="text" class="field-cause" [(ngModel)]="node.cause">
               </div>
             </div>
 
-            <div><label>choices</label></div>
-            <div class="item inner" *ngFor="let choice of node.choices">
+            <label>choices</label>
+            <div class="item inner" *ngFor="let choice of node.choices; let j=index;">
+              <button class="swapper" *ngIf="j>0" (click)="move(node.choices,node,-1)" clear>⬆⬇</button>
               <div class="flex-row">
                 <div class="cell" style="flex-grow: 15">
-                  <div><label>handle</label></div>
-                  <div><input type="text"
-                              class="input field-handle"
-                              [(ngModel)]="choice.handle"></div>
-                </div>
-                <div class="cell" style="width:120px">
-                  <div><label>go there >></label></div>
-                  <div class="item inner" (click)="goto(node,choice)">
-                    <button style="width:100%;height:100%;"> >> </button>
+                  <div class="cell">
+                    <label>handle</label>
+                    <input type="text" class="field-handle" [(ngModel)]="choice.handle">
+                  </div>
+                  <div class="flex-row">
+                    <div class="cell" style="flex-grow: 15">
+                      <label for="goto.text">condition</label>
+                      <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
+                    </div>
+                    <div class="cell" style="width:120px">
+                      <label>next</label>
+                      <input type="text" class="input field-next" [(ngModel)]="choice.next">
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="flex-row">
-                <div class="cell" style="flex-grow: 15">
-                  <label for="goto.text">condition</label>
-                  <div><input type="text" class="input field-condition" [(ngModel)]="choice.condition"></div>
-                </div>
-                <div class="cell" style="width:120px">
-                  <div><label>next</label></div>
-                  <div><input type="text" class="input field-next" [(ngModel)]="choice.next"></div>
+                <div class="cell" style="width:100px">
+                  <button (click)="goto(node,choice)">go</button>
                 </div>
               </div>
             </div>
+            <div class="notice" *ngIf="!node.choices?.length">
+              <p>This node presents no further choices to make.</p>
+              <p>Your sequence will end with this.</p>
+            </div>
             <div class="item inner spawner" (click)="addChoice(node)" style="cursor:pointer">+ choice</div>
+
+            <div space></div>
+            <div space></div>
+            <div class="uid" [class.dirty]="isDirtyNew(node)">{{node.uid}}</div>
 
           </div>
         </ng-container>
         <div class="item spawner" (click)="addNode(data_nodes.length)" style="cursor:pointer">+ node</div>
       </div>
 
+      <div class="filler">- ⚜ -</div>
+
     </div>
 
     <!-- SPLIT -->
 
-    <div class="list" style="flex-grow: 382; border-left: 1px solid #555;">
+    <div class="pane" style="width: 38.2%; border-left: 1px solid #555;">
 
       <div>
-        <div class="item">SNIPPETS + ALIASES</div>
+        <div class="item">LOCATION NODES</div>
         <div class="item">
           <div class="flex-row">
             <div class="cell" style="flex-grow: 3">
-              <div><label>search</label></div>
-              <div><input type="text" class="input" [(ngModel)]="gaaliba"></div>
+              <label>search</label>
+              <div><input type="text" class="input" [(ngModel)]="filterLocations"></div>
             </div>
           </div>
           <div>- ♯</div>
         </div>
       </div>
 
-      <div class="divider" [class.active]="false"></div>
+      <div class="divider" [class.active]="!!filterLocations"></div>
 
-      <div class="items-list" #thelist spellcheck="false">
-          <div class="item">-- {{gaaliba}}</div>
+      <div class="items-list">
+        <ng-container *ngFor="let loc of gamedata.data.world.nodes">
+          <div class="item" *ngIf="!filterLocations||loc.slug.includes(filterLocations)">
+            <div class="flex-row">
+              <div class="cell" style="">{{loc.uid}} :: {{loc.slug}}</div>
+            </div>
+          </div>
+        </ng-container>
       </div>
 
     </div>

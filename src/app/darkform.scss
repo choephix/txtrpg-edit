@@ -1,0 +1,204 @@
+$bev-up: #FFF2;
+$bev-dn: #0009;
+$inset-background: #0003;
+$inset-border: #0007;
+$accent-off: #1c484e;
+$accent-on: #2fb493;
+$super: #00a2ff;
+
+@mixin inset {
+  background: $inset-background;
+  border: 1px solid $inset-border;
+  padding: 4px 6px;
+}
+@mixin bevel-top-bottom {
+  border-top: 1px solid $bev-up;
+  border-bottom: 1px solid $bev-dn;
+}
+@mixin bevel-left-right {
+  border-left: 1px solid $bev-up;
+  border-right: 1px solid $bev-dn;
+}
+
+.darkform {
+  background: #3f3f3f;
+  font-family:monospace;
+  box-sizing: border-box;
+  user-select: none;
+
+  .item {
+    position:relative;
+    padding: 4px;
+    background-color: #FFFFFF06;
+    @include bevel-top-bottom;
+  }
+  .item:hover {
+    background: #FFFFFF0B;
+    // .toolbar { opacity:.8 }
+    // .toolbar:hover { opacity:1 }
+  }
+  .item.selected {
+    background: #FFFFFF13;
+  }
+
+  .item.inner {
+    @include bevel-top-bottom;
+    @include bevel-left-right;
+  }
+
+  /// INPUTOS
+
+  textarea {
+    background: none;
+    border:none;
+    min-height: 5rem;
+    resize: none;
+  }
+  textarea, input, label {
+    font-family:monospace;
+    display: block;
+    width: 100%;
+  }
+  textarea, input, .input {
+    @include inset;
+    outline: none;
+    outline-color: #0000;
+    user-select: normal;
+  }
+  textarea:focus, input:focus, .input:focus {
+    outline: 1px solid $super;
+  }
+
+  label {
+    color: #888;
+    font-size: .8em;
+    font-style: italic;
+  }
+
+  .item.selected {
+    label { color: #999; }
+    .field-from, .input.field-to { color: #8acdea; }
+    .field-condition { color: #ceb3ff; }
+    .field-handle { color: #ead38a; }
+  }
+
+  /// BUTTONAS
+
+  button:not(.clear) {
+    display: block;
+    height:100%;
+    width:100%;
+    border: 1px solid #FFF2;
+    outline: 1px solid #0007;
+    background: #FFFFFF0B;
+    cursor: pointer;
+  }
+  button:not(.clear):hover {
+    background: #FFF1;
+    color: white;
+  }
+  button:not(.clear):active {
+    border: 1px solid white;
+    background: $super;
+    color: white;
+  }
+
+
+  button[clear] {
+    background: none !important;
+    border:none !important;
+    outline:none !important;
+    font-weight: bold;
+  }
+  button.swapper {
+    position: absolute;
+    left: 0px;
+    margin-top: -1.2em;
+    width: unset;
+    height: unset;
+    display: none;
+    padding: 0 8px;
+    background: #555;
+    color: #777;
+    text-shadow: 0 0 16px black;
+  }
+  .item:hover > button.swapper {
+    display:block;
+  }
+  button.swapper:hover {
+    color: $super;
+    text-shadow: 0 0 16px $super;
+  }
+
+  .notice {
+    @include inset;
+    color: violet;
+    font-weight: bold;
+  }
+
+  .divider {
+    height:2px;
+    background: $accent-off;
+    transition: background-color .250s;
+    z-index: 1;
+  }
+  .divider.active {
+    background: $accent-on;
+    box-shadow: 0 0 4px $accent-on;
+  }
+
+  div[space] {
+    height:8px;
+  }
+  .filler {
+    height:50vh;
+    color:#000B;
+    padding-top:4px;
+    text-align:center;
+  }
+}
+.darkform {
+  ::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 4px #0008;
+    background-color: #0002;
+    border: 1px solid #0008;
+    cursor: pointer;
+  }
+  ::-webkit-scrollbar
+  {
+    width: 8px;
+    background-color: rgb(70, 70, 70);
+    cursor: pointer;
+  }
+  ::-webkit-scrollbar-thumb
+  {
+    background-color: #484848;
+    border: 1px solid #222;
+    transition: background-color 250ms, box-shadow 250ms;
+    cursor: pointer;
+  }
+  ::-webkit-scrollbar-thumb:hover
+  {
+    background-color: $super;
+    -webkit-box-shadow: 0 0 4px $super;
+    box-shadow: 0 0 4px $super;
+  }
+}
+
+
+*[tooltip] {
+  position: relative;
+}
+*[tooltip]:hover:before {
+  content: attr(tooltip);
+  position: absolute;
+  white-space: nowrap;
+  bottom: 1.7em;
+  left: 0px;
+  padding: 1px 8px;
+  background-color: #333;
+  outline: 1px solid #0009;
+  color: silver;
+  font-weight: 100;
+}
