@@ -24,6 +24,7 @@ import { MouseWheelDirective } from './util/mouse-wheel.directive';
 import { SidebarComponent } from './view-sidebar/sidebar.component';
 import { CollapsableComponent } from './common/collapsable.component';
 import { SequenceTreeViewComponent } from './view/sequence-tree-view.component';
+import { JournalHelperPaneComponent } from './lists/journal-helper-pane.component';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
     SidebarComponent,
     CollapsableComponent,
     SequenceTreeViewComponent,
+    JournalHelperPaneComponent,
   ],
   imports: [
     RouterModule.forRoot( appRoutes, { enableTracing: false } ),

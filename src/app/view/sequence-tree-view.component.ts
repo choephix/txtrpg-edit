@@ -17,7 +17,6 @@ export class SequenceTreeViewComponent
   get data_triggers_original() { return this.gamedata.originalData.journal.sequences.triggers }
 
   filter:Filter = new Filter
-  filterLocations:string= ''
 
   breadcrums:Breadcrum[] = []
   currentTrigger:SequenceTrigger = null

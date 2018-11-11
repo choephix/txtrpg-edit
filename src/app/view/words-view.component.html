@@ -94,7 +94,9 @@
       </ng-container>
       </ng-container>
 
-      <div class="item final-item-plus" (click)="add(data.length)">＋</div>
+      <div class="item spawner" (click)="add(data.length)" style="cursor:pointer">add new</div>
+
+      <div class="filler">- ⚜ -</div>
 
     </div>
 
@@ -102,29 +104,9 @@
 
   <!-- SPLIT -->
 
-  <div class="pane" style="width: 38.2%; border-left: 1px solid #555;">
-
-    <div>
-      <div class="item">SNIPPETS + ALIASES</div>
-      <div class="item">
-        <div class="flex-row">
-          <div class="cell" style="flex-grow: 3">
-            <div><label>search</label></div>
-            <div><input type="text" class="input" [(ngModel)]="filter.searchhhhhhhhh"></div>
-          </div>
-        </div>
-        <div>- ♯</div>
-      </div>
-    </div>
-
-    <div class="divider" [class.active]="filter.from||filter.to||filter.search"></div>
-
-    <div class="items-list" #thelist spellcheck="false">
-        <div class="item">...</div>
-    </div>
-
-    <div class="item" style="flex-grow:1"></div>
-
+  <div class="pane" style="width: 38.2%;">
+    <journal-helper-pane>
+    </journal-helper-pane>
   </div>
 
 </div>

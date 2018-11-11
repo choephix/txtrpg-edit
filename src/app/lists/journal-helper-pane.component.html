@@ -1,0 +1,47 @@
+<div class="darkform">
+  <div>
+    <div class="item">LOCATION NODES</div>
+    <div class="item">
+      <div class="flex-row">
+        <div class="cell" style="flex-grow: 3">
+          <label>search</label>
+          <div><input type="text" class="input" [(ngModel)]="filterLocations"></div>
+        </div>
+      </div>
+      <div>- ♯</div>
+    </div>
+  </div>
+
+  <div class="divider" [class.active]="!!filterLocations"></div>
+
+  <div class="items-list">
+    <style type="scss/text">
+      *.cell {
+        user-select: all;
+      }
+      *.cell.uid {
+        width:80px !important;
+        flex-grow:0 !important;
+      }
+      *.cell.uid2 {
+        width:70px !important;
+        flex-grow:0 !important;
+      }
+    </style>
+    <ng-container *ngFor="let loc of gamedata.data.world.nodes">
+    <ng-container *ngIf="!filterLocations||loc.slug.includes(filterLocations)">
+      <div class="flex-row">
+        <div class="item cell uid">{{loc.uid}}</div>
+        <div class="item cell">{{loc.slug}}</div>
+      </div>
+      <ng-container *ngFor="let sub of gamedata.data.world.subnodes">
+        <div class="flex-row" *ngIf="sub.parent==loc.uid||sub.parent==loc.slug">
+          <div class="inset" style="width:10px; background:#0002; border-right:1px solid #0008;"></div>
+          <div class="item cell uid2">{{sub.uid}}</div>
+          <div class="item cell">{{sub.slug}}</div>
+        </div>
+      </ng-container>
+    </ng-container>
+    </ng-container>
+  </div>
+</div>

@@ -59,6 +59,7 @@ $pebble-size: 8px;
   }
 
   *:disabled { opacity: .25 !important; }
+  .selectable, [selectable] { user-select:text; }
 
   /// <<< ITEM >>>
 
@@ -180,8 +181,6 @@ $pebble-size: 8px;
     text-shadow: 0 0 16px $super;
   }
   /// OTHER CLEAR BUTTONS
-  button[clear].delete {
-  }
   button[clear].delete:hover {
     color:red;
     text-shadow: 0 0 16px red;
