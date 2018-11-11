@@ -71,10 +71,8 @@ $pebble-size: 8px;
   }
   .item:not(.not-selectable):hover {
     background: #FFFFFF0B;
-    // .toolbar { opacity:.8 }
-    // .toolbar:hover { opacity:1 }
   }
-  .item.selected {
+  .item:not(.not-selectable).selected {
     background: #FFFFFF13;
   }
 
@@ -164,7 +162,7 @@ $pebble-size: 8px;
   button.swapper {
     position: absolute;
     left: 0px;
-    margin-top: -1.2em;
+    margin-top: -1.6em;
     width: unset;
     height: unset;
     display:block;
