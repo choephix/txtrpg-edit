@@ -20,19 +20,55 @@ $super: #00a2ff;
   border-right: 1px solid $bev-dn;
 }
 
+.flex-row {
+  width:100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  .cell {
+    flex-direction: column;
+    flex-grow:1;
+  }
+}
+
+$pebble-size: 8px;
+[pebble] {
+  width:$pebble-size;
+  height:$pebble-size;
+  display: block;
+}
+
+
 .darkform {
+  color: #AAA;
   background: #3f3f3f;
   font-family:monospace;
   box-sizing: border-box;
   user-select: none;
 
+  ///
+
+  * {
+    font-size: 10px;
+    box-sizing: border-box;
+    transition-property: opacity, color, background-color, border-color, outline-color;
+    transition-duration: 250ms;
+
+    ::selection      { background: #6f70c25e; }
+    ::-moz-selection { background: #6f70c25e; }
+  }
+
+  *:disabled { opacity: .25 !important; }
+
+  /// <<< ITEM >>>
+
   .item {
     position:relative;
-    padding: 4px;
+    padding: $pebble-size;
     background-color: #FFFFFF06;
     @include bevel-top-bottom;
   }
-  .item:hover {
+  .item:not(.not-selectable):hover {
     background: #FFFFFF0B;
     // .toolbar { opacity:.8 }
     // .toolbar:hover { opacity:1 }
@@ -51,7 +87,7 @@ $super: #00a2ff;
   textarea {
     background: none;
     border:none;
-    min-height: 5rem;
+    min-height: calc(100% - 8px);
     resize: none;
   }
   textarea, input, label {
@@ -64,9 +100,14 @@ $super: #00a2ff;
     outline: none;
     outline-color: #0000;
     user-select: normal;
+    color: #AAA;
+  }
+  textarea:hover, input:hover, .input:hover {
+    color: #BBB;
   }
   textarea:focus, input:focus, .input:focus {
     outline: 1px solid $super;
+    color: #EEE;
   }
 
   label {
@@ -84,16 +125,19 @@ $super: #00a2ff;
 
   /// BUTTONAS
 
-  button:not(.clear) {
+  button {
+    cursor: pointer;
+    color: #AAA;
+  }
+  button:not([clear]) {
     display: block;
     height:100%;
     width:100%;
     border: 1px solid #FFF2;
     outline: 1px solid #0007;
     background: #FFFFFF0B;
-    cursor: pointer;
   }
-  button:not(.clear):hover {
+  button:not([clear]):hover {
     background: #FFF1;
     color: white;
   }
@@ -102,40 +146,78 @@ $super: #00a2ff;
     background: $super;
     color: white;
   }
-
-
   button[clear] {
-    background: none !important;
-    border:none !important;
-    outline:none !important;
+    background: none;
+    border:none;
+    outline:none;
     font-weight: bold;
+    opacity:.5;
+    transition-property: opacity, color;
+    transition-duration: 250ms;
   }
+  button[clear]:hover {
+    opacity:1;
+  }
+  /// SWAPPER
   button.swapper {
     position: absolute;
     left: 0px;
     margin-top: -1.2em;
     width: unset;
     height: unset;
-    display: none;
+    display:block;
     padding: 0 8px;
-    background: #555;
+    opacity:0;
     color: #777;
     text-shadow: 0 0 16px black;
   }
   .item:hover > button.swapper {
-    display:block;
+    opacity:1;
   }
   button.swapper:hover {
     color: $super;
     text-shadow: 0 0 16px $super;
   }
+  /// OTHER CLEAR BUTTONS
+  button[clear].delete {
+  }
+  button[clear].delete:hover {
+    color:red;
+    text-shadow: 0 0 16px red;
+  }
 
-  .notice {
+
+  /// NOTICE
+  *.notice {
     @include inset;
-    color: violet;
+    background-color: $accent-off;
+    color: $accent-on;
     font-weight: bold;
   }
 
+  /// TOOLBAR
+  .toolbar { opacity: 0 }
+  *:hover > .toolbar { opacity: 1 }
+
+  /// UID
+  .item {
+    .uid {
+      position:absolute;
+      bottom:3px;
+      right:5px;
+      opacity:.4;
+      user-select: none;
+    }
+    .uid:hover { opacity:2; }
+  }
+
+  /// THAT BIG BUTTON
+  .item.spawner {
+    padding: 20px;
+    text-align: center;
+  }
+
+  /// DIVIDER
   .divider {
     height:2px;
     background: $accent-off;
@@ -147,6 +229,16 @@ $super: #00a2ff;
     box-shadow: 0 0 4px $accent-on;
   }
 
+  ///
+
+  ///
+
+  /// HADNLE THE DIRTIES
+
+  .dirty:not(.uid) { border: 1px solid rgb(253, 173, 0) !important; }
+  .uid.dirty { color: rgb(253, 173, 0); font-weight: bold; opacity: 1; }
+
+  ///
   div[space] {
     height:8px;
   }
@@ -168,7 +260,7 @@ $super: #00a2ff;
   ::-webkit-scrollbar
   {
     width: 8px;
-    background-color: rgb(70, 70, 70);
+    background-color: #0001;
     cursor: pointer;
   }
   ::-webkit-scrollbar-thumb

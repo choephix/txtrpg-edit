@@ -3,31 +3,15 @@
     <div class="pane" style="width: 61.8%;">
 
       <div>
-        <div class="item">GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES </div>
-        <div class="filter item" *ngIf="filter.active">
-          <div class="flex-row">
-            <div class="cell" style="flex-grow: 2">
-              <label>trigger</label>
-              <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.trigger"></div>
-            </div>
-            <div class="cell" style="flex-grow: 1">
-              <label>type</label>
-              <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.type"></div>
-            </div>
-            <div class="cell" style="flex-grow: 6">
-              <label>search</label>
-              <div><input type="text" class="input" [disabled]="filter.disabled" [(ngModel)]="filter.search"></div>
-            </div>
-          </div>
-        </div>
+        <div class="item not-selectable">GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES </div>
       </div>
 
       <ng-container *ngIf="currentTrigger">
-        <div class="item" (click)="gobackto(0)"  noselect><p>►  {{currentTrigger.handle}}</p></div>
+        <div class="item breadcrum" (click)="gobackto(0)"><p>►  {{currentTrigger.handle}}</p></div>
       </ng-container>
 
       <ng-container *ngFor="let breadcrum of breadcrums.slice().reverse(); let i = index">
-        <div class="item" (click)="gobackto(i+1)" noselect>
+        <div class="item breadcrum" (click)="gobackto(i+1)">
           <p>{{breadcrum.node.text}}</p>
           <p>•  {{breadcrum.choice.handle}}</p>
         </div>
@@ -41,7 +25,7 @@
         <div class="item"
              *ngFor="let trigger of listVisibleTriggers; let i = index"
              [class.selected]="trigger===selection.selectedObject"
-             (mousedown)="selection.selectObject(trigger)">
+             (mouseup)="selection.selectObject(trigger)">
           <button class="swapper" *ngIf="i>0" (click)="move(data_triggers,trigger,-1)" clear>⬆⬇</button>
           <div class="flex-row">
             <div class="cell form" style="flex-grow: 15">
@@ -56,16 +40,19 @@
                   <label>location</label>
                   <input type="text" class="input field-node" [(ngModel)]="trigger.node">
                 </div>
+                <div pebble></div>
                 <div class="cell" style="flex-grow: 13">
                   <label>condition</label>
                   <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
                 </div>
+                <div pebble></div>
                 <div class="cell" style="width:80px">
                   <label>uid</label>
                   <input type="text" class="input field-uid" [(ngModel)]="trigger.uid">
                 </div>
               </div>
             </div>
+            <div pebble></div>
             <div class="cell" style="width:50px">
               <button (click)="currentTrigger=trigger">select</button>
             </div>
@@ -93,6 +80,7 @@
                           (click)="fixTextarea($event.target)"
                           [(ngModel)]="node.text"></textarea>
               </div>
+              <div pebble></div>
               <div class="cell" style="width:100px">
                 <label>condition</label>
                 <input type="text" class="field-condition" [(ngModel)]="node.condition">
@@ -106,7 +94,7 @@
             </div>
 
             <label>choices</label>
-            <div class="item inner" *ngFor="let choice of node.choices; let j=index;">
+            <div class="item inner" *ngFor="let choice of node.choices; let j=index; trackBy:trackByFn">
               <button class="swapper" *ngIf="j>0" (click)="move(node.choices,node,-1)" clear>⬆⬇</button>
               <div class="flex-row">
                 <div class="cell" style="flex-grow: 15">
@@ -119,12 +107,14 @@
                       <label for="goto.text">condition</label>
                       <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
                     </div>
+                    <div pebble></div>
                     <div class="cell" style="width:120px">
                       <label>next</label>
                       <input type="text" class="input field-next" [(ngModel)]="choice.next">
                     </div>
                   </div>
                 </div>
+                <div pebble></div>
                 <div class="cell" style="width:100px">
                   <button (click)="goto(node,choice)">go</button>
                 </div>
@@ -137,7 +127,9 @@
             <div class="item inner spawner" (click)="addChoice(node)" style="cursor:pointer">+ choice</div>
 
             <div space></div>
-            <div space></div>
+            <div class="toolbar">
+                <button clear type="button" class="delete" (click)="delete(data_nodes,node)">delete</button>
+            </div>
             <div class="uid" [class.dirty]="isDirtyNew(node)">{{node.uid}}</div>
 
           </div>

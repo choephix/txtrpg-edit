@@ -109,15 +109,21 @@ export class SequenceTreeViewComponent
   move( array, target, offset )
   {
     let index = array.indexOf(target)
-    if ( index >= 0 )
+    if ( index < 0 ) return
     array.splice(index,1)
     array.splice(index+offset,0,target)
   }
 
-  fixTextarea(el)
+  delete( array, target )
   {
-    el.style.height = el.scrollHeight + "px"
+    let index = array.indexOf(target)
+    if ( index < 0 ) return
+    array.splice(index,1)
   }
+
+  fixTextarea(el) { el.style.height = el.scrollHeight + "px" }
+
+  trackByFn(index: any, item: any) { return index; }
 }
 
 class Breadcrum {
