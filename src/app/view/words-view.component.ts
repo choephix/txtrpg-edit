@@ -11,6 +11,7 @@ import { UID_GenerationService } from '../services/id-gen.service';
 export class EditorViewChild_Words
 {
   filter:Filter = new Filter
+  gutter:boolean = false
 
   get data() { return this.gamedata.data.journal.actions.goto }
   get data_original() { return this.gamedata.originalData.journal.actions.goto }

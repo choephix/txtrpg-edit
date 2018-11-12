@@ -8,3 +8,7 @@
 .pane { overflow-y: scroll; min-height: 100%; }
 
 .toolbar > button[clear] { margin-right:12px; }
+
+[gutter] [gutter-toolbar] {
+  justify-content: space-between !important;
+}

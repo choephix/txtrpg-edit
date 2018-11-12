@@ -28,7 +28,7 @@ export class SequenceTreeViewComponent
   {
     this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.data_nodes ) )
     this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.data_triggers ) )
-    // this.currentTrigger = this.listVisibleTriggers[0];
+    this.currentTrigger = this.listVisibleTriggers[0];
   }
 
   get listVisibleNodes():SequenceNode[]
@@ -111,7 +111,7 @@ export class SequenceTreeViewComponent
   {
     let index = array.indexOf(target)
     if ( index < 0 ) return
-    if ( offset < index ) offset = array.length
+    if ( offset < -index ) offset = array.length
     array.splice(index,1)
     array.splice(index+offset,0,target)
   }
