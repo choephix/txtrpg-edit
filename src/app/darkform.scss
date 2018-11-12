@@ -6,6 +6,8 @@ $accent-off: #1c484e;
 $accent-on: #2fb493;
 $super: #00a2ff;
 
+$spacing: 3px;
+
 @mixin inset {
   background: $inset-background;
   border: 1px solid $inset-border;
@@ -20,24 +22,19 @@ $super: #00a2ff;
   border-right: 1px solid $bev-dn;
 }
 
-.flex-row {
-  width:100%;
+.flex-row, .cell {background:darkorange;}
+
+[row] {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
-  .cell {
-    flex-direction: column;
-    flex-grow:1;
-  }
 }
-
-$pebble-size: 8px;
-[pebble] {
-  width:$pebble-size;
-  height:$pebble-size;
-  display: block;
+[column] {
+  display: flex;
+  flex-flow: column wrap;
 }
-
+[cell] {
+  margin: $spacing;
+}
 
 .darkform {
   color: #AAA;
@@ -50,12 +47,15 @@ $pebble-size: 8px;
 
   * {
     font-size: 10px;
+    position:relative;
     box-sizing: border-box;
-    transition-property: opacity, color, background-color, border-color, outline-color;
-    transition-duration: 250ms;
 
     ::selection      { background: #6f70c25e; }
     ::-moz-selection { background: #6f70c25e; }
+  }
+  * {
+    transition-property: opacity, color, background-color, border-color, outline-color;
+    transition-duration: 250ms;
   }
 
   *:disabled { opacity: .25 !important; }
@@ -65,7 +65,7 @@ $pebble-size: 8px;
 
   .item {
     position:relative;
-    padding: $pebble-size;
+    padding: $spacing;
     background-color: #FFFFFF06;
     @include bevel-top-bottom;
   }
@@ -226,6 +226,7 @@ $pebble-size: 8px;
   .item.spawner {
     padding: 20px;
     text-align: center;
+    cursor:pointer;
   }
 
   /// DIVIDER

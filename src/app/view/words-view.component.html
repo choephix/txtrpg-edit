@@ -4,24 +4,21 @@
 
     <div class="item">GAMEDATA / JOURNAL / ACTIONS / GOTO -- (TEXT)</div>
     <div class="item">
-      <div class="flex-row">
-        <div class="cell zabit100" style="flex-grow: 0">
+      <div row>
+        <div cell style="flex: 1 1 80px">
           <label>from</label>
           <input type="text" class="input" [(ngModel)]="filter.from">
         </div>
-        <div pebble></div>
-        <div class="cell zabit100" style="flex-grow: 0">
+        <div cell style="flex: 1 1 80px">
           <label>to</label>
           <input type="text" class="input" [(ngModel)]="filter.to">
         </div>
-        <div pebble></div>
-        <div class="cell" style="flex-grow: 1">
+        <div cell style="flex: 30 1 160px">
           <label>search</label>
           <input type="text" class="input" [(ngModel)]="filter.search">
         </div>
       </div>
-      <div pebble></div>
-      <div class="toolbar">
+      <div cell class="toolbar">
         <button clear (click)="add(0)">＋ add new</button>
       </div>
     </div>
@@ -37,24 +34,22 @@
              [class.dirty]="isDirtyIndex(o)"
              (mousedown)="selection.selectObject(o)">
 
-            <div class="flex-row">
-              <div class="cell zabit100" style="flex-grow: 0">
+            <div row>
+              <div cell style="flex: 1 1 80px">
                 <label>from</label>
                 <input type="text"
                        class="input field-from"
                        [class.dirty]="isDirty(o,'from')"
                        [(ngModel)]="o.from">
               </div>
-              <div pebble></div>
-              <div class="cell zabit100" style="flex-grow: 0">
+              <div cell style="flex: 1 1 80px">
                 <label>to</label>
                 <input type="text"
                        class="input field-to"
                        [class.dirty]="isDirty(o,'to')"
                        [(ngModel)]="o.to">
               </div>
-              <div pebble></div>
-              <div class="cell" style="flex-grow: 1;">
+              <div cell style="flex: 30 1 160px">
                 <label>condition</label>
                 <input type="text"
                        class="input field-condition"
@@ -63,7 +58,7 @@
               </div>
             </div>
 
-            <div>
+            <div cell>
               <label for="goto.handle">handle</label>
               <input type="text"
                      class="input field-handle"
@@ -71,7 +66,7 @@
                      [(ngModel)]="o.handle">
             </div>
 
-            <div>
+            <div cell>
               <label for="goto.text">text</label>
               <textarea autosize
                         (click)="fixTextarea($event.target)"
@@ -81,7 +76,7 @@
                         [(ngModel)]="o.text"></textarea>
             </div>
 
-            <div class="toolbar">
+            <div cell class="toolbar">
               <button clear class="delete" (click)="delete(i)">delete</button>
               <button clear class="move"   (click)="move(o,i,-1)">⬆ move up</button>
               <button clear class="move"   (click)="move(o,i,1)">⬇ move down</button>
