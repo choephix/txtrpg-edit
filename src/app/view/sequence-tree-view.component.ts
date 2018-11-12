@@ -28,7 +28,7 @@ export class SequenceTreeViewComponent
   {
     this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.data_nodes ) )
     this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.data_triggers ) )
-    this.currentTrigger = this.listVisibleTriggers[0];
+    // this.currentTrigger = this.listVisibleTriggers[0];
   }
 
   get listVisibleNodes():SequenceNode[]

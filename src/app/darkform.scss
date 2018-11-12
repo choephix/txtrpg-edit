@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 $bev-up: #FFF2;
 $bev-dn: #0009;
 $inset-background: #0003;
@@ -185,6 +187,7 @@ $spacing: 3px;
   textarea:focus, input:focus, .input:focus {
     outline: 1px solid $super;
     color: #EEE;
+    opacity:1;
   }
 
   label {
@@ -195,9 +198,11 @@ $spacing: 3px;
 
   .item.selected {
     label { color: #999; }
-    .field-from, .input.field-to { color: #8acdea; }
-    .field-condition { color: #ceb3ff; }
-    .field-handle { color: #ead38a; }
+    .field-from, .field-to, .field-location { color: dulltext($accent-location); }
+    .field-condition { color: dulltext($accent-condition); }
+    .field-handle { color: dulltext($accent-handle); }
+    .field-convo { color: dulltext($accent-convo,25%); }
+    .field-text { color: #EEE; }
   }
 
   /// BUTTONAS
@@ -324,8 +329,8 @@ $spacing: 3px;
 
   /// HADNLE THE DIRTIES
 
-  .item .dirty:not(.uid) { outline: 1px solid rgb(253, 173, 0); }
-  .item .uid.dirty { color: rgb(253, 173, 0); font-weight: bold; opacity: 1; }
+  .item .dirty:not(.uid) { outline: 1px solid $accent-dirty; }
+  .item .uid.dirty { color: $accent-dirty; font-weight: bold; opacity: 1; }
 
   ///
   div[space] {

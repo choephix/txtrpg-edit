@@ -1,0 +1,38 @@
+@import "./../variables.scss";
+
+[row].item {
+  width:100%;
+  padding: 4px 8px !important;
+}
+[indent] {
+  width:10px;
+  background:#0002;
+  border-right:1px solid #0008;
+}
+.cell-uid, .cell-slug {
+  user-select: all;
+}
+.cell-uid {
+  flex: 0 1 80px;
+}
+.cell-slug {
+  flex: 1 1 120px;
+}
+.item:hover {
+  color:#EEE;
+}
+/// DIVIDER
+$accent-on: $accent-generic;
+$accent-off: mix($accent-on,#333,10%);
+.darkform {
+  .divider {
+    height:2px;
+    background: $accent-off;
+    transition: background-color .250s;
+    z-index: 1;
+  }
+  .divider.active {
+    background: $accent-on;
+    box-shadow: 0 0 4px $accent-on;
+  }
+}

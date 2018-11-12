@@ -4,7 +4,7 @@ import { WorldDataService } from './../services/world-data.service';
 @Component({
   selector: 'journal-helper-pane',
   templateUrl: './journal-helper-pane.component.html',
-  styleUrls: ['./../darkform.scss']
+  styleUrls: ['./../darkform.scss',"journal-helper-pane.component.scss"],
 })
 export class JournalHelperPaneComponent
 {
