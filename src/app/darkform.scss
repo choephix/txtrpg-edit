@@ -133,6 +133,7 @@ $pebble-size: 8px;
     display: block;
     height:100%;
     width:100%;
+    padding: 14px 4px;
     border: 1px solid #FFF2;
     outline: 1px solid #0007;
     background: #FFFFFF0B;
@@ -178,11 +179,6 @@ $pebble-size: 8px;
     color: $super;
     text-shadow: 0 0 16px $super;
   }
-  /// OTHER CLEAR BUTTONS
-  button[clear].delete:hover {
-    color:red;
-    text-shadow: 0 0 16px red;
-  }
 
 
   /// NOTICE
@@ -196,6 +192,23 @@ $pebble-size: 8px;
   /// TOOLBAR
   .toolbar { opacity: 0 }
   *:hover > .toolbar { opacity: 1 }
+  /// OTHER CLEAR BUTTONS
+  button[clear].delete:hover {
+    $color: #F13;
+    color:$color;
+    text-shadow: 0 0 16px $color;
+  }
+  button[clear].move:hover {
+    $color:rgb(0, 255, 179);
+    color:$color;
+    text-shadow: 0 0 16px $color;
+  }
+  button[clear].clone:hover {
+    $color:rgb(145, 255, 0);
+    color:$color;
+    text-shadow: 0 0 16px $color;
+  }
+
 
   /// UID
   .item {

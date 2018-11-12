@@ -10,14 +10,3 @@
 .zabit100 { width:100px; }
 
 .toolbar > button[clear] { margin-right:12px; }
-
-button[clear].move:hover {
-  $color:rgb(0, 255, 179);
-  color:$color;
-  text-shadow: 0 0 16px $color;
-}
-button[clear].clone:hover {
-  $color:rgb(145, 255, 0);
-  color:$color;
-  text-shadow: 0 0 16px $color;
-}

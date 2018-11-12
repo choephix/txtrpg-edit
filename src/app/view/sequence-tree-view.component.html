@@ -27,31 +27,37 @@
           <button class="swapper" *ngIf="i>0" (click)="move(data_triggers,trigger,-1)" clear>⬆⬇</button>
           <div class="flex-row">
             <div class="cell form" style="flex-grow: 15">
-              <div class="flex-row">
-                <div class="cell" style="flex-grow: 2">
+              <div class="flex-row" style="flex-wrap: wrap">
+                <div class="cell" style="
+                flex-basis: 400px;
+                flex-grow: 10;
+                flex-shrink: 1;">
                   <label>handle</label>
                   <input type="text" class="input field-handle" [(ngModel)]="trigger.handle">
                 </div>
-              </div>
-              <div class="flex-row">
-                <div class="cell" style="width:80px">
-                  <label>location</label>
-                  <input type="text" class="input field-node" [(ngModel)]="trigger.node">
-                </div>
                 <div pebble></div>
-                <div class="cell" style="flex-grow: 13">
-                  <label>condition</label>
-                  <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
-                </div>
-                <div pebble></div>
-                <div class="cell" style="width:80px">
-                  <label>uid</label>
-                  <input type="text" class="input field-uid" [(ngModel)]="trigger.uid">
+                <div style="display: flex; flex-grow:1;">
+                  <div class="cell" style="width:100px">
+                    <label>location</label>
+                    <input type="text" class="input field-node" [(ngModel)]="trigger.node">
+                  </div>
+                  <div pebble></div>
+                  <div class="cell" style="flex-grow: 3; flex-basis: 300px;">
+                    <label>condition</label>
+                    <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
+                  </div>
+                  <div pebble></div>
+                  <div class="cell" style="width:100px">
+                    <label>uid</label>
+                    <input type="text" class="input field-uid" [(ngModel)]="trigger.uid">
+                  </div>
+                  <div pebble></div>
                 </div>
               </div>
+              <div space></div>
             </div>
             <div pebble></div>
-            <div class="cell" style="width:50px">
+            <div class="cell" style=" flex: 1 0 100px;">
               <button (click)="currentTrigger=trigger">select</button>
             </div>
           </div>
@@ -127,6 +133,7 @@
 
             <div space></div>
             <div class="toolbar">
+                <button clear class="delete" (click)="delete(data_nodes,node)">delete</button>
                 <button clear class="delete" (click)="delete(data_nodes,node)">delete</button>
             </div>
             <div class="uid" [class.dirty]="isDirtyNew(node)">{{node.uid}}</div>
