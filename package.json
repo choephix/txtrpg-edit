@@ -24,13 +24,15 @@
     "@angular/router": "^6.1.0",
     "@angular/service-worker": "^6.1.0",
     "@types/ui-grid": "0.0.42",
+    "node-sass": "4.10.0",
+    "core-js": "^2.5.4",
+    "zone.js": "~0.8.26",
+    "rxjs": "~6.2.0",
     "ag-grid-angular": "^19.0.0",
     "ag-grid-community": "^19.0.0",
-    "core-js": "^2.5.4",
     "ng2-ace-editor": "^0.3.8",
-    "ngx-toastr": "^9.1.1",
-    "rxjs": "~6.2.0",
-    "zone.js": "~0.8.26"
+    "ngx-textarea-autosize": "^2.0.0",
+    "ngx-toastr": "^9.1.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.8.5",
