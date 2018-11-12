@@ -20,4 +20,7 @@
                                                                                 
 ```
 
--cx
+Deployment Status (Travis CI): [![travis status](https://travis-ci.com/choephix/txtrpg-game.svg?branch=master)](https://travis-ci.com/choephix/txtrpg-game)
+
+Deployment Status (Azure Devops) [![Build Status](https://choephix.visualstudio.com/Txtrpg-poc/_apis/build/status/txtrpg-edit-CI+firebase-deploy)](https://choephix.visualstudio.com/Txtrpg-poc/_build/latest?definitionId=15)
+
