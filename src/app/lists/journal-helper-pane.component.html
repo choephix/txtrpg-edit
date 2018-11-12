@@ -37,6 +37,17 @@
       .item:hover {
         color:#EEE;
       }
+
+      .darkform .divider {
+        height:2px;
+        background: #2b334b;
+        transition: background-color .250s;
+        z-index: 1;
+      }
+      .darkform .divider.active {
+        background: #00a2ff;
+        box-shadow: 0 0 4px #00a2ff;
+      }
     </style>
 
     <ng-container *ngFor="let loc of gamedata.data.world.nodes">

@@ -5,7 +5,27 @@
   overflow:hidden;
 }
 
-.pane { overflow-y: scroll; min-height: 100%; }
+.pane {
+  overflow-x: visible;
+  overflow-y: scroll;
+  min-height: 100%;
+}
 
 *.breadcrum { cursor: pointer; transition: none; }
 *.breadcrum:hover { color: #BBB }
+
+/// DIVIDER
+$accent-off: #3d4b2b;
+$accent-on: #a5e73a;
+.darkform {
+  .divider {
+    height:2px;
+    background: $accent-off;
+    transition: background-color .250s;
+    z-index: 1;
+  }
+  .divider.active {
+    background: $accent-on;
+    box-shadow: 0 0 4px $accent-on;
+  }
+}

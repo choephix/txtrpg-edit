@@ -1,8 +1,12 @@
 <div id="full-page" class="darkform">
 
-    <div class="pane" style="width: 61.8%;">
+  <div class="pane" style="width: 61.8%;">
+    <div class="pane-inner" [attr.gutter]="gutter" style="min-height:100%">
 
-      <div class="item not-selectable">GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES </div>
+      <div class="item not-selectable">
+        <p>GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES</p>
+        <button clear class="gutter-toggle" (click)="gutter=!gutter">{{gutter?'>':'<'}}</button>
+      </div>
 
       <ng-container *ngIf="currentTrigger">
         <div class="item breadcrum" (click)="gobackto(0)"><p>►  {{currentTrigger.handle}}</p></div>
@@ -17,14 +21,14 @@
 
       <div class="divider" [class.active]="currentTrigger"></div>
 
-      <!-- LIST OF TRIGGERS -->
+      <div class="items-list">
 
-      <div class="items-list" *ngIf="!currentTrigger">
+        <!-- LIST OF TRIGGERS -->
+        <ng-container *ngIf="!currentTrigger">
         <div class="item"
              *ngFor="let trigger of listVisibleTriggers; let i = index"
              [class.selected]="trigger===selection.selectedObject"
              (mouseup)="selection.selectObject(trigger)">
-          <button class="swapper" *ngIf="i>0" (click)="move(data_triggers,trigger,-1)" clear>⬆⬇</button>
           <div row>
             <div style="flex: 15 1 400px;">
               <div row>
@@ -51,24 +55,25 @@
             <div cell style="flex: 1 0 100px;">
               <button (click)="currentTrigger=trigger">select</button>
             </div>
-
-            <!-- <div class="toolbar">
-              <button clear class="delete" (click)="delete(data_triggers,trigger)">delete</button>
-            </div> -->
+          </div>
+          <div class="gutter-toolbar" *ngIf="true">
+          <!-- <div class="gutter-toolbar" *ngIf="gutter"> -->
+            <button clear class="move" (click)="move(data_triggers,trigger,-1)">▲▼</button>
+            <button clear class="delete" (click)="delete(data_triggers,trigger)">╳</button>
+            <button clear class="clone" (click)="addTrigger(i+1)">╋</button>
           </div>
         </div>
         <div class="item spawner" (click)="addTrigger(data_triggers.length)">
           ＋ trigger
         </div>
-      </div>
+        </ng-container>
 
-      <!-- LIST OF NODES -->
+        <!-- LIST OF NODES -->
 
-      <div class="items-list" *ngIf="currentTrigger">
-        <ng-container *ngFor="let node of listVisibleNodes; let i = index">
-          <div class="item"
-               [class.selected]="node === selection.selectedObject"
-               (mouseup)="selection.selectObject(node)">
+        <ng-container *ngIf="currentTrigger">
+          <div class="item" *ngFor="let node of listVisibleNodes; let i = index"
+              [class.selected]="node === selection.selectedObject"
+              (mouseup)="selection.selectObject(node)">
 
             <button class="swapper" *ngIf="i>0" (click)="move(data_nodes,node,-1)" clear>⬆⬇</button>
 
@@ -131,19 +136,21 @@
             </div>
 
           </div>
+          <div class="item spawner" (click)="addNode(data_nodes.length)" style="cursor:pointer">+ node</div>
         </ng-container>
-        <div class="item spawner" (click)="addNode(data_nodes.length)" style="cursor:pointer">+ node</div>
+
+        <div class="filler">- ⚜ -</div>
+
       </div>
-
-      <div class="filler">- ⚜ -</div>
-
     </div>
+  </div>
+
 
     <!-- SPLIT -->
 
-    <div class="pane" style="width: 38.2%;">
-      <journal-helper-pane>
-      </journal-helper-pane>
-    </div>
-
+  <div class="pane" style="width: 38.2%;">
+    <journal-helper-pane>
+    </journal-helper-pane>
   </div>
+
+</div>
