@@ -33,9 +33,10 @@ export class JsonAcePanelComponent
 	}
 
   public get code():string
-  { return JSON.stringify(this.sele.selectedObject,null,2)+"\n" }
+  { return !this.sele.selectedObject ? "n/a" : JSON.stringify(this.sele.selectedObject,null,2)+"\n" }
   public set code(value:string)
-  { if(value&&value!="null") Object.assign(this.sele.selectedObject,JSON.parse(value)) }
+  { if(this.sele.selectedObject&&value&&value!="null")
+      Object.assign(this.sele.selectedObject,JSON.parse(value)) }
 
   constructor( private sele:SelectionService ) {}
 }
