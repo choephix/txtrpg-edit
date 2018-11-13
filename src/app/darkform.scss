@@ -276,7 +276,7 @@ $spacing: 3px;
     display: inline;
     padding: 4px 12px;
     border: 1px solid #FFF2;
-    outline: 1px solid #000C;
+    outline: 1px solid #0008;
     margin:1px 1px 0px 1px;
     background: #FFFFFF0B;
     cursor:pointer;
@@ -381,6 +381,7 @@ $spacing: 3px;
   ::-webkit-scrollbar
   {
     width: 8px;
+    height: 8px;
     background-color: #0001;
     cursor: pointer;
   }
@@ -396,6 +397,9 @@ $spacing: 3px;
     background-color: $super;
     -webkit-box-shadow: 0 0 4px $super;
     box-shadow: 0 0 4px $super;
+  }
+  ::-webkit-scrollbar-corner {
+    background: none;
   }
 }
 

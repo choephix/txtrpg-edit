@@ -1,6 +1,6 @@
 <style type="scss/text">
-
-#lesvg { height:100%; width:calc(100% - 200px); position: absolute; background: #444 }
+#container { height:100%; width:100%; background:#38393B; overflow:hidden; }
+#lesvg { height:100%; width:100%; }
 #trash { fill:rgba(255,0,0,.05); }
 #trash:hover { fill:rgba(255,0,0,.25); stroke:rgba(255,0,0,.1); stroke-width:4 }
 .link { stroke:rgb(100, 200, 250); stroke-width:4; stroke-linecap:round; opacity: .15; }
@@ -44,110 +44,112 @@
 
 </style>
 
-<svg id="lesvg" #lesvg mousewheel
-			(wheel)="mousewheel($event)"
-			(mousedown)="mousedown($event)"
-			(mouseup)="mouseup($event)"
-			(mousemove)="mousemove($event)"
-			(contextmenu)="contextmenu($event)">
-	<ng-container>
-    <line
-			[attr.x1]="globalizeViewX(-4096)"
-			[attr.y1]="globalizeViewY(0)"
-			[attr.x2]="globalizeViewX(4096)"
-			[attr.y2]="globalizeViewY(0)"
-			class="axis"/>
-		<line
-			[attr.x1]="globalizeViewX(0)"
-			[attr.y1]="globalizeViewY(-4096)"
-			[attr.x2]="globalizeViewX(0)"
-			[attr.y2]="globalizeViewY(4096)"
-			class="axis"/>
-	</ng-container>
+<div id="container">
+  <svg id="lesvg" #lesvg mousewheel
+        (wheel)="mousewheel($event)"
+        (mousedown)="mousedown($event)"
+        (mouseup)="mouseup($event)"
+        (mousemove)="mousemove($event)"
+        (contextmenu)="contextmenu($event)">
+    <ng-container>
+      <line
+        [attr.x1]="globalizeViewX(-4096)"
+        [attr.y1]="globalizeViewY(0)"
+        [attr.x2]="globalizeViewX(4096)"
+        [attr.y2]="globalizeViewY(0)"
+        class="axis"/>
+      <line
+        [attr.x1]="globalizeViewX(0)"
+        [attr.y1]="globalizeViewY(-4096)"
+        [attr.x2]="globalizeViewX(0)"
+        [attr.y2]="globalizeViewY(4096)"
+        class="axis"/>
+    </ng-container>
 
-	<ng-container *ngIf="linking">
-		<line
-			[attr.x1]="getViewX(linking)"
-			[attr.y1]="getViewY(linking)"
-			[attr.x2]="mouseX"
-			[attr.y2]="mouseY"
-			class="link tobe"/>
-	</ng-container>
+    <ng-container *ngIf="linking">
+      <line
+        [attr.x1]="getViewX(linking)"
+        [attr.y1]="getViewY(linking)"
+        [attr.x2]="mouseX"
+        [attr.y2]="mouseY"
+        class="link tobe"/>
+    </ng-container>
 
-	<ng-container *ngFor="let link of w.links; let i = index">
-		<line
-      (mouseup)="mouseup_link($event,i)"
-			[attr.data-index]="i"
-			[attr.x1]="getViewX(link.to)+5"
-			[attr.y1]="getViewY(link.to)+random(i,5)"
-			[attr.x2]="getViewX(link.from)-5"
-      [attr.y2]="getViewY(link.from)-random(i,5)"
-      [class.focused]="focused&&(link.to==focused.uid||link.from==focused.uid)"
-			class="link smooth"/>
-	</ng-container>
-	<ng-container *ngFor="let node of w.subnodes; let i = index">
-		<line
-			[attr.x1]="getViewX(node)"
-			[attr.y1]="getViewY(node)"
-			[attr.x2]="getViewX(node.parent)"
-			[attr.y2]="getViewY(node.parent)"
-      [class.focused]="focused&&(node.parent==focused.uid||node.uid==focused.uid)"
-			class="link smooth"/>
-	</ng-container>
-	<ng-container *ngFor="let node of w.nodes; let i = index">
-		<circle
-      [class.selected]="selected==node"
-			[attr.r]="16"
-			[attr.cx]="getViewX(node)"
-			[attr.cy]="getViewY(node)"
-      (mouseenter)="focused=node"
-      (mouseleave)="focused=focused==node?null:focused"
-			(mousedown)="mousedown_node($event,node,false)"
-			(mouseup)="mouseup_node($event,node,false)"
-      (click)="click_node($event,node,false)"
-			class="node smooth"/>
-	</ng-container>
-	<ng-container *ngFor="let node of w.subnodes; let i = index">
-		<circle
-			[attr.data-index]="i"
-			[class.selected]="selected==node"
-			[attr.r]="8"
-			[attr.cx]="getViewX(node)"
-			[attr.cy]="getViewY(node)"
-      (mouseenter)="focused=node"
-      (mouseleave)="focused=focused==node?null:focused"
-			(mousedown)="mousedown_node($event,node,true)"
-			(mouseup)="mouseup_node($event,node,true)"
-      (click)="click_node($event,node,true)"
-			class="node subnode smooth"/>
-	</ng-container>
-	<ng-container *ngFor="let node of w.nodes; let i = index">
-		<text
-      (mousedown)="mousedown_node($event,node,false)"
-			[attr.x]="getViewX(node)"
-			[attr.y]="getViewY(node)+26"
-      [class.focused]="focused===node"
-      [class.faded]="focused&&focused!=node"
-			class="label smooth">{{node.slug}}</text>
-	</ng-container>
-	<ng-container *ngFor="let node of w.subnodes; let i = index">
-		<text
-      (mousedown)="mousedown_node($event,node,true)"
-			[attr.x]="getViewX(node)"
-			[attr.y]="getViewY(node)+18"
-      [class.focused]="focused===node"
-      [class.faded]="focused&&focused!=node"
-			class="label subnode smooth">{{node.slug}}</text>
-	</ng-container>
+    <ng-container *ngFor="let link of w.links; let i = index">
+      <line
+        (mouseup)="mouseup_link($event,i)"
+        [attr.data-index]="i"
+        [attr.x1]="getViewX(link.to)+5"
+        [attr.y1]="getViewY(link.to)+random(i,5)"
+        [attr.x2]="getViewX(link.from)-5"
+        [attr.y2]="getViewY(link.from)-random(i,5)"
+        [class.focused]="focused&&(link.to==focused.uid||link.from==focused.uid)"
+        class="link smooth"/>
+    </ng-container>
+    <ng-container *ngFor="let node of w.subnodes; let i = index">
+      <line
+        [attr.x1]="getViewX(node)"
+        [attr.y1]="getViewY(node)"
+        [attr.x2]="getViewX(node.parent)"
+        [attr.y2]="getViewY(node.parent)"
+        [class.focused]="focused&&(node.parent==focused.uid||node.uid==focused.uid)"
+        class="link smooth"/>
+    </ng-container>
+    <ng-container *ngFor="let node of w.nodes; let i = index">
+      <circle
+        [class.selected]="selected==node"
+        [attr.r]="16"
+        [attr.cx]="getViewX(node)"
+        [attr.cy]="getViewY(node)"
+        (mouseenter)="focused=node"
+        (mouseleave)="focused=focused==node?null:focused"
+        (mousedown)="mousedown_node($event,node,false)"
+        (mouseup)="mouseup_node($event,node,false)"
+        (click)="click_node($event,node,false)"
+        class="node smooth"/>
+    </ng-container>
+    <ng-container *ngFor="let node of w.subnodes; let i = index">
+      <circle
+        [attr.data-index]="i"
+        [class.selected]="selected==node"
+        [attr.r]="8"
+        [attr.cx]="getViewX(node)"
+        [attr.cy]="getViewY(node)"
+        (mouseenter)="focused=node"
+        (mouseleave)="focused=focused==node?null:focused"
+        (mousedown)="mousedown_node($event,node,true)"
+        (mouseup)="mouseup_node($event,node,true)"
+        (click)="click_node($event,node,true)"
+        class="node subnode smooth"/>
+    </ng-container>
+    <ng-container *ngFor="let node of w.nodes; let i = index">
+      <text
+        (mousedown)="mousedown_node($event,node,false)"
+        [attr.x]="getViewX(node)"
+        [attr.y]="getViewY(node)+26"
+        [class.focused]="focused===node"
+        [class.faded]="focused&&focused!=node"
+        class="label smooth">{{node.slug}}</text>
+    </ng-container>
+    <ng-container *ngFor="let node of w.subnodes; let i = index">
+      <text
+        (mousedown)="mousedown_node($event,node,true)"
+        [attr.x]="getViewX(node)"
+        [attr.y]="getViewY(node)+18"
+        [class.focused]="focused===node"
+        [class.faded]="focused&&focused!=node"
+        class="label subnode smooth">{{node.slug}}</text>
+    </ng-container>
 
-	<circle id="trash"
-					cx="10vh" cy="90vh" r=64
-					*ngIf="!linking&&dragging"
-					(mouseup)="mouseup_trash($event)"
-					>
-	</circle>
-</svg>
+    <circle id="trash"
+            cx="10vh" cy="90vh" r=64
+            *ngIf="!linking&&dragging"
+            (mouseup)="mouseup_trash($event)"
+            >
+    </circle>
+  </svg>
 
-<div class="info">
-	<div *ngIf="zoom!=1.0">Zoom: {{prettyZoom}}</div>
+  <div class="info">
+    <div *ngIf="zoom!=1.0">Zoom: {{prettyZoom}}</div>
+  </div>
 </div>
