@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UID_GenerationService } from '../services/id-gen.service';
 import { SelectionService } from '../services/selection.service';
 import { WorldDataService } from '../services/world-data.service';
-import { Node } from '../types/data-models';
+import { LocationNode } from '../types/data-models';
 import { WorldMapWrapper } from '../util/world-map-wrapper';
 
 @Component({ selector: 'map-pane', templateUrl: `map-pane.component.html` })
@@ -18,9 +18,9 @@ export class MapPaneComponent
   mouseY:number = 0
 
   panning:boolean = false
-  dragging:Node = null
-  linking:Node = null
-  focused:Node = null
+  dragging:LocationNode = null
+  linking:LocationNode = null
+  focused:LocationNode = null
 
   @ViewChild("lesvg") svg:ElementRef;
 
@@ -85,7 +85,7 @@ export class MapPaneComponent
     }
   }
 
-  click_node(e,node:Node,isSubnode:boolean)
+  click_node(e,node:LocationNode,isSubnode:boolean)
   {
     console.dir(this.svg.nativeElement )
     console.dir(this.svg.nativeElement.getBoundingClientRect() )
@@ -96,7 +96,7 @@ export class MapPaneComponent
       this.selected = this.selected == node ? null : node
   }
 
-  mousedown_node(e,node:Node,isSubnode:boolean)
+  mousedown_node(e,node:LocationNode,isSubnode:boolean)
   {
     if ( e.button == 0 )
       this.dragging = node
@@ -105,7 +105,7 @@ export class MapPaneComponent
   	  this.linking = node
   }
 
-  mouseup_node(e,node:Node,isSubnode:boolean)
+  mouseup_node(e,node:LocationNode,isSubnode:boolean)
   {
     if (this.linking && this.linking != node)
       this.w.addLink(this.linking.uid, node.uid);
@@ -138,7 +138,7 @@ export class MapPaneComponent
   {
     if ( this.selected && !this.dragging && e.buttons > 0 )
     {
-      let prev:Node = this.selected
+      let prev:LocationNode = this.selected
       let x:number = ( this.mouseX - this.centerX ) / this.zoom-+ this.offsetX
       let y:number = ( this.mouseY - this.centerY ) / this.zoom-+ this.offsetY
 

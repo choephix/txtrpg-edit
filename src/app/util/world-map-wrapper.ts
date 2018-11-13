@@ -1,4 +1,4 @@
-import { WorldData, Node, Subnode, Link } from './../types/data-models'
+import { WorldData, LocationNode, LocationSubnode, Link } from './../types/data-models'
 import { UID_GenerationService } from '../services/id-gen.service';
 
 export class WorldMapWrapper
@@ -7,11 +7,11 @@ export class WorldMapWrapper
 
   public get w():WorldData { return this.data.world }
 
-  public get nodes():Node[] { return this.data.world.nodes }
-  public get subnodes():Subnode[] { return this.data.world.subnodes }
+  public get nodes():LocationNode[] { return this.data.world.nodes }
+  public get subnodes():LocationSubnode[] { return this.data.world.subnodes }
   public get links():Link[] { return this.data.world.links }
 
-  getNodeOrSubnode( o ):Node
+  getNodeOrSubnode( o ):LocationNode
   {
     if (typeof o === 'string' || o instanceof String) {
       for (let node of this.w.nodes)
@@ -26,7 +26,7 @@ export class WorldMapWrapper
   	console.error( `${o} missing`,this.w.nodes)
   }
 
-  addNode(x,y):Node
+  addNode(x,y):LocationNode
   {
     let slug = `node_${this.w.nodes.length}`
     let uid = this.uidgen.make(8)
@@ -35,7 +35,7 @@ export class WorldMapWrapper
 		return node
   }
 
-  addSubNode(x, y, parent):Subnode
+  addSubNode(x, y, parent):LocationSubnode
   {
     let slug = `node_${this.w.nodes.length}`
     let uid = this.uidgen.make(8)
@@ -56,7 +56,7 @@ export class WorldMapWrapper
   	return link
   }
 
-  removeNode( node:Node|Subnode ):void
+  removeNode( node:LocationNode|LocationSubnode ):void
   {
 		let links = this.w.links
 		for ( let i = links.length - 1; i >= 0; i-- )
@@ -70,7 +70,7 @@ export class WorldMapWrapper
     i = this.w.nodes.indexOf(node)
     if (i >= 0)
       this.w.nodes.splice(i, 1)
-    i = this.w.subnodes.indexOf(<Subnode>node)
+    i = this.w.subnodes.indexOf(<LocationSubnode>node)
     if (i >= 0)
       this.w.subnodes.splice(i, 1)
   }
