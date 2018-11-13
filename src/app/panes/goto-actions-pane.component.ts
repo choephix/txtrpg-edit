@@ -72,9 +72,12 @@ export class GotoActionsPaneComponent
     this.data.splice(index+offset,0,item)
   }
 
-  add( index )
+  add( index:number )
   {
-    let item = {uid:this.uidgen.make(8)}
+    let item:LinkTextData = {uid:this.uidgen.make(8)}
+    if ( this.filter.from ) item.from = this.filter.from
+    if ( this.filter.to ) item.to = this.filter.to
+    if ( this.filter.search ) this.filter.search = ""
     this.data.splice(index,0,item)
     this.data_original.splice(index,0,{})
   }
@@ -96,6 +99,9 @@ class Filter
 {
   constructor( public from:string='', public to:string='', public search:string='' ) {}
 }
+
+interface LinkTextData
+{ uid:string, from?: string, to?: string, params?:string[], handle?:string, text?:string }
 
 // for ( let link of this.world.links )
 // {
