@@ -21,6 +21,8 @@
 .item:hover {
   color:#EEE;
 }
+///
+
 /// DIVIDER
 $accent-on: $accent-generic;
 $accent-off: mix($accent-on,#333,10%);
@@ -35,4 +37,11 @@ $accent-off: mix($accent-on,#333,10%);
     background: $accent-on;
     box-shadow: 0 0 4px $accent-on;
   }
+}
+
+@keyframes fadein {0%{opacity:0} 30%{opacity:0}}
+ace-editor {
+  border: #000A 1px solid;
+  animation-name: fadein;
+  animation-duration: 400ms;
 }

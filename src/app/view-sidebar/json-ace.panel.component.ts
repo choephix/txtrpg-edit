@@ -27,7 +27,9 @@ export class JsonAcePanelComponent
 	  showPrintMargin: false,
 	  wrap: true,
     scrollPastEnd: 120,
-	  maxLines: Infinity
+	  maxLines: Infinity,
+    tabSize: 2,
+    useSoftTabs: true
 	}
 
   public get code():string

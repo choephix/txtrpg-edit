@@ -72,6 +72,8 @@ export class EditorViewChild_FullJsonAce
     wrap: true,
     scrollPastEnd: 120,
     maxLines: Infinity,
+    tabSize: 2,
+    useSoftTabs: true
   }
 
 	public json:string = "{}\n"

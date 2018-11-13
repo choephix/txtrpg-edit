@@ -262,6 +262,25 @@ $spacing: 3px;
     text-shadow: 0 0 16px $super;
   }
 
+  /// TABS
+
+  .tab {
+    display: inline;
+    padding: 4px 12px;
+    border: 1px solid #FFF2;
+    outline: 1px solid #000C;
+    margin:1px 1px 0px 1px;
+    background: #FFFFFF0B;
+    cursor:pointer;
+  }
+  .tab:hover {
+    background: #FFFFFF0E;
+    color: #DDD;
+  }
+  .tab.current {
+    background: #FFFFFF16 !important;
+    color: #EEE;
+  }
 
   /// NOTICE
   *.notice {
