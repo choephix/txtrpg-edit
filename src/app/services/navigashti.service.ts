@@ -8,7 +8,7 @@ export class NavigashtiService
   public branches:string[] = ["shitbox","develop","lorem","poc","master"]
 	public pages:string[] = []
 
-  public currentBranch:string = "develop"
+  public currentBranch:string = ""
   public currentPage:string = null
 
   constructor( public router:Router, public route:ActivatedRoute, public world:WorldDataService )
@@ -19,30 +19,32 @@ export class NavigashtiService
 					if ( pg.path )
 						this.pages.push( pg.path )
 
-    this.route.paramMap.subscribe( params => {
-      console.log( "NAVIGASHTI ",params,params.get("branch") )
-    	let branch = params.get("branch")
-    	if ( !branch )
-    	  console.warn("no branch?",params)
-    	else
-    	  this.currentBranch = branch
-      world.load(this.currentBranch)
-    } );
+    this.router.events.subscribe( event => this.onRouterEvent(event) );
+  }
 
-    this.router.events.subscribe(event => {
-      if ( event instanceof NavigationEnd )
-      {
-        route.firstChild.firstChild.url.subscribe( v => this.currentPage=v.toString() )
-        // console.log( "NAVIGASHTI ", event, router, route )
-      }
-    });
+  private onRouterEvent( event )
+  {
+    if ( event instanceof NavigationEnd )
+    {
+      this.route.firstChild.firstChild.url.subscribe( v => this.currentPage=v.toString() )
+      this.route.firstChild.url.subscribe( v => this.setBranch( v.toString() ) )
+    }
+  }
+
+  private setBranch( branch:string )
+  {
+    if ( branch != this.currentBranch )
+    {
+      this.currentBranch = branch;
+      this.world.load( this.currentBranch )
+    }
   }
 
   public getUrl( branch:string=null, page:string=null )
   {
     let url = this.router.url;
-    if ( branch != null ) url = url.replace(this.currentBranch,branch)
-    if ( page != null ) url = url.replace(this.currentPage,page)
+    if ( branch != null ) url = url.replace( this.currentBranch, branch )
+    if ( page != null ) url = url.replace( this.currentPage, page )
     return url
   }
 }
