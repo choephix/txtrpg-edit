@@ -30,6 +30,7 @@ import { AcePaneComponent } from './panes/ace-pane.component';
 import { TwoPaneViewComponent } from './view/two-pane-view.component';
 import { CollapsableComponent } from './common/collapsable.component';
 import { MouseWheelDirective } from './util/mouse-wheel.directive';
+import { NavigashtiService } from './services/navigashti.service';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
@@ -82,7 +83,7 @@ const appRoutes: Routes = [
     AceEditorModule,
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [NavigashtiService],
   bootstrap: [AppComponent],
   entryComponents: []
 })

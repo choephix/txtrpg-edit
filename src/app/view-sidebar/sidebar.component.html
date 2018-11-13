@@ -47,24 +47,23 @@ h2 {
   text-shadow: 0 1px 0px #FFF2;
   font-weight: bold;
 }
-
 </style>
 
 <div id="sidebar" class="dark-theme" >
   <div id="navi" class="panel padded">
-    <h2>{{branch.toUpperCase()}}</h2>
+    <h2>{{navi.currentBranch.toUpperCase()}}</h2>
     <div id="navi-branches">
-      <a *ngFor="let b of branches"
+      <a *ngFor="let b of navi.branches"
           class="nav-button branch"
-          routerLink="{{router.url.replace(branch,b)}}"
+          routerLink="{{navi.getUrl(b,null)}}"
           routerLinkActive="active">🌍 {{b}}</a>
     </div>
   </div>
 
   <div class="panel padded">
-    <a *ngFor="let pg of pages"
+    <a *ngFor="let pg of navi.pages"
         class="nav-button pg"
-        [class.current]="pg == page"
+        [class.current]="pg == navi.currentPage"
         routerLink="{{pg}}"
         routerLinkActive="active">⚜ {{pg}}</a>
   </div>
