@@ -1,18 +1,5 @@
 @import "./../variables.scss";
 
-#full-page {
-  display: flex;
-  flex-direction: row;
-  height:100vh;
-  overflow:hidden;
-}
-
-.pane {
-  overflow-x: visible;
-  overflow-y: scroll;
-  min-height: 100%;
-}
-
 [gutter] [gutter-toolbar] { justify-content: space-between !important; }
 
 /// DIVIDER

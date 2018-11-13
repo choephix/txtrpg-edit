@@ -24,7 +24,10 @@ import { MouseWheelDirective } from './util/mouse-wheel.directive';
 import { SidebarComponent } from './view-sidebar/sidebar.component';
 import { CollapsableComponent } from './common/collapsable.component';
 import { SequenceTreeViewComponent } from './view/sequence-tree-view.component';
-import { JournalHelperPaneComponent } from './lists/journal-helper-pane.component';
+import { JournalHelperPaneComponent } from './panes/journal-helper-pane.component';
+import { GotoActionsPaneComponent } from './panes/goto-actions-pane.component';
+import { SequenceTreePaneComponent } from './panes/sequence-tree-pane.component';
+import { MapPaneComponent } from './panes/map-pane.component';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
@@ -57,6 +60,9 @@ const appRoutes: Routes = [
     CollapsableComponent,
     SequenceTreeViewComponent,
     JournalHelperPaneComponent,
+    GotoActionsPaneComponent,
+    SequenceTreePaneComponent,
+    MapPaneComponent,
   ],
   imports: [
     RouterModule.forRoot( appRoutes, { enableTracing: false } ),
