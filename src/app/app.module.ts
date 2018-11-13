@@ -13,17 +13,18 @@ import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 
 import { AppComponent, AppInnerComponent } from './app.component'
 import { Page404Component } from './404.component'
-import { EditorViewChild_AGGrid } from './view/other-views'
-import { EditorViewChild_Words } from './view/words-view.component'
-import { EditorViewChild_FullJsonAce } from './view/json-ace.view.component'
-import { EditorViewChild_Map } from './view/map-view.component'
+import { LocationsMapPage } from './view/pages.component'
+import { GotoTextsPage } from './view/pages.component'
+import { SequenceTreesPage } from './view/pages.component'
+  import { EditorViewChild_FullJsonAce } from './view/json-ace.view.component'
 
+import { MouseWheelDirective } from './util/mouse-wheel.directive';
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
-import { MouseWheelDirective } from './util/mouse-wheel.directive';
 import { SidebarComponent } from './view-sidebar/sidebar.component';
 import { CollapsableComponent } from './common/collapsable.component';
-import { SequenceTreeViewComponent } from './view/sequence-tree-view.component';
+import { TwoPaneViewComponent } from './view/two-pane-view.component';
+
 import { JournalHelperPaneComponent } from './panes/journal-helper-pane.component';
 import { GotoActionsPaneComponent } from './panes/goto-actions-pane.component';
 import { SequenceTreePaneComponent } from './panes/sequence-tree-pane.component';
@@ -33,11 +34,10 @@ const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
 	  children: [
           { path: '', redirectTo: 'map', pathMatch: 'full' },
-          { path: 'map', component: EditorViewChild_Map },
-          { path: 'words', component: EditorViewChild_Words },
-          { path: 'convos', component: SequenceTreeViewComponent },
-          { path: 'fulljson_ace', component: EditorViewChild_FullJsonAce },
-          { path: 'aggrid', component: EditorViewChild_AGGrid },
+          { path: 'map', component: LocationsMapPage },
+          { path: 'goto', component: GotoTextsPage },
+          { path: 'convo', component: SequenceTreesPage },
+          { path: 'jsonfull', component: EditorViewChild_FullJsonAce },
         ]
   },
   { path: '', redirectTo: 'develop', pathMatch: 'full' },
@@ -49,16 +49,16 @@ const appRoutes: Routes = [
     AppComponent,
     AppInnerComponent,
     Page404Component,
-  	EditorViewChild_AGGrid,
-  	EditorViewChild_Words,
+  	LocationsMapPage,
+  	GotoTextsPage,
+  	SequenceTreesPage,
   	EditorViewChild_FullJsonAce,
-  	EditorViewChild_Map,
     AutomodiPanelComponent,
     JsonAcePanelComponent,
     MouseWheelDirective,
     SidebarComponent,
     CollapsableComponent,
-    SequenceTreeViewComponent,
+    TwoPaneViewComponent,
     JournalHelperPaneComponent,
     GotoActionsPaneComponent,
     SequenceTreePaneComponent,
@@ -79,6 +79,6 @@ const appRoutes: Routes = [
   exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [SequenceTreeViewComponent]
+  entryComponents: []
 })
 export class AppModule { }

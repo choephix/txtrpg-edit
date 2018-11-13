@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { WorldDataService } from '../services/world-data.service';
-import { Node, WorldData, JournalData } from '../types/data-models';
+import { WorldData } from '../types/data-models';
 
 @Component({
   styles: [`
@@ -19,7 +19,7 @@ import { Node, WorldData, JournalData } from '../types/data-models';
   }
   #table {
     height:100%;
-    width:100%; 
+    width:100%;
     min-height: 100vh;
     padding-left: 50px;
     box-sizing: border-box;
@@ -135,7 +135,7 @@ export class EditorViewChild_AGGrid
       let data = sele.data
       let index = sele.childIndex
       this.aggapi.updateRowData( { remove:[data] } )
-      this.config.dataFunc().splice( index, 1 )      
+      this.config.dataFunc().splice( index, 1 )
     }
     catch(e) {}
   }
@@ -151,7 +151,7 @@ export class EditorViewChild_AGGrid
       Object.assign( data, source_data )
     }
     catch(e) {}
-    
+
     this.aggapi.updateRowData( { add:[data], addIndex:index } )
     this.config.dataFunc().splice( index, 0, data )
   }
