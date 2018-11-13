@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker'
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { AgGridModule } from 'ag-grid-angular'
 import { AceEditorModule } from 'ng2-ace-editor';
 import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 
@@ -17,7 +16,6 @@ import { LocationsMapPage } from './view/pages.component'
 import { GotoTextsPage } from './view/pages.component'
 import { SequenceTreesPage } from './view/pages.component'
   import { EditorViewChild_FullJsonAce } from './view/json-ace.view.component'
-  import { EditorViewChild_AGGrid } from './view/other-views'
 
 import { MouseWheelDirective } from './util/mouse-wheel.directive';
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
@@ -57,7 +55,6 @@ const appRoutes: Routes = [
     JsonAcePanelComponent,
 
   	EditorViewChild_FullJsonAce,
-    EditorViewChild_AGGrid,
 
     MouseWheelDirective,
     SidebarComponent,
@@ -73,12 +70,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({easeTime:150}),
-    AgGridModule.withComponents([]),
+    TextareaAutosizeModule,
     AceEditorModule,
-    TextareaAutosizeModule
   ],
   exports: [RouterModule],
   providers: [],
