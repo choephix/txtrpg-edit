@@ -46,6 +46,9 @@ export class LocationsMapPage
   constructor( private selection:SelectionService )
   {
     selection.callbacks_OnSelect.push( o => {
+      if ( !o )
+        this.gotoList.filter.from = ""
+      else
       if ( o["x"] != undefined )
         this.gotoList.filter.from = o?o.uid:""
     } )

@@ -24,10 +24,8 @@ export class MapPaneComponent
 
   @ViewChild("lesvg") svg:ElementRef;
 
-  constructor( private world:WorldDataService, private selection:SelectionService, uidgen:UID_GenerationService )
-  {
-  	this.w = new WorldMapWrapper( world.data, uidgen )
-  }
+  constructor( private selection:SelectionService, world:WorldDataService, uidgen:UID_GenerationService )
+  { this.w = new WorldMapWrapper( world.data, uidgen ) }
 
   public get selected():any { return this.selection.selectedObject }
   public set selected( o:any ) { this.selection.selectObject( o ) }
@@ -35,26 +33,11 @@ export class MapPaneComponent
   public get centerX():number { return this.svg.nativeElement.clientWidth * .5 }
   public get centerY():number { return this.svg.nativeElement.clientHeight * .5 }
 
-  globalizeViewX( o ) {
-    // console.log( ( o + this.offsetX ) * this.zoom + this.centerX )
-    // return ( o + this.offsetX ) * this.zoom + this.centerX
-    try { return ( o + this.offsetX ) * this.zoom + this.centerX }
-    catch(e) { return 0 }
-  }
-  globalizeViewY( o ) {
-    // console.log( ( o + this.offsetY ) * this.zoom + this.centerY )
-    try { return ( o + this.offsetY ) * this.zoom + this.centerY }
-    catch(e) { return 0 }
-  }
+  globalizeViewX( o ) { try { return ( o + this.offsetX ) * this.zoom + this.centerX } catch(e) { return 0 } }
+  globalizeViewY( o ) { try { return ( o + this.offsetY ) * this.zoom + this.centerY } catch(e) { return 0 } }
 
-  getViewX( o ) {
-    try { return ( this.w.getNodeOrSubnode(o).x + this.offsetX ) * this.zoom + this.centerX }
-    catch(e) { return 0 }
-  }
-  getViewY( o ) {
-    try { return ( this.w.getNodeOrSubnode(o).y + this.offsetY ) * this.zoom + this.centerY }
-    catch(e) { return 0 }
-  }
+  getViewX( o ) { try { return this.globalizeViewX( this.w.getNodeOrSubnode(o).x ) } catch(e) { return 0 } }
+  getViewY( o ) { try { return this.globalizeViewY( this.w.getNodeOrSubnode(o).y ) } catch(e) { return 0 } }
 
   mousewheel( e:WheelEvent )
   {
