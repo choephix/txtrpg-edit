@@ -1,14 +1,32 @@
 <style type="scss/text">
-#container { height:100%; width:100%; background:#202533;
-  box-shadow:inset 0 0 50vh 0px #0006; overflow:hidden; }
+#container {
+  height:100%;
+  width:100%;
+  background:#202533;
+  box-shadow:inset 0 0 50vh 0px #0006;
+  overflow:hidden;
+  position:relative;
+}
 #lesvg { height:100%; width:100%; }
 #trash { fill:rgba(255,0,0,.05); }
 #trash:hover { fill:rgba(255,0,0,.25); stroke:rgba(255,0,0,.1); stroke-width:4 }
-.link { stroke:rgb(100, 200, 250); stroke-width:4; stroke-linecap:round; opacity: .15; }
-.link.tobe { stroke:rgba(243, 199, 56, 0.411); stroke-width:8 }
+.link {
+  stroke:rgb(100, 200, 250);
+  stroke-width:4;
+  stroke-linecap:round;
+  opacity: .15;
+  transition-duration: 200ms;
+  transition-property: stroke, stroke-width, opacity;
+}
 .link.selected { stroke:rgba(255,225,150,1.0) }
 .link:hover { opacity : .5 }
 .link.focused { opacity : .4 }
+.link.tobe {
+  stroke:#c1ebff7c;
+  stroke-width:2;
+  stroke-linecap:round;
+  opacity:1;
+}
 
 .label {
 	font: bold 10px monospace, sans-serif;
@@ -16,6 +34,8 @@
 	user-select: none;
 	text-anchor: middle;
 	pointer-events: none;
+  transition-duration: 400ms;
+  transition-property: color, opacity;
 }
 .label.subnode { fill: #FFFB; font-weight:100; }
 .label.faded { opacity: .1; }
@@ -29,19 +49,29 @@
 	animation-name: node-become;
   animation-duration: .100s;
   cursor: pointer;
+  transition-duration: 200ms;
+  transition-property: r, stroke, stroke-width, fill;
 }
 .node.mini { fill:rgba(100,150,200,1.0) }
 .node:hover { stroke:rgba(100,200,250,0.75); stroke-width:6; }
 .node.selected { fill:rgba(255,225,150,1.0); stroke:rgba(255,200,150,0.75); }
-
-* { transition: color .150s, opacity .150s, r .150s, stroke .150s, stroke-width .150s; }
+.node.selected { filter:url(#glow) }
 
 .axis {
   stroke: #FFFFFF19;
   stroke-dasharray: 4px;
 }
 
-.info { position:absolute; padding:1vh 1vw; font-family: monospace; opacity:.3; color:white; }
+.info {
+  pointer-events: none;
+  position:absolute;
+  top:0;
+  right:0;
+  padding:1vh 1vw;
+  font-family: monospace;
+  opacity:.3;
+  color:white;
+}
 
 </style>
 
@@ -52,6 +82,17 @@
         (mouseup)="mouseup($event)"
         (mousemove)="mousemove($event)"
         (contextmenu)="contextmenu($event)">
+
+    <defs>
+      <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+          <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+      </filter>
+    </defs>
+
     <ng-container>
       <line
         [attr.x1]="globalizeViewX(-4096)"
