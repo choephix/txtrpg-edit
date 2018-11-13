@@ -24,7 +24,7 @@ export class MapPaneComponent
 
   @ViewChild("lesvg") svg:ElementRef;
 
-  constructor( private el:ElementRef, private world:WorldDataService, private selection:SelectionService, uidgen:UID_GenerationService )
+  constructor( private world:WorldDataService, private selection:SelectionService, uidgen:UID_GenerationService )
   {
   	this.w = new WorldMapWrapper( world.data, uidgen )
   }

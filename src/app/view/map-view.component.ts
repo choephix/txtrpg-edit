@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { GotoActionsPaneComponent } from '../panes/goto-actions-pane.component';
+import { SelectionService } from '../services/selection.service';
 
 @Component({template: `
 <div id="full-page" class="darkform">
@@ -18,4 +20,12 @@ require("../darkform.scss"), `
 .pane.left { overflow-y: auto; }
 .pane.right { border-left: #222 1px solid; }
 `]})
-export class EditorViewChild_Map {}
+export class EditorViewChild_Map
+{
+  @ViewChild(GotoActionsPaneComponent) gotoList:GotoActionsPaneComponent;
+
+  constructor( private selection:SelectionService )
+  {
+  	selection.callbacks_OnSelect.push( o=>this.gotoList.filter.from = o?o.uid:"" )
+  }
+}
