@@ -70,6 +70,16 @@
             </div>
 
             <div cell>
+              <label for="goto.text">code</label>
+              <textarea autosize
+                        (click)="fixTextarea($event.target)"
+                        class="field-code"
+                        style="min-height: 3.2em;"
+                        [class.dirty]="isDirty(o,'code')"
+                        [(ngModel)]="o.code"></textarea>
+            </div>
+
+            <div cell>
               <label for="goto.text">text</label>
               <textarea autosize
                         (click)="fixTextarea($event.target)"

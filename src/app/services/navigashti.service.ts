@@ -8,7 +8,7 @@ export class NavigashtiService
   public branches:string[] = ["shitbox","develop","lorem","poc","master"]
 	public pages:string[] = []
 
-  public currentBranch:string = ""
+  public currentBranch:string = null
   public currentPage:string = null
 
   constructor( public router:Router, public route:ActivatedRoute, public world:WorldDataService )
