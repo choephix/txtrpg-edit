@@ -1,9 +1,9 @@
 @import "./variables.scss";
 
-$bev-up: #FFF2;
-$bev-dn: #0009;
-$inset-background: #0003;
-$inset-border: #0007;
+$bev-up: rgba(#FFF,0.125 );
+$bev-dn: rgba(#000,0.55);
+$inset-background: rgba(#000,0.19);
+$inset-border: rgba(#000,0.5);
 $accent-off: #464646;
 $accent-on: #ffffff;
 $super: #00a2ff;

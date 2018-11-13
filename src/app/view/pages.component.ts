@@ -26,7 +26,6 @@ export class GotoTextsPage {}
 })
 export class SequenceTreesPage {}
 
-import { LocationNode } from './../types/data-models'
 @Component({
   template: `
   <style type="scss/text">
@@ -46,7 +45,7 @@ export class LocationsMapPage
   @ViewChild(GotoActionsPaneComponent) gotoList:GotoActionsPaneComponent;
   constructor( private selection:SelectionService )
   {
-    selection.callbacks_OnSelect.push( (o)=> {
+    selection.callbacks_OnSelect.push( o => {
       if ( o["x"] != undefined )
         this.gotoList.filter.from = o?o.uid:""
     } )
