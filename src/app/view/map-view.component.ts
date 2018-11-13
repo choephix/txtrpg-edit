@@ -1,6 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { GotoActionsPaneComponent } from '../panes/goto-actions-pane.component';
 import { SelectionService } from '../services/selection.service';
+
+declare var require: any;
 
 @Component({template: `
 <div id="full-page" class="darkform">

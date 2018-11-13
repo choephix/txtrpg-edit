@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+declare var require: any;
+
 @Component({
   template: `
   <div id="full-page" class="darkform">
