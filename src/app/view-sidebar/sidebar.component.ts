@@ -11,11 +11,9 @@ export class SidebarComponent
 {
   public branches:string[] = ["shitbox","develop","lorem","poc","master"]
 	public pages:string[] = []
-	public sidetabs:string[] = ["json","automodi","null"]
 
   public branch:string = "develop"
   public page:string = null
-  public sidetab:string = this.sidetabs[0]
 
   constructor( public router:Router,
                public route:ActivatedRoute,

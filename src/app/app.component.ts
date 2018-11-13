@@ -1,5 +1,4 @@
 import { Component, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { WorldDataService } from './services/world-data.service';
 
 @Component({ selector: 'app-root', template: `<router-outlet></router-outlet>` })
@@ -8,9 +7,7 @@ export class AppComponent {}
 @Component({ templateUrl: './app.component.html' })
 export class AppInnerComponent
 {
-  constructor( public router:Router,
-               public route:ActivatedRoute,
-               public world:WorldDataService ) {}
+  constructor( public world:WorldDataService ) {}
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(e:KeyboardEvent) {
