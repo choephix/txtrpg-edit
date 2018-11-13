@@ -70,11 +70,6 @@ export class MapPaneComponent
 
   click_node(e,node:LocationNode,isSubnode:boolean)
   {
-    console.dir(this.svg.nativeElement )
-    console.dir(this.svg.nativeElement.getBoundingClientRect() )
-    console.dir(this.svg.nativeElement.offsetWidth )
-    console.dir(this)
-    console.dir(document)
     if ( e.buttons == 0 && e.button == 0 )
       this.selected = this.selected == node ? null : node
   }
@@ -147,7 +142,6 @@ export class MapPaneComponent
 
   contextmenu(e) { return false; }
   random(seed,max) { return ( seed * 16807 % 2147483647 ) % max  }
-  log(o) { console.log(o) }
 
   get prettyZoom():string { return Math.round(this.zoom*100) + "%" }
 }

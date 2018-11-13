@@ -80,26 +80,9 @@ export class AcePaneComponent
 
   constructor( public world:WorldDataService, private logger:Logger ) {}
 
-  ngOnInit()
-  {
-    this.refresh()
-  }
+  ngOnInit() { this.refresh() }
 
-  refresh()
-  {
-    this.json = this.world.getJson()
-    // this.logger.info("Fresh data loaded.","Ace JSON Editor")
-    // console.log(this.options)
-
-    console.log( this )
-    // this.ace.setTheme("idle_fingers");
-
-    // let options = { children: false, siblings: true }
-    // this.ace.getEditor().toggleFoldWidget( 2, options );
-
-    console.log( this.ace )
-    console.log( this.ace.getEditor() )
-  }
+  refresh() { this.json = this.world.getJson() }
 
   save()
   {

@@ -54,7 +54,6 @@ export class SequenceTreePaneComponent
   {
     let o:Breadcrum = { node:node, choice:choice }
     this.breadcrums.splice(0,0,o);
-    console.log(this)
   }
 
   gobackto( i ):void
@@ -67,7 +66,6 @@ export class SequenceTreePaneComponent
     else
     while ( this.breadcrums.length >= i )
       this.breadcrums.shift()
-    console.log(this)
   }
 
   isDirty( o:object, key:string ):boolean

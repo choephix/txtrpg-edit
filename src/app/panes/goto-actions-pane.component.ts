@@ -84,7 +84,6 @@ export class GotoActionsPaneComponent
 
   cloneTo( source, index )
   {
-    console.log(source)
     let item = {}
     Object.assign(item,source)
     item["uid"] = this.uidgen.make(8)
