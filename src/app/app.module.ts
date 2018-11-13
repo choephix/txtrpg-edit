@@ -17,6 +17,7 @@ import { LocationsMapPage } from './view/pages.component'
 import { GotoTextsPage } from './view/pages.component'
 import { SequenceTreesPage } from './view/pages.component'
   import { EditorViewChild_FullJsonAce } from './view/json-ace.view.component'
+  import { EditorViewChild_AGGrid } from './view/other-views'
 
 import { MouseWheelDirective } from './util/mouse-wheel.directive';
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
@@ -52,9 +53,12 @@ const appRoutes: Routes = [
   	LocationsMapPage,
   	GotoTextsPage,
   	SequenceTreesPage,
-  	EditorViewChild_FullJsonAce,
     AutomodiPanelComponent,
     JsonAcePanelComponent,
+
+  	EditorViewChild_FullJsonAce,
+    EditorViewChild_AGGrid,
+
     MouseWheelDirective,
     SidebarComponent,
     CollapsableComponent,
