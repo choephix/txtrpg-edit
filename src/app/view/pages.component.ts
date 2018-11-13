@@ -51,3 +51,6 @@ export class LocationsMapPage
     } )
   }
 }
+
+@Component({template: `<ace-pane></ace-pane>`})
+export class FullJsonAcePageComponent{}

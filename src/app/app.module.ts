@@ -15,19 +15,21 @@ import { Page404Component } from './404.component'
 import { LocationsMapPage } from './view/pages.component'
 import { GotoTextsPage } from './view/pages.component'
 import { SequenceTreesPage } from './view/pages.component'
-  import { EditorViewChild_FullJsonAce } from './view/json-ace.view.component'
+import { FullJsonAcePageComponent } from './view/pages.component'
 
-import { MouseWheelDirective } from './util/mouse-wheel.directive';
+import { SidebarComponent } from './view-sidebar/sidebar.component';
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
-import { SidebarComponent } from './view-sidebar/sidebar.component';
-import { CollapsableComponent } from './common/collapsable.component';
-import { TwoPaneViewComponent } from './view/two-pane-view.component';
 
-import { JournalHelperPaneComponent } from './panes/journal-helper-pane.component';
+import { MapPaneComponent } from './panes/map-pane.component';
 import { GotoActionsPaneComponent } from './panes/goto-actions-pane.component';
 import { SequenceTreePaneComponent } from './panes/sequence-tree-pane.component';
-import { MapPaneComponent } from './panes/map-pane.component';
+import { JournalHelperPaneComponent } from './panes/journal-helper-pane.component';
+import { AcePaneComponent } from './panes/ace-pane.component';
+
+import { TwoPaneViewComponent } from './view/two-pane-view.component';
+import { CollapsableComponent } from './common/collapsable.component';
+import { MouseWheelDirective } from './util/mouse-wheel.directive';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
@@ -36,7 +38,7 @@ const appRoutes: Routes = [
           { path: 'map', component: LocationsMapPage },
           { path: 'goto', component: GotoTextsPage },
           { path: 'convo', component: SequenceTreesPage },
-          { path: 'jsonfull', component: EditorViewChild_FullJsonAce },
+          { path: 'jsonfull', component: FullJsonAcePageComponent },
         ]
   },
   { path: '', redirectTo: 'develop', pathMatch: 'full' },
@@ -47,23 +49,26 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     AppInnerComponent,
+    //pages
     Page404Component,
   	LocationsMapPage,
   	GotoTextsPage,
   	SequenceTreesPage,
+    FullJsonAcePageComponent,
+    //sidebar
+    SidebarComponent,
     AutomodiPanelComponent,
     JsonAcePanelComponent,
-
-  	EditorViewChild_FullJsonAce,
-
-    MouseWheelDirective,
-    SidebarComponent,
-    CollapsableComponent,
-    TwoPaneViewComponent,
-    JournalHelperPaneComponent,
+    //panes
+    MapPaneComponent,
     GotoActionsPaneComponent,
     SequenceTreePaneComponent,
-    MapPaneComponent,
+    JournalHelperPaneComponent,
+    AcePaneComponent,
+    //common
+    TwoPaneViewComponent,
+    CollapsableComponent,
+    MouseWheelDirective,
   ],
   imports: [
     RouterModule.forRoot( appRoutes, { enableTracing: false } ),

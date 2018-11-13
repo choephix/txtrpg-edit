@@ -3,7 +3,7 @@ import { WorldDataService } from '../services/world-data.service';
 import { Logger } from '../services/logging.service';
 
 @Component({
-  // selector: '',
+  selector: 'ace-pane',
   styles: [`
   #father {
     display:flex;
@@ -49,7 +49,7 @@ import { Logger } from '../services/logging.service';
     </div>
   </div>`
 })
-export class EditorViewChild_FullJsonAce
+export class AcePaneComponent
 {
   @ViewChild('ace') ace
   @Input() theme:string = "tomorrow_night_blue"
