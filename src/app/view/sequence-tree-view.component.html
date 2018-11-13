@@ -58,9 +58,9 @@
             </div>
           </div>
           <div gutter-toolbar>
-            <button clear class="move" (click)="move(data_triggers,trigger,-1)">▲▼</button>
-            <button clear class="delete" (click)="delete(data_triggers,trigger)">╳</button>
-            <button clear class="clone" (click)="addTrigger(i+1)">╋</button>
+            <button clear tabindex="-1" class="move" (click)="move(data_triggers,trigger,-1)">▲▼</button>
+            <button clear tabindex="-1" class="delete" (click)="delete(data_triggers,trigger)">╳</button>
+            <button clear tabindex="-1" class="clone" (click)="addTrigger(i+1)">╋</button>
           </div>
         </div>
         <div class="item spawner" (click)="addTrigger(data_triggers.length)">
@@ -117,8 +117,8 @@
                   </div>
                 </div>
                 <div gutter-toolbar>
-                  <button clear class="move" (click)="move(node.choices,choice,-1)">▲▼</button>
-                  <button clear class="delete" (click)="delete(node.choices,choice)">╳</button>
+                  <button clear tabindex="-1" class="move" (click)="move(node.choices,choice,-1)">▲▼</button>
+                  <button clear tabindex="-1" class="delete" (click)="delete(node.choices,choice)">╳</button>
                 </div>
               </div>
               <div class="notice" *ngIf="!node.choices?.length">
@@ -128,8 +128,8 @@
               <div class="item inner spawner" (click)="addChoice(node)" style="cursor:pointer">+ choice</div>
             </div>
             <div gutter-toolbar>
-              <button clear class="move" (click)="move(data_nodes,node,-1)">▲▼</button>
-              <button clear class="delete" (click)="delete(data_nodes,node)">╳</button>
+              <button clear tabindex="-1" class="move" (click)="move(data_nodes,node,-1)">▲▼</button>
+              <button clear tabindex="-1" class="delete" (click)="delete(data_nodes,node)">╳</button>
             </div>
 
           </div>

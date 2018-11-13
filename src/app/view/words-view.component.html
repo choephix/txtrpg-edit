@@ -6,7 +6,7 @@
 
       <div class="item">
         <p>GAMEDATA / JOURNAL / ACTIONS / GOTO -- (TEXT)</p>
-        <button clear gutter-toggle (click)="gutter=!gutter">{{gutter?'>':'<'}}</button>
+        <button tabindex="-1" clear gutter-toggle (click)="gutter=!gutter">{{gutter?'>':'<'}}</button>
       </div>
       <div class="item">
         <div row>
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div cell class="toolbar">
-          <button clear (click)="add(0)">＋ add new</button>
+          <button tabindex="-1" clear (click)="add(0)">＋ add new</button>
         </div>
       </div>
 
@@ -86,11 +86,11 @@
               <div class="uid" [class.dirty]="isDirtyNew(o)">{{o.uid}}</div>
 
               <div gutter-toolbar>
-                <button clear class="move"   (click)="move(o,i,-1)">▲▼</button>
-                <button clear class="clone"  (click)="cloneTo(o,i)">⬆+</button>
-                <button clear class="delete" (click)="delete(i)">╳</button>
-                <button clear class="clone"  (click)="cloneTo(o,i+1)">⬇+</button>
-                <button clear class="move"   (click)="move(o,i,1)">▼▲</button>
+                <button clear tabindex="-1" class="move"   (click)="move(o,i,-1)">▲▼</button>
+                <button clear tabindex="-1" class="clone"  (click)="cloneTo(o,i)">⬆+</button>
+                <button clear tabindex="-1" class="delete" (click)="delete(i)">╳</button>
+                <button clear tabindex="-1" class="clone"  (click)="cloneTo(o,i+1)">⬇+</button>
+                <button clear tabindex="-1" class="move"   (click)="move(o,i,1)">▼▲</button>
               </div>
 
           </div>

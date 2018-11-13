@@ -224,6 +224,10 @@ $spacing: 3px;
     background: #FFF1;
     color: white;
   }
+  button:not([clear]):focus {
+    border: 1px solid white;
+    color: white;
+  }
   button:not([clear]):active {
     border: 1px solid white;
     background: $super;
@@ -238,6 +242,7 @@ $spacing: 3px;
     transition-property: opacity, color;
     transition-duration: 250ms;
   }
+  button[clear]:active,
   button[clear]:hover {
     opacity:1;
   }
