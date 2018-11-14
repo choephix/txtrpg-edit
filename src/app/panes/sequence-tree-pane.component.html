@@ -24,10 +24,7 @@
 
       <!-- LIST OF TRIGGERS -->
       <ng-container *ngIf="!currentTrigger">
-      <div class="item"
-            *ngFor="let trigger of listVisibleTriggers; let i = index"
-            [class.selected]="trigger===selection.selectedObject"
-            (mouseup)="selection.selectObject(trigger)">
+      <div class="item" [selectable]="trigger" *ngFor="let trigger of listVisibleTriggers; let i = index">
         <div row>
           <div style="flex: 15 1 400px;">
             <div row>
@@ -69,9 +66,7 @@
       <!-- LIST OF NODES -->
 
       <ng-container *ngIf="currentTrigger">
-        <div class="item" *ngFor="let node of listVisibleNodes; let i = index"
-            [class.selected]="node === selection.selectedObject"
-            (mouseup)="selection.selectObject(node)">
+        <div class="item" [selectable]="node" *ngFor="let node of listVisibleNodes; let i = index">
 
           <div row>
             <div cell style="flex: 15 1 240px">
@@ -103,7 +98,7 @@
                       <label for="goto.text">condition</label>
                       <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
                     </div>
-                    <div cell style="flex: 1 1 80px">
+                    <div cell style="flex: 1 1 80px" *ngIf="showDetails(node)">
                       <label>next</label>
                       <input type="text" class="input field-convo" [(ngModel)]="choice.next">
                     </div>

@@ -22,7 +22,6 @@
         </div>
       </div>
       <div cell class="toolbar">
-        <button tabindex="-1" clear (click)="detailsOn=!detailsOn">{{detailsOn?'hide':'show'}} details</button>
         <button tabindex="-1" clear (click)="add(0)">＋ add new</button>
       </div>
     </div>
@@ -33,11 +32,7 @@
 
       <ng-container *ngFor="let o of data; let i = index">
       <ng-container *ngIf="passesFilter(o)">
-        <div class="item"
-            [class.selected]="o===selection.selectedObject"
-            [class.dirty]="isDirtyIndex(o)"
-            (dblclick)="detailsOn=!detailsOn"
-            (mousedown)="select(o)">
+        <div class="item" [selectable]="o" [class.dirty]="isDirtyIndex(o)">
 
             <div row>
               <div cell style="flex: 1 1 80px">

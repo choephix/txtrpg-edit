@@ -4,18 +4,23 @@ import { Injectable } from '@angular/core';
 export class SelectionService
 {
   public selectedObject = null
-  
+  public detailedMode:boolean = false
+
   public callbacks_OnSelect:((selectedObject:any)=>void)[] = [ ]
   public callbacks_OnModify:((newProperties:any)=>void)[] = [ ]
-  
+
   public selectObject( o )
   {
+    if ( this.selectedObject === o )
+      return
+
     this.selectedObject = o
-    
+    this.detailedMode = false;
+
     for ( let f of this.callbacks_OnSelect )
       try { f(o) } catch( e ) { console.error(e) }
   }
-  
+
   public dispatchObjectModified( o=null )
   {
     for ( let f of this.callbacks_OnModify )

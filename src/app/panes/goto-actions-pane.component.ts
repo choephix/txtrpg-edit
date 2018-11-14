@@ -13,7 +13,6 @@ export class GotoActionsPaneComponent
 {
   filter:Filter = new Filter
   gutter:boolean = false
-  detailsOn:boolean = false
 
   get data() { return this.gamedata.data.journal.actions.goto }
   get data_original() { return this.gamedata.originalData.journal.actions.goto }
@@ -35,14 +34,13 @@ export class GotoActionsPaneComponent
   }
 
   showDetails( o:object )
-  { return this.detailsOn && this.selection.selectedObject === o }
+  { return this.selection.detailedMode && this.selection.selectedObject === o }
 
   select( o:object )
   {
     if ( this.selection.selectedObject === o )
       return;
     this.selection.selectObject(o)
-    // this.detailsOn = false;
   }
 
   isDirty( o:object, key:string ):boolean
