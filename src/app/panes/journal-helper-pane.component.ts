@@ -10,7 +10,7 @@ export class JournalHelperPaneComponent
 {
   filterLocations:string= ''
 
-  readonly TABS:string[] = ["locations","snippets","aliases","cheatnotes","kod"]
+  readonly TABS:string[] = ["locations","snippets","aliases","ini","cheatnotes","kod"]
   currentTab = this.TABS[0]
 
 	public options:any = {
@@ -36,6 +36,11 @@ export class JournalHelperPaneComponent
   { return JSON.stringify(this.gamedata.data.journal.aliases,null,2)+"\n\n\n" }
   public set json_aliases(value:string)
   { if(value&&value!="null") Object.assign(this.gamedata.data.journal.aliases,JSON.parse(value)) }
+
+  public get json_ini():string
+  { return JSON.stringify(this.gamedata.data.ini,null,2)+"\n\n\n" }
+  public set json_ini(value:string)
+  { if(value&&value!="null") Object.assign(this.gamedata.data.ini,JSON.parse(value)) }
 
   public get json_kod():string
   { return JSON.stringify(this.gamedata.data.kod,null,2)+"\n\n\n\n\n\n\n\n\n\n\n\n" }

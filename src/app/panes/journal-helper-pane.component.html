@@ -64,6 +64,26 @@
     </div>
   </div>
 
+  <!-- INI -->
+  <div *ngIf="currentTab=='ini'">
+    <div class="item" style="height:4px; padding:0"></div>
+    <div class="">
+      <ace-editor id="ace"
+          mode="json"
+          theme="tomorrow_night_eighties"
+          [options]="options"
+          [(text)]="json_ini"
+            ></ace-editor>
+    </div>
+    <div class="item">
+      <pre>
+
+  Schema:
+    spawn_node: uid
+      </pre>
+    </div>
+  </div>
+
   <!-- ALIASES -->
   <div *ngIf="currentTab=='aliases'">
     <div class="item" style="height:4px; padding:0"></div>
