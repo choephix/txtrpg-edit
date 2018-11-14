@@ -19,6 +19,7 @@ export class WorldDataService
   public get data():any { return this.loader.data }
   public get originalData():any { return this.loader.data_original }
   public get hasData():boolean { return this.loader.data != null }
+  public get isBusy():boolean { return this.loader.busy }
 
   public load( branch:string ):Eventu
   {

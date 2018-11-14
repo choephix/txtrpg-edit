@@ -47,11 +47,12 @@ h2 {
   text-shadow: 0 1px 0px #FFF2;
   font-weight: bold;
 }
+.faded { opacity:0 }
 </style>
 
 <div id="sidebar" class="dark-theme" >
   <div id="navi" class="panel padded">
-    <h2>{{navi.currentBranch.toUpperCase()}}</h2>
+    <h2 [class.faded]="gamedata.isBusy">{{navi.currentBranch.toUpperCase()}}</h2>
     <div id="navi-branches">
       <a *ngFor="let b of navi.branches"
           class="nav-button branch"
