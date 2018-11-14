@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { UID_GenerationService } from '../services/id-gen.service';
 import { SelectionService } from './../services/selection.service';
 import { WorldDataService } from './../services/world-data.service';
-import { ActionGoTo } from '../types/data-models';
 
 @Component({
   selector: 'goto-actions-pane',
@@ -14,8 +13,8 @@ export class GotoActionsPaneComponent
   filter:Filter = new Filter
   gutter:boolean = false
 
-  get data() { return this.gamedata.data.journal.actions.goto }
-  get data_original() { return this.gamedata.originalData.journal.actions.goto }
+  get data():LinkTextData[] { return this.gamedata.data.journal.actions.goto }
+  get data_original():LinkTextData[] { return this.gamedata.originalData.journal.actions.goto }
 
   constructor( public gamedata:WorldDataService,
                public selection:SelectionService,
@@ -24,7 +23,7 @@ export class GotoActionsPaneComponent
     this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.data ) )
   }
 
-  passesFilter( o ):boolean
+  passesFilter( o:LinkTextData ):boolean
   {
     if ( this.filter.from && !String(o.from).includes( this.filter.from ) ) return false
     if ( this.filter.to && !String(o.to).includes( this.filter.to ) ) return false
@@ -40,27 +39,27 @@ export class GotoActionsPaneComponent
     this.selection.selectObject(o)
   }
 
-  isDirty( o:object, key:string ):boolean
+  isDirty( o:LinkTextData, key:string ):boolean
   {
     if ( !o["uid"] ) throw new TypeError(`${o} has no property 'uid'`)
     let original = this.find( o["uid"], this.data_original )
     return (original!=null) && !(original[key] === o[key])
   }
 
-  isDirtyIndex( o:object ):boolean
+  isDirtyIndex( o:LinkTextData ):boolean
   {
     if ( !o["uid"] ) throw new TypeError(`${o} has no property 'uid'`)
     let original = this.find( o["uid"], this.data_original )
     return (original!=null) && !(this.data.indexOf(o) === this.data_original.indexOf(original))
   }
 
-  isDirtyNew( o:object ):boolean
+  isDirtyNew( o:LinkTextData ):boolean
   {
     if ( !o["uid"] ) throw new TypeError(`${o} has no property 'uid'`)
     return this.find( o["uid"], this.data_original ) == null
   }
 
-  find( uid:string, $in:object[] ):object
+  find( uid:string, $in:LinkTextData[] ):LinkTextData
   {
     for ( const o of $in )
       if ( o.hasOwnProperty("uid") )
@@ -69,12 +68,12 @@ export class GotoActionsPaneComponent
     return null
   }
 
-  delete( index )
+  delete( index:number )
   {
     this.data.splice(index,1)
   }
 
-  move( item, index, offset )
+  move( item:LinkTextData, index:number, offset:number )
   {
     this.data.splice(index,1)
     this.data.splice(index+offset,0,item)
@@ -87,16 +86,16 @@ export class GotoActionsPaneComponent
     if ( this.filter.to ) item.to = this.filter.to
     if ( this.filter.search ) this.filter.search = ""
     this.data.splice(index,0,item)
-    this.data_original.splice(index,0,{})
+    this.data_original.splice(index,0,{uid:null})
   }
 
-  cloneTo( source, index )
+  cloneTo( source:LinkTextData, index:number )
   {
-    let item = {}
+    let item:LinkTextData = {uid:null}
     Object.assign(item,source)
     item["uid"] = this.uidgen.make(8)
     this.data.splice(index,0,item)
-    this.data_original.splice(index,0,{})
+    this.data_original.splice(index,0,{uid:null})
   }
 }
 
