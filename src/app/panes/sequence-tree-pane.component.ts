@@ -121,8 +121,6 @@ export class SequenceTreePaneComponent
     array.splice(index,1)
   }
 
-  fixTextarea(el) { el.style.height = el.scrollHeight + "px" }
-
   trackByFn(index: any, item: any) { return index; }
 }
 

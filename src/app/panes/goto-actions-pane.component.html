@@ -73,8 +73,7 @@
 
             <div cell *ngIf="o.code||showDetails(o)">
               <label for="goto.text">code</label>
-              <textarea autosize
-                        (click)="fixTextarea($event.target)"
+              <textarea autoresize
                         class="field-code"
                         style="min-height: 3.2em;"
                         [class.dirty]="isDirty(o,'code')"
@@ -83,8 +82,7 @@
 
             <div cell>
               <label for="goto.text">text</label>
-              <textarea autosize
-                        (click)="fixTextarea($event.target)"
+              <textarea autoresize
                         class="field-text"
                         style="min-height: 80px;"
                         [class.dirty]="isDirty(o,'text')"

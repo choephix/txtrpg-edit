@@ -8,7 +8,6 @@ import { ServiceWorkerModule } from '@angular/service-worker'
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AceEditorModule } from 'ng2-ace-editor';
-import { TextareaAutosizeModule } from 'ngx-textarea-autosize';
 
 import { AppComponent, AppInnerComponent } from './app.component'
 import { Page404Component } from './404.component'
@@ -29,6 +28,7 @@ import { AcePaneComponent } from './panes/ace-pane.component';
 
 import { TwoPaneViewComponent } from './view/two-pane-view.component';
 import { CollapsableComponent } from './common/collapsable.component';
+import { AutoresizeDirective } from './common/autoresize.directive';
 import { MouseWheelDirective } from './common/mouse-wheel.directive';
 import { NavigashtiService } from './services/navigashti.service';
 
@@ -69,6 +69,7 @@ const appRoutes: Routes = [
     //common
     TwoPaneViewComponent,
     CollapsableComponent,
+    AutoresizeDirective,
     MouseWheelDirective,
   ],
   imports: [
@@ -79,7 +80,6 @@ const appRoutes: Routes = [
     FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({easeTime:150}),
-    TextareaAutosizeModule,
     AceEditorModule,
   ],
   exports: [RouterModule],

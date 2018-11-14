@@ -22,7 +22,6 @@
     "@angular/service-worker": "^6.1.0",
     "core-js": "^2.5.4",
     "ng2-ace-editor": "^0.3.8",
-    "ngx-textarea-autosize": "^2.0.0",
     "ngx-toastr": "^9.1.1",
     "node-sass": "^4.10.0",
     "rxjs": "~6.2.0",

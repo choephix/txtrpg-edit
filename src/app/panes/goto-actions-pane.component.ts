@@ -103,8 +103,6 @@ export class GotoActionsPaneComponent
     this.data.splice(index,0,item)
     this.data_original.splice(index,0,{})
   }
-
-  fixTextarea(el) { el.style.height = el.scrollHeight + "px" }
 }
 
 class Filter
