@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { GotoActionsPaneComponent } from '../panes/goto-actions-pane.component';
+import { GotoActionsPaneComponent } from '../panes/goto-texts-pane.component';
 import { SelectionService } from '../services/selection.service';
 
 @Component({
   template: `
   <two-pane-view>
-    <goto-actions-pane pane-left>
-    </goto-actions-pane>
+    <goto-texts-pane pane-left>
+    </goto-texts-pane>
     <journal-helper-pane pane-right>
     </journal-helper-pane>
   </two-pane-view>
@@ -35,8 +35,8 @@ export class SequenceTreesPage {}
   <two-pane-view>
     <map-pane pane-left>
     </map-pane>
-    <goto-actions-pane pane-right>
-    </goto-actions-pane>
+    <goto-texts-pane pane-right>
+    </goto-texts-pane>
   </two-pane-view>
   `
 })

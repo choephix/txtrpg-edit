@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { UID_GenerationService } from '../services/id-gen.service';
-import { SelectionService } from './../services/selection.service';
-import { WorldDataService } from './../services/world-data.service';
+import { SelectionService } from '../services/selection.service';
+import { WorldDataService } from '../services/world-data.service';
 
 @Component({
-  selector: 'goto-actions-pane',
-  templateUrl: './goto-actions-pane.component.html',
-  styleUrls: ['./../darkform.scss','./goto-actions-pane.component.scss'],
+  selector: 'goto-texts-pane',
+  templateUrl: './goto-texts-pane.component.html',
+  styleUrls: ['./../darkform.scss','./goto-texts-pane.component.scss'],
 })
 export class GotoActionsPaneComponent
 {

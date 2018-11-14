@@ -21,7 +21,7 @@ import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
 import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
 
 import { MapPaneComponent } from './panes/map-pane.component';
-import { GotoActionsPaneComponent } from './panes/goto-actions-pane.component';
+import { GotoActionsPaneComponent } from './panes/goto-texts-pane.component';
 import { SequenceTreePaneComponent } from './panes/sequence-tree-pane.component';
 import { JournalHelperPaneComponent } from './panes/journal-helper-pane.component';
 import { AcePaneComponent } from './panes/ace-pane.component';
