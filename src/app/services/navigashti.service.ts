@@ -5,7 +5,7 @@ import { WorldDataService } from '../services/world-data.service';
 @Injectable({providedIn: 'root'})
 export class NavigashtiService
 {
-  public branches:string[] = ["shitbox","develop","lorem","poc","master"]
+  public branches:string[] = ["shitbox","develop","lorem","compact","poc","master"]
 	public pages:string[] = []
 
   public currentBranch:string = null
