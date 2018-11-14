@@ -30,7 +30,7 @@ import { TwoPaneViewComponent } from './view/two-pane-view.component';
 import { CollapsableComponent } from './common/collapsable.component';
 import { AutoresizeDirective } from './common/autoresize.directive';
 import { MouseWheelDirective } from './common/mouse-wheel.directive';
-import { ItemDirective } from './common/item.directive';
+import { ItemDirective } from './common/selectable.directive';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,

@@ -14,7 +14,7 @@ export class ItemDirective
   @HostListener('mousedown', ['$event'])
   onClick(e:MouseEvent):void
   {
-    console.log(e)
+    // console.log(e)
     if ( !this.o )
       return;
     if ( e.detail === 3 || e.button === 1 )
