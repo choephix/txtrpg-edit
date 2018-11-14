@@ -77,6 +77,9 @@ for ( let o of list )
 	  showPrintMargin: false,
 	  wrap: true,
 	  maxLines: Infinity,
+    scrollPastEnd: 120,
+    tabSize: 1,
+    useSoftTabs: true
 	}
 
   public branches = {}

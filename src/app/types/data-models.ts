@@ -8,9 +8,9 @@ export interface Link { from:string; to:string }
 
 ///
 
-export interface JournalData { aliases:Alias[]; snippets:Snippet[]; actions:{goto:ActionGoTo[]} }
+export interface JournalData { aliases:Alias[]; snippets:Snippet[]; actions:{goto:LinkText[]} }
 export interface Alias { uid: string; text: string }
 export interface Snippet { key: string; text: string }
-export interface ActionGoTo { from: string; to: string; params:string[]; handle:string; text:string }
+export interface LinkText { from: string; to: string; params:string[]; handle:string; text:string }
 
 ///
