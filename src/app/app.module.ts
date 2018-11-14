@@ -30,7 +30,7 @@ import { TwoPaneViewComponent } from './view/two-pane-view.component';
 import { CollapsableComponent } from './common/collapsable.component';
 import { AutoresizeDirective } from './common/autoresize.directive';
 import { MouseWheelDirective } from './common/mouse-wheel.directive';
-import { NavigashtiService } from './services/navigashti.service';
+import { ItemDirective } from './common/item.directive';
 
 const appRoutes: Routes = [
   { path: ':branch', component: AppInnerComponent,
@@ -71,6 +71,7 @@ const appRoutes: Routes = [
     CollapsableComponent,
     AutoresizeDirective,
     MouseWheelDirective,
+    ItemDirective,
   ],
   imports: [
     RouterModule.forRoot( appRoutes, { enableTracing: false } ),
@@ -83,7 +84,7 @@ const appRoutes: Routes = [
     AceEditorModule,
   ],
   exports: [RouterModule],
-  providers: [NavigashtiService],
+  providers: [],
   bootstrap: [AppComponent],
   entryComponents: []
 })
