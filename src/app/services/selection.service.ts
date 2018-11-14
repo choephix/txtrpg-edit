@@ -5,6 +5,7 @@ export class SelectionService
 {
   public selectedObject = null
   public detailedMode:boolean = false
+  public detailedModeEverywhere:boolean = false
 
   public callbacks_OnSelect:((selectedObject:any)=>void)[] = [ ]
   public callbacks_OnModify:((newProperties:any)=>void)[] = [ ]
@@ -19,6 +20,12 @@ export class SelectionService
 
     for ( let f of this.callbacks_OnSelect )
       try { f(o) } catch( e ) { console.error(e) }
+  }
+
+  showDetails( o:object )
+  {
+    return this.detailedModeEverywhere ||
+         ( this.detailedMode && this.selectedObject === o )
   }
 
   public dispatchObjectModified( o=null )

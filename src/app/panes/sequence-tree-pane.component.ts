@@ -18,7 +18,6 @@ export class SequenceTreePaneComponent
 
   filter:Filter = new Filter
   gutter:boolean = false
-  detailsOn:boolean = false
 
   breadcrums:Breadcrum[] = []
   currentTrigger:SequenceTrigger = null
@@ -44,9 +43,6 @@ export class SequenceTreePaneComponent
     else
       return this.breadcrums[0].choice.next
   }
-
-  showDetails( o:object )
-  { return this.detailsOn && this.selection.selectedObject === o }
 
   // passesFilter( o:SequenceNode ):boolean
   // {

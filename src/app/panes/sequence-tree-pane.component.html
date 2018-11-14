@@ -71,8 +71,11 @@
           <div row>
             <div cell style="flex: 15 1 240px">
               <label>text</label>
-              <textarea autoresize class="field-text"
-                        [(ngModel)]="node.text"></textarea>
+              <textarea autoresize class="field-text" [(ngModel)]="node.text"></textarea>
+            </div>
+            <div cell style="flex: 8 1 240px" *ngIf="node.code||selection.showDetails(node)">
+              <label>code</label>
+              <textarea autoresize class="field-code" [(ngModel)]="node.code"></textarea>
             </div>
             <div cell style="flex: 1 1 100px">
               <label>condition</label>
@@ -98,7 +101,7 @@
                       <label for="goto.text">condition</label>
                       <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
                     </div>
-                    <div cell style="flex: 1 1 80px" *ngIf="showDetails(node)">
+                    <div cell style="flex: 1 1 80px" *ngIf="selection.showDetails(node)">
                       <label>next</label>
                       <input type="text" class="input field-convo" [(ngModel)]="choice.next">
                     </div>

@@ -33,9 +33,6 @@ export class GotoActionsPaneComponent
     return true
   }
 
-  showDetails( o:object )
-  { return this.selection.detailedMode && this.selection.selectedObject === o }
-
   select( o:object )
   {
     if ( this.selection.selectedObject === o )
