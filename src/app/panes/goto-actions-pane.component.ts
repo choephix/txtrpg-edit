@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UID_GenerationService } from '../services/id-gen.service';
 import { SelectionService } from './../services/selection.service';
 import { WorldDataService } from './../services/world-data.service';
+import { ActionGoTo } from '../types/data-models';
 
 @Component({
   selector: 'goto-actions-pane',
@@ -12,6 +13,7 @@ export class GotoActionsPaneComponent
 {
   filter:Filter = new Filter
   gutter:boolean = false
+  detailsOn:boolean = false
 
   get data() { return this.gamedata.data.journal.actions.goto }
   get data_original() { return this.gamedata.originalData.journal.actions.goto }
@@ -30,6 +32,17 @@ export class GotoActionsPaneComponent
     if ( this.filter.search && !String(o.handle).includes( this.filter.search )
                             && !String(o.text).includes( this.filter.search ) ) return false
     return true
+  }
+
+  showDetails( o:object )
+  { return this.detailsOn && this.selection.selectedObject === o }
+
+  select( o:object )
+  {
+    if ( this.selection.selectedObject === o )
+      return;
+    this.selection.selectObject(o)
+    // this.detailsOn = false;
   }
 
   isDirty( o:object, key:string ):boolean

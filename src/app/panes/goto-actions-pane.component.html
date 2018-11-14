@@ -22,6 +22,7 @@
         </div>
       </div>
       <div cell class="toolbar">
+        <button tabindex="-1" clear (click)="detailsOn=!detailsOn">{{detailsOn?'hide':'show'}} details</button>
         <button tabindex="-1" clear (click)="add(0)">＋ add new</button>
       </div>
     </div>
@@ -35,7 +36,8 @@
         <div class="item"
             [class.selected]="o===selection.selectedObject"
             [class.dirty]="isDirtyIndex(o)"
-            (mousedown)="selection.selectObject(o)">
+            (dblclick)="detailsOn=!detailsOn"
+            (mousedown)="select(o)">
 
             <div row>
               <div cell style="flex: 1 1 80px">
@@ -61,7 +63,7 @@
               </div>
             </div>
 
-            <div cell>
+            <div cell *ngIf="o.handle||showDetails(o)">
               <label for="goto.handle">handle</label>
               <input type="text"
                     class="input field-handle"
@@ -69,7 +71,7 @@
                     [(ngModel)]="o.handle">
             </div>
 
-            <div cell>
+            <div cell *ngIf="o.code||showDetails(o)">
               <label for="goto.text">code</label>
               <textarea autosize
                         (click)="fixTextarea($event.target)"
