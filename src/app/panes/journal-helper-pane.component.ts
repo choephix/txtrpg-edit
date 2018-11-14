@@ -27,6 +27,20 @@ export class JournalHelperPaneComponent
     useSoftTabs: true
   }
 
+	public options_kod:any = {
+	  fontSize: `11px`,
+	  showGutter: true,
+    fixedWidthGutter: true,
+    showLineNumbers: true,
+    fadeFoldWidgets: true,
+	  showPrintMargin: false,
+	  wrap: true,
+    scrollPastEnd: 120,
+    maxLines: Infinity,
+    tabSize: 2,
+    useSoftTabs: true
+  }
+
   public get json_snippets():string
   { return JSON.stringify(this.gamedata.data.journal.snippets,null,2)+"\n\n\n" }
   public set json_snippets(value:string)
@@ -42,10 +56,8 @@ export class JournalHelperPaneComponent
   public set json_ini(value:string)
   { if(value&&value!="null") Object.assign(this.gamedata.data.ini,JSON.parse(value)) }
 
-  public get json_kod():string
-  { return JSON.stringify(this.gamedata.data.kod,null,2)+"\n\n\n\n\n\n\n\n\n\n\n\n" }
-  public set json_kod(value:string)
-  { if(value&&value!="null") Object.assign(this.gamedata.data.kod,JSON.parse(value)) }
+  public get json_kod():string { return this.gamedata.data.kod.anywhere }
+  public set json_kod(value:string) { this.gamedata.data.kod.anywhere = value }
 
   constructor( public gamedata:WorldDataService ) { }
 }
