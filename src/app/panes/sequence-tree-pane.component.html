@@ -120,7 +120,10 @@
               <p>This node presents no further choices to make.</p>
               <p>Your sequence will end with this.</p>
             </div>
-            <div class="item inner spawner" (click)="addChoice(node)" style="cursor:pointer">+ choice</div>
+            <div class="item inner spawner"
+                 style="cursor:pointer"
+                 *ngIf="selection.showDetails(node)"
+                 (click)="addChoice(node)" >+ choice</div>
           </div>
           <div gutter-toolbar>
             <button clear tabindex="-1" class="move" (click)="move(data_nodes,node,-1)">▲▼</button>

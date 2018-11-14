@@ -18,16 +18,16 @@ export class AppInnerComponent
     if ( e.keyCode == 83 && e.ctrlKey )
     {
       this.world.save()
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault()
+      e.stopPropagation()
     }
     else
     if ( e.keyCode == 68 && e.ctrlKey )
     {
       this.selection.detailedModeEverywhere =
           !this.selection.detailedModeEverywhere
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault()
+      e.stopPropagation()
     }
   }
 }

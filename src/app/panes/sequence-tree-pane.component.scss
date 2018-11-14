@@ -13,13 +13,18 @@
   min-height: 100%;
 }
 
-*.breadcrum { cursor: pointer; transition: none; }
+*.breadcrum { cursor: pointer; transition: none; padding: 9px 6px !important; }
 *.breadcrum:hover { color: #BBB }
 
 /// DIVIDER
 $accent-on: $accent-convo;
 $accent-off: mix($accent-on,#333,10%);
 .darkform {
+  *.notice {
+    background-color: $accent-off;
+    color: $accent-on;
+    font-weight: bold;
+  }
   .divider {
     height:2px;
     background: $accent-off;

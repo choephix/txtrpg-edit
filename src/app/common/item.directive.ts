@@ -11,15 +11,23 @@ export class ItemDirective
 
 	constructor( private selection:SelectionService ) {}
 
-  @HostListener('click', ['$event'])
+  @HostListener('mousedown', ['$event'])
   onClick(e:MouseEvent):void
   {
+    console.log(e)
     if ( !this.o )
       return;
-    if ( e.detail === 3 )
-      this.selection.detailedMode = !this.selection.detailedMode
-    else
-    if ( e.detail === 1 )
+    if ( e.detail === 3 || e.button === 1 )
+    {
       this.selection.selectObject(this.o)
+      this.selection.detailedMode = !this.selection.detailedMode
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    else
+    if ( e.detail === 1 && e.button === 0 )
+    {
+      this.selection.selectObject(this.o)
+    }
   }
 }
