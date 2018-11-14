@@ -28,7 +28,6 @@ export class AppInnerComponent
           !this.selection.detailedModeEverywhere
       e.preventDefault();
       e.stopPropagation();
-      console.log(e)
     }
   }
 }
