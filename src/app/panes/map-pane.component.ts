@@ -5,7 +5,7 @@ import { WorldDataService } from '../services/world-data.service';
 import { LocationNode } from '../types/data-models';
 import { WorldMapWrapper } from '../util/world-map-wrapper';
 
-@Component({ selector: 'map-pane', templateUrl: `map-pane.component.html` })
+@Component({ selector:'map-pane', templateUrl:`map-pane.component.html`, styleUrls:[`map-pane.component.css`] })
 export class MapPaneComponent
 {
   w:WorldMapWrapper
