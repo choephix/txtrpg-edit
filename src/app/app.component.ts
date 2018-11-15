@@ -22,7 +22,7 @@ export class AppInnerComponent
       e.stopPropagation()
     }
     else
-    if ( e.keyCode == 68 && e.ctrlKey )
+    if ( e.keyCode == 68 && e.ctrlKey && e.shiftKey )
     {
       this.selection.detailedModeEverywhere =
           !this.selection.detailedModeEverywhere

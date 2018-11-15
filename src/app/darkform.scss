@@ -201,10 +201,11 @@ $spacing: 3px;
     label { color: #999; }
     .field{
       &-from, &-to, &-location { color: dulltext($accent-location); }
-      &-condition { color: dulltext($accent-condition); }
       &-handle { color: dulltext($accent-handle); }
       &-convo { color: dulltext($accent-convo,25%); }
       &-text { color: #EEE; }
+      &-code { background: #383e4e; color: #CEF; }
+      &-condition { background: #383e4e; color: dulltext($accent-condition,60%); }
     }
   }
 
@@ -218,7 +219,7 @@ $spacing: 3px;
     display: block;
     height:100%;
     width:100%;
-    padding: 14px 4px;
+    padding: 8px 4px;
     border: 1px solid #FFF2;
     outline: 1px solid #0007;
     background: #FFFFFF0B;
