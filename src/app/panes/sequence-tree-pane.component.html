@@ -77,9 +77,9 @@
               <label>code</label>
               <textarea autoresize class="field-code" [(ngModel)]="node.code"></textarea>
             </div>
-            <div cell style="flex: 1 1 100px">
+            <div cell style="flex: 1 1 100px; display:flex; flex-flow:column;">
               <label>condition</label>
-              <input type="text" class="field-condition" [(ngModel)]="node.condition">
+              <input type="text" class="field-condition" [(ngModel)]="node.condition" style="flex:1">
               <label>type</label>
               <input type="text" class="field-type" [(ngModel)]="node.type">
               <label>cause</label>
