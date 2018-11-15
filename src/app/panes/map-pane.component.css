@@ -45,11 +45,12 @@
 	fill:rgba(50,100,200,1.0);
 	stroke:rgba(71, 194, 255, 0.5);
 	stroke-width:3;
-	animation-name: node-become;
-  animation-duration: .100s;
+  animation-name: node-become;
+  animation-timing-function: ease-out;
+  animation-duration: 150ms;
   cursor: pointer;
   transition-duration: 200ms;
-  transition-property: r, stroke, stroke-width, fill;
+  transition-property: stroke, stroke-width, fill;
 }
 .node.mini { fill:rgba(100,150,200,1.0) }
 .node:hover { stroke:rgba(100,200,250,0.75); stroke-width:6; }

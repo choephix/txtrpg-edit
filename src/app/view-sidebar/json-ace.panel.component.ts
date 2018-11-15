@@ -4,7 +4,7 @@ import { SelectionService } from '../services/selection.service';
 @Component({
   selector: 'jsonace',
   template: `
-    <ace-editor id="ace"
+    <ace-editor class="ace"
         [theme]="theme"
         [mode]="mode"
         [options]="options"
@@ -12,7 +12,7 @@ import { SelectionService } from '../services/selection.service';
          ></ace-editor>
   `,
   styles: [`
-  #ace { min-height:10vh }
+  .ace { min-height:10vh }
   `]
 })
 export class JsonAcePanelComponent

@@ -4,6 +4,7 @@ import { SelectionService } from '../services/selection.service';
 import { WorldDataService } from '../services/world-data.service';
 import { LocationNode } from '../types/data-models';
 import { WorldMapWrapper } from '../util/world-map-wrapper';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({ selector:'map-pane', templateUrl:`map-pane.component.html`, styleUrls:[`map-pane.component.css`] })
 export class MapPaneComponent
@@ -24,7 +25,8 @@ export class MapPaneComponent
 
   @ViewChild("lesvg") svg:ElementRef;
 
-  constructor( private selection:SelectionService, world:WorldDataService, uidgen:UID_GenerationService )
+  constructor( private selection:SelectionService, world:WorldDataService, uidgen:UID_GenerationService,
+               private toastr:ToastrService )
   { this.w = new WorldMapWrapper( world.data, uidgen ) }
 
   public get selected():any { return this.selection.selectedObject }
@@ -49,23 +51,28 @@ export class MapPaneComponent
 
   mousemove(e)
   {
-	  this.mouseX = e.offsetX
-	  this.mouseY = e.offsetY
+    console.log(e)
 
-  	if ( this.linking )
-  		return
+    try {
+      this.mouseX = e.offsetX
+      this.mouseY = e.offsetY
 
-    if ( this.dragging )
-    {
-      this.dragging.x += e.movementX / this.zoom
-      this.dragging.y += e.movementY / this.zoom
+      if ( this.linking )
+        return
+
+      if ( this.dragging )
+      {
+        this.dragging.x += e.movementX / this.zoom
+        this.dragging.y += e.movementY / this.zoom
+      }
+      else
+      if ( this.panning )
+      {
+        this.offsetX += e.movementX / this.zoom
+        this.offsetY += e.movementY / this.zoom
+      }
     }
-    else
-    if ( this.panning )
-    {
-      this.offsetX += e.movementX / this.zoom
-      this.offsetY += e.movementY / this.zoom
-    }
+    catch(e) { this.toastr.error(e) }
   }
 
   click_node(e,node:LocationNode,isSubnode:boolean)

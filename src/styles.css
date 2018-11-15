@@ -16,10 +16,8 @@ body {
   box-sizing: border-box;
 }
 
-#toast-container
-{
-  font-family: "Calibri", monospace !important
-}
+#toast-container { font-family: "Calibri", monospace !important }
+.ace-editor { transition: none }
 
 /*** DARK THEME /**/
 
