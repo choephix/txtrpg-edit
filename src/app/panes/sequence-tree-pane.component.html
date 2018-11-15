@@ -26,13 +26,13 @@
       <ng-container *ngIf="!currentTrigger">
       <div class="item" [selectable]="trigger" *ngFor="let trigger of listVisibleTriggers; let i = index">
         <div row>
-          <div style="flex: 15 1 400px;">
+          <div style="flex: 25 1 400px;">
             <div row>
               <div cell style="flex: 10 1 400px;">
                 <label>handle</label>
                 <input type="text" class="input field-handle" [(ngModel)]="trigger.handle">
               </div>
-              <div row style="flex: 5 1 360px;">
+              <div row style="flex: 5 1 280px;">
                 <div cell style="flex: 10 1 160px;">
                   <label>condition</label>
                   <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
@@ -41,7 +41,7 @@
                   <label>location</label>
                   <input type="text" class="input field-location" [(ngModel)]="trigger.node">
                 </div>
-                <div cell style="flex: 1 0 80px">
+                <div cell style="flex: 1 0 80px" *ngIf="selection.showDetails(trigger)">
                   <label>uid</label>
                   <input type="text" class="input field-convo" [(ngModel)]="trigger.uid">
                 </div>
@@ -69,7 +69,7 @@
         <div class="item" [selectable]="node" *ngFor="let node of listVisibleNodes; let i = index">
 
           <div row>
-            <div cell style="flex: 15 1 240px">
+            <div cell style="flex: 15 1 240px" *ngIf="node.text||selection.showDetails(node)">
               <label>text</label>
               <textarea autoresize class="field-text" [(ngModel)]="node.text"></textarea>
             </div>
