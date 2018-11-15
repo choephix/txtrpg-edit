@@ -109,14 +109,18 @@
   </div>
 
   <!-- KOD -->
-  <div class="item"  *ngIf="currentTab=='kod'">
-    <ace-editor id="ace"
-        mode="typescript"
-        theme="tomorrow_night_blue"
-        [options]="options_kod"
-        [(text)]="json_kod"
-        style="min-height:50vh"
-          ></ace-editor>
+  <div class="item" *ngIf="currentTab=='kod'">
+    <ng-container *ngFor="let key of ['goto','convo','anywhere','bullshit']; let i = index">
+      <app-collapsable [label]="key" [expanded]="key==='anywhere'">
+        <ace-editor id="ace"
+            mode="typescript"
+            theme="tomorrow_night_blue"
+            [options]="options_kod"
+            [(text)]="gamedata.data.kod[key]"
+            style="min-height:30vh">
+        </ace-editor>
+      </app-collapsable>
+    </ng-container>
   </div>
 
   <!-- CHEATNOTES -->

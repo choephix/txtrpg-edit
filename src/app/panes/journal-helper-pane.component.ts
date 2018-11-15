@@ -10,7 +10,8 @@ export class JournalHelperPaneComponent
 {
   filterLocations:string= ''
 
-  readonly TABS:string[] = ["locations","snippets","aliases","ini","cheatnotes","kod"]
+  // readonly TABS:string[] = ["locations","snippets","aliases","ini","cheatnotes","kod"]
+  readonly TABS:string[] = ["locations","snippets","aliases","ini","kod"]
   currentTab = this.TABS[0]
 
 	public options:any = {
@@ -55,9 +56,6 @@ export class JournalHelperPaneComponent
   { return JSON.stringify(this.gamedata.data.ini,null,2)+"\n\n\n" }
   public set json_ini(value:string)
   { if(value&&value!="null") Object.assign(this.gamedata.data.ini,JSON.parse(value)) }
-
-  public get json_kod():string { return this.gamedata.data.kod.anywhere }
-  public set json_kod(value:string) { this.gamedata.data.kod.anywhere = value }
 
   constructor( public gamedata:WorldDataService ) { }
 }
