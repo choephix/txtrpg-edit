@@ -28,11 +28,11 @@
 }
 </style>
 
-<div id="main" spellcheck="false">
+<div id="main" spellcheck="false" (document:keydown)="onKey($event)">
 
   <app-sidebar></app-sidebar>
 
-  <div id="current-view" (keydown)="onKey($event)">
+  <div id="current-view">
     <div id="current-view-container">
       <div id="current-view-spinner" *ngIf="!world.hasData"><img src="assets/bars.svg" /></div>
       <router-outlet *ngIf="world.hasData"></router-outlet>

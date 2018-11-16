@@ -1,7 +1,7 @@
-import { Component, HostListener } from '@angular/core';
-import { WorldDataService } from './services/world-data.service';
+import { Component } from '@angular/core';
 import { NavigashtiService } from './services/navigashti.service';
 import { SelectionService } from './services/selection.service';
+import { WorldDataService } from './services/world-data.service';
 
 @Component({ selector: 'app-root', template: `<router-outlet></router-outlet>` })
 export class AppComponent {}
@@ -14,7 +14,8 @@ export class AppInnerComponent
                private selection:SelectionService
              ) {}
 
-  onKey(e:KeyboardEvent) {
+  onKey(e:KeyboardEvent)
+  {
     if ( e.keyCode == 83 && e.ctrlKey )
     {
       this.world.save()
