@@ -6,7 +6,7 @@ import { WorldDataService } from '../services/world-data.service';
 @Injectable({providedIn: 'root'})
 export class NavigashtiService
 {
-  public branches:string[] = ["poc","master"]
+  public branches:string[] = []
 	public pages:string[] = []
 
   public currentBranch:string = null
@@ -21,9 +21,9 @@ export class NavigashtiService
 						this.pages.push( pg.path )
 
     this.router.events.subscribe( event => this.onRouterEvent(event) );
-    
+
     http.get("https://api.github.com/repos/choephix/txtrpg-data/branches")
-        .subscribe(o=>this.branches=o.map(o=>o.name))
+        .subscribe( o => this.branches=(<any[]>o).map(o=>o.name) )
   }
 
   private onRouterEvent( event )
@@ -41,6 +41,9 @@ export class NavigashtiService
     {
       this.currentBranch = branch;
       this.world.load( this.currentBranch )
+
+      if ( this.branches.length < 1 )
+        this.branches = [branch]
     }
   }
 

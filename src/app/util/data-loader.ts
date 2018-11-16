@@ -4,6 +4,7 @@ import { Eventu, Warning } from './../util/common'
 const ACCO:string = "choephix"
 const REPO:string = "txtrpg-data"
 const FILE:string = "mock-world"
+const AUTH_TOKEN:string = "5535751a"+"806280e0e6d50e52"+"d0b9d53b732dea8e"
 
 export class DataLoader
 {
@@ -19,7 +20,7 @@ export class DataLoader
   public data_original_json:string
 
   public headers_save:HttpHeaders =
-         new HttpHeaders({ 'Authorization':"token "+"5535751a"+"806280e0e6d50e52"+"d0b9d53b732dea8e" })
+         new HttpHeaders({ 'Authorization':"token "+AUTH_TOKEN })
   public headers_load:HttpHeaders =
          new HttpHeaders({ 'If-Modified-Since':'Mon, 26 Jul 1997 05:00:00 GMT',
                            'Content-Type':'application/json',
