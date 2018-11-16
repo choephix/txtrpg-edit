@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
 import { ActivatedRoute, Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { WorldDataService } from '../services/world-data.service';
 
 @Injectable({providedIn: 'root'})
 export class NavigashtiService
 {
-  public branches:string[] = ["shitbox","develop","lorem","compact","poc","master"]
+  public branches:string[] = ["poc","master"]
 	public pages:string[] = []
 
   public currentBranch:string = null
   public currentPage:string = null
 
-  constructor( public router:Router, public route:ActivatedRoute, public world:WorldDataService )
+  constructor( public router:Router, public route:ActivatedRoute, public world:WorldDataService, http:HttpClient )
   {
 		for ( const r of router.config )
 			if ( r.path === ":branch" )
@@ -20,6 +21,9 @@ export class NavigashtiService
 						this.pages.push( pg.path )
 
     this.router.events.subscribe( event => this.onRouterEvent(event) );
+    
+    http.get("https://api.github.com/repos/choephix/txtrpg-data/branches")
+        .subscribe(o=>this.branches=o.map(o=>o.name))
   }
 
   private onRouterEvent( event )

@@ -51,7 +51,7 @@ export class MapPaneComponent
 
   mousemove(e)
   {
-    console.log(e)
+    // console.log(e)
 
     try {
       this.mouseX = e.offsetX
