@@ -11,7 +11,7 @@ export class JournalHelperPaneComponent
   filterLocations:string= ''
 
   // readonly TABS:string[] = ["locations","snippets","aliases","ini","cheatnotes","kod"]
-  readonly TABS:string[] = ["locations","snippets","aliases","ini","kod"]
+  readonly TABS:string[] = ["locations","map","snippets","aliases","ini","kod"]
   currentTab = this.TABS[0]
 
 	public options:any = {

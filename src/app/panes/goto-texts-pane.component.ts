@@ -20,7 +20,18 @@ export class GotoActionsPaneComponent
                public selection:SelectionService,
                public uidgen:UID_GenerationService )
   {
-    this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.data ) )
+    this.selection.callbacks_OnSelect.push( o => this.onAnySelect( o ) )
+  }
+  
+  onAnySelect( o )
+  {
+    WorldDataService.deleteEmpties( this.data )
+    
+    if ( !o )
+      this.filter.from = ""
+    else
+    if ( o["x"] != undefined )
+      this.filter.from = o?o.uid:""
   }
 
   passesFilter( o:LinkTextData ):boolean

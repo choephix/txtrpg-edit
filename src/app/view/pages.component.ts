@@ -40,20 +40,9 @@ export class SequenceTreesPage {}
   </two-pane-view>
   `
 })
-export class LocationsMapPage
-{
-  @ViewChild(GotoActionsPaneComponent) gotoList:GotoActionsPaneComponent;
-  constructor( private selection:SelectionService )
-  {
-    selection.callbacks_OnSelect.push( o => {
-      if ( !o )
-        this.gotoList.filter.from = ""
-      else
-      if ( o["x"] != undefined )
-        this.gotoList.filter.from = o?o.uid:""
-    } )
-  }
-}
+export class LocationsMapPage{}
 
-@Component({template: `<ace-pane></ace-pane>`})
+@Component({
+  template: `<ace-pane></ace-pane>`
+})
 export class FullJsonAcePageComponent{}
