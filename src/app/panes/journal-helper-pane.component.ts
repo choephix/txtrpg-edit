@@ -71,9 +71,7 @@ export class JournalHelperPaneComponent
 export class LocationsListComponent
 {
   filterLocations:string= ''
-
   get nodes():LocationNode[] { return this.gamedata.data.world.nodes }
   get subnodes():LocationSubnode[] { return this.gamedata.data.world.subnodes }
-
   constructor( public gamedata:WorldDataService ) { }
 }
