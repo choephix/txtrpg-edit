@@ -1,10 +1,11 @@
 <div id="container">
-  <svg id="lesvg" #lesvg mousewheel
+  <svg id="lesvg" #lesvg mousewheel focusable="true"
         (wheel)="mousewheel($event)"
-        (mousedown)="mousedown($event)"
+        (mousedown)="mousedown($event);"
         (mouseup)="mouseup($event)"
         (mousemove)="mousemove($event)"
-        (contextmenu)="contextmenu($event)">
+        (contextmenu)="contextmenu($event)"
+        (keyup)="onkey($event)">
 
     <defs>
       <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
@@ -75,16 +76,16 @@
     </ng-container>
     <ng-container *ngFor="let node of w.subnodes; let i = index">
       <circle
+        (click)="click_node($event,node,true)"
+        (mouseup)="mouseup_node($event,node,true)"
+        (mousedown)="mousedown_node($event,node,true)"
+        (mouseenter)="focused=node"
+        (mouseleave)="focused=focused==node?null:focused"
         [attr.data-index]="i"
-        [class.selected]="selected==node"
         [attr.r]="8"
         [attr.cx]="getViewX(node)"
         [attr.cy]="getViewY(node)"
-        (mouseenter)="focused=node"
-        (mouseleave)="focused=focused==node?null:focused"
-        (mousedown)="mousedown_node($event,node,true)"
-        (mouseup)="mouseup_node($event,node,true)"
-        (click)="click_node($event,node,true)"
+        [class.selected]="selected==node"
         class="node subnode smooth"/>
     </ng-container>
     <ng-container *ngFor="let node of w.nodes; let i = index">

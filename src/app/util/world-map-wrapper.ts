@@ -26,20 +26,24 @@ export class WorldMapWrapper
   	console.error( `${o} missing`,this.w.nodes)
   }
 
+  makeNode(x,y):any
+  {
+    let uid = this.uidgen.make(8)
+  	let node = { slug:uid,uid:"@"+uid,x:x,y:y }
+    return node
+  }
+
   addNode(x,y):LocationNode
   {
-    let slug = `node_${this.w.nodes.length}`
-    let uid = this.uidgen.make(8)
-  	let node = { slug:slug,uid:uid,x:x,y:y }
-		this.w.nodes.push(node)
+  	let node = this.makeNode(x,y)
+		this.w.nodes.push( node )
 		return node
   }
 
   addSubNode(x, y, parent):LocationSubnode
   {
-    let slug = `node_${this.w.nodes.length}`
-    let uid = this.uidgen.make(8)
-    let subnode = { slug:slug,uid:uid,parent:parent.uid,x:x,y:y }
+    let subnode = this.makeNode(x,y)
+    subnode.parent = parent
 		this.w.subnodes.push(subnode)
 		return subnode
   }
