@@ -23,11 +23,12 @@ import { JsonAcePanelComponent } from './view-sidebar/json-ace.panel.component';
 import { MapPaneComponent } from './panes/map-pane.component';
 import { GotoActionsPaneComponent } from './panes/goto-texts-pane.component';
 import { SequenceTreePaneComponent } from './panes/sequence-tree-pane.component';
-import { JournalHelperPaneComponent } from './panes/journal-helper-pane.component';
+import { JournalHelperPaneComponent, LocationsListComponent } from './panes/journal-helper-pane.component';
 import { AcePaneComponent } from './panes/ace-pane.component';
 
 import { TwoPaneViewComponent } from './view/two-pane-view.component';
 import { CollapsableComponent } from './common/collapsable.component';
+import { JsonAceEditorWrapperComponent } from './common/json-ace-editor.component';
 import { AutoresizeDirective } from './common/autoresize.directive';
 import { MouseWheelDirective } from './common/mouse-wheel.directive';
 import { ItemDirective } from './common/selectable.directive';
@@ -65,10 +66,12 @@ const appRoutes: Routes = [
     GotoActionsPaneComponent,
     SequenceTreePaneComponent,
     JournalHelperPaneComponent,
+    LocationsListComponent,
     AcePaneComponent,
     //common
     TwoPaneViewComponent,
     CollapsableComponent,
+    JsonAceEditorWrapperComponent,
     AutoresizeDirective,
     MouseWheelDirective,
     ItemDirective,

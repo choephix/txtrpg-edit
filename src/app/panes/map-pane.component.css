@@ -5,7 +5,9 @@
   box-shadow:inset 0 0 50vh 0px #0006;
   overflow:hidden;
   position:relative;
+  transition: background 400ms;
 }
+
 #lesvg { height:100%; width:100%; }
 #trash { fill:rgba(255,0,0,.05); }
 #trash:hover { fill:rgba(255,0,0,.25); stroke:rgba(255,0,0,.1); stroke-width:4 }
@@ -42,8 +44,8 @@
 
 @keyframes node-become { from { opacity: 0.0; r: 12; } }
 .node {
-	fill:rgba(50,100,200,1.0);
-	stroke:rgba(71, 194, 255, 0.5);
+	fill:#3264c8;
+	stroke:#47c2ff80;
 	stroke-width:3;
   animation-name: node-become;
   animation-timing-function: ease-out;
@@ -52,9 +54,9 @@
   transition-duration: 200ms;
   transition-property: stroke, stroke-width, fill;
 }
-.node.mini { fill:rgba(100,150,200,1.0) }
-.node:hover { stroke:rgba(100,200,250,0.75); stroke-width:6; }
-.node.selected { fill:rgba(255,225,150,1.0); stroke:rgba(255,200,150,0.75); }
+.node:hover { stroke:#64c8fabf; stroke-width:6; }
+.node:active { stroke-width:2; }
+.node.selected { fill:#ffe196; stroke:#ffc896bf; }
 .node.selected { filter:url(#glow) }
 
 .axis {

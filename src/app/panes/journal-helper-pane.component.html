@@ -7,62 +7,43 @@
           class="tab">{{tab}}</div>
   </div>
   <div class="content-container">
-    
+
     <!-- LOCATIONS LIST -->
     <ng-container *ngIf="currentTab=='locations'">
-      <div class="item">
-        <div row>
-          <div cell style="flex: 3">
-            <label>search</label>
-            <div><input type="text" [(ngModel)]="filterLocations"></div>
-            <div space></div>
-            <label>Location nodes and subnodes in this world</label>
-          </div>
-        </div>
-      </div>
-      <div class="divider" [class.active]="!!filterLocations"></div>
-      <div class="items-list">
-        <ng-container *ngFor="let loc of gamedata.data.world.nodes">
-        <ng-container *ngIf="!filterLocations||loc.slug.includes(filterLocations)">
-          <div row class="item">
-            <div class="cell-uid">{{loc.uid}}</div>
-            <div class="cell-slug">{{loc.slug}}</div>
-          </div>
-          <ng-container *ngFor="let sub of gamedata.data.world.subnodes">
-          <ng-container *ngIf="sub.parent==loc.uid||sub.parent==loc.slug">
-            <div row>
-              <div indent></div>
-              <div row class="item" style="flex:1 1">
-                <div class="cell-uid">{{sub.uid}}</div>
-                <div class="cell-slug">{{sub.slug}}</div>
-              </div>
-            </div>
-          </ng-container>
-          </ng-container>
-        </ng-container>
-        </ng-container>
-      </div>
+      <locations-list></locations-list>
     </ng-container>
-  
+
     <!-- MAP -->
     <ng-container *ngIf="currentTab=='map'">
       <map-pane style="height:100%"></map-pane>
     </ng-container>
-  
+
+    <!-- INI -->
+    <ng-container *ngIf="currentTab=='ini'">
+      <div class="item" style="height:4px; padding:0"></div>
+      <div class="">
+        <json-ace-editor class="ace" [(data)]="gamedata.data.ini">
+        </json-ace-editor>
+      </div>
+      <div class="item">
+        <pre>
+
+    Schema:
+      spawn_node: uid
+        </pre>
+      </div>
+    </ng-container>
+
     <!-- SNIPPETS -->
     <ng-container *ngIf="currentTab=='snippets'">
       <div class="item" style="height:4px; padding:0"></div>
       <div class="">
-        <ace-editor id="ace"
-            mode="json"
-            theme="tomorrow_night_eighties"
-            [options]="options"
-            [(text)]="json_snippets"
-              ></ace-editor>
+        <json-ace-editor class="ace" [(data)]="gamedata.data.journal.snippets">
+        </json-ace-editor>
       </div>
       <div class="item">
         <pre>
-  
+
     Schema:
     []:
       key: string
@@ -70,41 +51,17 @@
         </pre>
       </div>
     </ng-container>
-  
-    <!-- INI -->
-    <ng-container *ngIf="currentTab=='ini'">
-      <div class="item" style="height:4px; padding:0"></div>
-      <div class="">
-        <ace-editor id="ace"
-            mode="json"
-            theme="tomorrow_night_eighties"
-            [options]="options"
-            [(text)]="json_ini"
-              ></ace-editor>
-      </div>
-      <div class="item">
-        <pre>
-  
-    Schema:
-      spawn_node: uid
-        </pre>
-      </div>
-    </ng-container>
-  
+
     <!-- ALIASES -->
     <ng-container *ngIf="currentTab=='aliases'">
       <div class="item" style="height:4px; padding:0"></div>
       <div class="">
-        <ace-editor id="ace"
-            mode="json"
-            theme="tomorrow_night_eighties"
-            [options]="options"
-            [(text)]="json_aliases"
-              ></ace-editor>
+        <json-ace-editor class="ace" [(data)]="gamedata.data.journal.aliases">
+        </json-ace-editor>
       </div>
       <div class="item">
         <pre>
-  
+
     Schema:
       []:
         entity: uid
@@ -114,13 +71,13 @@
         </pre>
       </div>
     </ng-container>
-  
+
     <!-- KOD -->
     <ng-container *ngIf="currentTab=='kod'">
       <div class="item">
         <ng-container *ngFor="let key of ['goto','convo','anywhere','bullshit']; let i = index">
           <app-collapsable [label]="key" [expanded]="key==='anywhere'">
-            <ace-editor id="ace"
+            <ace-editor class="ace"
                 mode="typescript"
                 theme="tomorrow_night_blue"
                 [options]="options_kod"
@@ -131,6 +88,6 @@
         </ng-container>
       </div>
     </ng-container>
-  
+
   </div>
 </div>

@@ -41,18 +41,28 @@ export class MapPaneComponent
   getViewX( o ) { try { return this.globalizeViewX( this.w.getNodeOrSubnode(o).x ) } catch(e) { return 0 } }
   getViewY( o ) { try { return this.globalizeViewY( this.w.getNodeOrSubnode(o).y ) } catch(e) { return 0 } }
 
+  onkey( e:KeyboardEvent )
+  {
+    console.log(e)
+    if( e.keyCode === 46 && this.selected )
+    {
+      this.selected = null
+      this.w.removeNode(this.selected)
+      e.preventDefault()
+      e.stopPropagation()
+    }
+  }
+
   mousewheel( e:WheelEvent )
   {
     let delta = e.wheelDelta > 0 ? 1.25 : 1.0/1.25;
     this.zoom *= delta
-    if ( this.zoom > .99 && this.zoom < 1.01)
+    if ( this.zoom > .99 && this.zoom < 1.01 )
       this.zoom = 1.00
   }
 
-  mousemove(e)
+  mousemove(e:MouseEvent)
   {
-    // console.log(e)
-
     try {
       this.mouseX = e.offsetX
       this.mouseY = e.offsetY
@@ -75,13 +85,13 @@ export class MapPaneComponent
     catch(e) { this.toastr.error(e) }
   }
 
-  click_node(e,node:LocationNode,isSubnode:boolean)
+  click_node(e:MouseEvent,node:LocationNode,isSubnode:boolean)
   {
     if ( e.buttons == 0 && e.button == 0 )
       this.selected = this.selected == node ? null : node
   }
 
-  mousedown_node(e,node:LocationNode,isSubnode:boolean)
+  mousedown_node(e:MouseEvent,node:LocationNode,isSubnode:boolean)
   {
     if ( e.button == 0 )
       this.dragging = node
@@ -90,61 +100,85 @@ export class MapPaneComponent
   	  this.linking = node
   }
 
-  mouseup_node(e,node:LocationNode,isSubnode:boolean)
+  mouseup_node(e:MouseEvent,node:LocationNode,isSubnode:boolean)
   {
     if (this.linking && this.linking != node)
       this.w.addLink(this.linking.uid, node.uid);
     this.linking = null
   }
 
-  mouseup_link(e,link_index)
+  click_link(e:MouseEvent,link_index:number)
   {
     if ( e.button == 2 )
     {
   		this.w.removeLink( link_index )
       e.stopPropagation()
     }
+    else
+    if ( e.button == 0 )
+    {
+      this.selected = this.w.links[link_index]
+      e.stopPropagation()
+    }
   	this.linking = null
   }
 
-  mouseup_trash(e)
+  mouseup_trash(e:MouseEvent)
   {
   	if ( this.dragging != null )
   		this.w.removeNode(this.dragging)
   	this.dragging = null
   }
 
-  mousedown(e)
+  mousedown(e:MouseEvent)
   {
     this.panning = e.button == 0 && e.buttons <= 1
   }
 
-  mouseup(e)
+  mouseup(e:MouseEvent)
   {
     if ( this.selected && !this.dragging && e.buttons > 0 )
     {
       let prev:LocationNode = this.selected
       let x:number = ( this.mouseX - this.centerX ) / this.zoom-+ this.offsetX
       let y:number = ( this.mouseY - this.centerY ) / this.zoom-+ this.offsetY
+      let askForName = !e.shiftKey && !e.ctrlKey
+      let node = null
 
       if ( e.button == 0 && !prev.hasOwnProperty("parent") )
       {
-        let node =
+        node =
         this.selected =
         this.w.addNode( x, y )
+        if ( askForName )
+          this.promptSetNodeName(node)
         this.w.addLink( node, prev )
         this.w.addLink( prev, node )
       }
       else
       if ( e.button == 2 )
       {
+        node =
         this.w.addSubNode( x, y, prev )
+        if ( askForName )
+          this.promptSetNodeName(node)
       }
     }
 
   	this.dragging = null
   	this.linking = null
     this.panning = false
+  }
+
+  promptSetNodeName(node:LocationNode):void
+  {
+    let name = prompt("What would you name this node?")
+    if ( name )
+    {
+      let uid = name.toLowerCase().replace(/[^a-z0-9_\-]/gi,'');
+      node.slug = name
+      node.uid = "@"+uid
+    }
   }
 
   contextmenu(e) { return false; }
