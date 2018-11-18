@@ -46,6 +46,14 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/assets/icons",
+                  "with": "src/assets-prod/icons"
+                },
+                {
+                  "replace": "src/favicon.ico",
+                  "with": "src/assets-prod/favicon.ico"
                 }
               ],
               "optimization": true,
