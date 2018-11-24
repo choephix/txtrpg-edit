@@ -32,6 +32,7 @@ import { SequenceTreeListComponent } from './lists/sequence-tree.list.component'
 
 import { TwoPaneViewComponent } from './view/two-pane-view.component'
 import { CollapsableComponent } from './common/collapsable.component'
+import { ItemsListComponent } from './common/items-list.component';
 import { JsonAceEditorWrapperComponent } from './common/json-ace-editor.component'
 import { AutoresizeDirective } from './common/autoresize.directive'
 import { MouseWheelDirective } from './common/mouse-wheel.directive'
@@ -81,6 +82,7 @@ const appRoutes: Routes = [
     //common
     TwoPaneViewComponent,
     CollapsableComponent,
+    ItemsListComponent,
     JsonAceEditorWrapperComponent,
     AutoresizeDirective,
     MouseWheelDirective,

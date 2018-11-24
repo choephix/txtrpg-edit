@@ -1,0 +1,8 @@
+<div class="items-list">
+  <div *ngFor="let item of list; let index = index">
+    <template [ngTemplateOutlet]="templateVariable"
+              [ngTemplateOutletContext]="{item:item,index:index}">
+    </template>
+  </div>
+  <div class="item spawner" (click)="add(list.length)" style="cursor:pointer">+</div>
+</div>
