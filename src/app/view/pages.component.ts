@@ -1,6 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { GotoActionsPaneComponent } from '../panes/goto-texts-pane.component';
-import { SelectionService } from '../services/selection.service';
+import { Component } from '@angular/core';
 
 @Component({
   template: `
@@ -25,6 +23,18 @@ export class GotoTextsPage {}
   `
 })
 export class SequenceTreesPage {}
+
+@Component({
+  template: `
+  <two-pane-view>
+    <threads-pane pane-left>
+    </threads-pane>
+    <journal-helper-pane pane-right>
+    </journal-helper-pane>
+  </two-pane-view>
+  `
+})
+export class ThreadsPage {}
 
 @Component({
   template: `

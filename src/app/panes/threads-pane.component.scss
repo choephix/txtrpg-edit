@@ -1,0 +1,38 @@
+@import "./../variables.scss";
+
+#full-page {
+  display: flex;
+  flex-direction: row;
+  height:100vh;
+  overflow:hidden;
+}
+
+.pane {
+  overflow-x: visible;
+  overflow-y: scroll;
+  min-height: 100%;
+}
+
+*.breadcrum { cursor: pointer; transition: none; padding: 9px 6px !important; }
+*.breadcrum:hover { color: #BBB }
+
+/// DIVIDER
+$accent-on: $accent-convo;
+$accent-off: mix($accent-on,#333,10%);
+.darkform {
+  *.notice {
+    background-color: $accent-off;
+    color: $accent-on;
+    font-weight: bold;
+  }
+  .divider {
+    height:2px;
+    background: $accent-off;
+    transition: background-color .250s;
+    z-index: 1;
+  }
+  .divider.active {
+    background: $accent-on;
+    box-shadow: 0 0 4px $accent-on;
+  }
+}

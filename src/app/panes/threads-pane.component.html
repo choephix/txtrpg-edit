@@ -1,0 +1,125 @@
+<div class="darkform">
+  <div gutter-background></div>
+  <div class="pane-inner" gutter-sided style="min-height:100%">
+
+    <div class="item not-selectable">
+      <p>GAMEDATA / JOURNAL / THREADS </p>
+    </div>
+
+    <div class="divider" [class.active]="currentThread"></div>
+
+    <div class="items-list">
+
+      <!-- LIST OF THREADS -->
+      <ng-container *ngIf="!currentThread">
+        <ng-container *ngFor="let thread of data_threads; let i = index">
+          <flex-row>
+            <div cell class="item" [selectable]="thread" style="flex: 3 1 100px;">
+              <label>thread slug</label>
+              <input type="text" class="input field-slug" [(ngModel)]="thread.slug">
+            </div>
+            <div style="flex: 1 0 100px; margin:1px; margin-top:0px;">
+              <button (click)="currentThread=thread">select</button>
+            </div>
+          </flex-row>
+        </ng-container>
+        <!-- <div class="item spawner" (click)="addTrigger(data_triggers.length)">
+          ＋ thread
+        </div> -->
+      </ng-container>
+
+      <ng-container *ngIf="currentThread">
+        <div class="item breadcrum" (click)="selectThread(null)">🔰 Thread: <b>{{currentThread.slug}}</b></div>
+      </ng-container>
+
+      <!-- LIST OF THREAD STAGES -->
+      <ng-container *ngIf="currentThread && !currentInterceptorChoice">
+        <ng-container *ngFor="let stage of currentThread.stages; let i = index">
+
+          <div class="item" [selectable]="stage">
+            <div space></div>
+            <label>thread stage slug</label>
+            <input type="text" class="input field-slug" [(ngModel)]="stage.slug">
+          </div>
+
+          <!-- LIST OF INTERCEPTORS -->
+          <div class="item" [selectable]="interceptor" *ngFor="let interceptor of stage.interceptors; let ii = index">
+
+            <div space></div>
+            <label>when</label>
+            <div *ngFor="let when of interceptor.when" class="item inner">
+              <div row>
+                <div cell style="flex: 1 1;">
+                  <label>type</label>
+                  <input type="text" class="input field-type" [(ngModel)]="when.type">
+                </div>
+                <div cell style="flex: 15 1;">
+                  <label>condition</label>
+                  <input type="text" class="input field-condition" [(ngModel)]="when.condition">
+                </div>
+              </div>
+            </div>
+
+            <div space></div>
+            <label>what</label>
+            <div *ngFor="let what of interceptor.what" class="item inner">
+              <div cell>
+                <label>code</label>
+                <input type="text" class="input field-code" [(ngModel)]="what.code">
+              </div>
+              <div cell>
+                <label>text</label>
+                <input type="text" class="input field-text" [(ngModel)]="what.text">
+              </div>
+              <div cell>
+                <label>condition</label>
+                <input type="text" class="input field-condition" [(ngModel)]="what.condition">
+              </div>
+            </div>
+
+            <div space></div>
+            <label>choices</label>
+            <div *ngFor="let choice of interceptor.choices" class="item inner">
+              <flex-row>
+                <flex-column style="flex: 15 1 200px;">
+                  <div cell>
+                    <label>condition</label>
+                    <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
+                  </div>
+                  <flex-row>
+                    <div cell style="flex: 15 1 100px;">
+                      <label>handle</label>
+                      <input type="text" class="input field-handle" [(ngModel)]="choice.handle">
+                    </div>
+                    <div cell style="flex: 1 1 100px;">
+                      <label>next</label>
+                      <input type="text" class="input field-next" [(ngModel)]="choice.next">
+                    </div>
+                  </flex-row>
+                </flex-column>
+                <div cell style="flex:1 1 100px">
+                  <button (click)="selectChoice(choice,interceptor)">select</button>
+                </div>
+              </flex-row>
+            </div>
+
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <!-- LIST OF SEQUENCE NODES -->
+      <ng-container *ngIf="currentThread && currentInterceptorChoice">
+        <div class="item breadcrum" (click)="selectChoice(null,null)">
+          <p>{{currentInterceptorText}}</p>
+          <div space></div>
+          <p>● Sequence Trigger: {{currentInterceptorChoice.handle}}</p>
+        </div>
+        <sequence-tree-list [(rootCause)]="currentInterceptorChoice.next">
+        </sequence-tree-list>
+      </ng-container>
+
+      <div class="filler">- ⚜ -</div>
+
+    </div>
+  </div>
+</div>

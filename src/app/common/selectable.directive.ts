@@ -2,7 +2,7 @@ import { Directive, HostBinding, HostListener, Input } from "@angular/core";
 import { SelectionService } from "../services/selection.service";
 
 @Directive({ selector: "[selectable]" })
-export class ItemDirective
+export class SelectableDirective
 {
   @Input('selectable') o:object;
 
