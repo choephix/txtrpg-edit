@@ -71,16 +71,16 @@ h2 {
 
   <div>
     <div class="panel">
-      <app-collapsable label="automodi" expanded="false">
+      <app-collapsable label="automodi" [expanded]="true">
         <automodi id="automodi" #automodi></automodi>
       </app-collapsable>
     </div>
   </div>
-  <div class="panel">
-    <app-collapsable label="jsonace" expanded="true" class="panel">
+  <!-- <div class="panel">
+    <app-collapsable label="jsonace" [expanded]="false" class="panel">
       <jsonace id="jsonace" #jsonace></jsonace>
     </app-collapsable>
-  </div>
+  </div> -->
   <div class="panel filler">
     -cx
   </div>

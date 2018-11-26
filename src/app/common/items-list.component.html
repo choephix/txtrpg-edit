@@ -1,8 +1,58 @@
-<div class="items-list">
-  <div *ngFor="let item of list; let index = index">
+<flex-column class="items-list">
+
+  <style>
+    .menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position:absolute;
+      top:0;
+      height:38px;
+      width: 16px;
+      opacity:0;
+      cursor:pointer;
+    }
+    :hover > .menu-toggle { opacity:.5 }
+    .menu-toggle:hover { opacity:1 !important }
+
+    div.mat-menu-panel {
+      border-radius: 0px;
+      outline: 1px solid #0009;
+    }
+    div.mat-menu-content:not(:empty) {
+      padding: 0px;
+    }
+    div .mat-menu-item {
+      display: block;
+      line-height: 24px;
+      height: 24px;
+      padding: 0 4px;
+    }
+  </style>
+
+  <div *ngFor="let item of items; let index = index">
+
     <template [ngTemplateOutlet]="templateVariable"
               [ngTemplateOutletContext]="{item:item,index:index}">
     </template>
+
+    <span class="menu-toggle"
+          [matMenuTriggerFor]="appMenu"
+          [matMenuTriggerData]="{item:item,index:index}"
+          ><b>⁞</b></span>
+
   </div>
-  <div class="item spawner" (click)="add(list.length)" style="cursor:pointer">+</div>
-</div>
+
+</flex-column>
+
+<mat-menu #appMenu="matMenu" [overlapTrigger]="true" >
+  <ng-template matMenuContent let-item="item" let-i="index">
+    <button mat-menu-item (click)="move(item,-1)">   🔼 move up</button>
+    <button mat-menu-item (click)="add(i)">          ➕ add above</button>
+    <button mat-menu-item (click)="clone(item,i)">   📰 clone above</button>
+    <button mat-menu-item (click)="delete(item)">    ❌ delete forever</button>
+    <button mat-menu-item (click)="clone(item,i+1)"> © clone below</button>
+    <button mat-menu-item (click)="add(i+1)">        ➕ add below</button>
+    <button mat-menu-item (click)="move(move,1)">    🔽 move down</button>
+  </ng-template>
+</mat-menu>

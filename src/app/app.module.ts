@@ -8,6 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker'
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { AceEditorModule } from 'ng2-ace-editor'
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent, AppInnerComponent } from './app.component'
 import { Page404Component } from './404.component'
@@ -97,6 +98,8 @@ const appRoutes: Routes = [
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({easeTime:150}),
     AceEditorModule,
+    //material
+    MatMenuModule,
   ],
   exports: [RouterModule],
   providers: [],

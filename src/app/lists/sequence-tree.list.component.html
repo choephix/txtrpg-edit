@@ -13,61 +13,64 @@
 <div class="items-list">
 
   <!-- LIST OF NODES -->
-  <div class="item" [selectable]="node" *ngFor="let node of listVisibleNodes; let i = index">
+  <items-list [items]="listVisibleNodes">
+    <ng-template let-node="item">
 
-    <flex-row>
-      <flex-column cell style="flex: 15 1 240px" *ngIf="node.text||selection.showDetails(node)">
-        <label>text</label>
-        <textarea autoresize class="field-text" [(ngModel)]="node.text"></textarea>
-      </flex-column>
-      <flex-column cell style="flex: 8 1 240px" *ngIf="node.code||selection.showDetails(node)">
-        <label>code</label>
-        <textarea autoresize class="field-code" [(ngModel)]="node.code"></textarea>
-      </flex-column>
-      <flex-column cell style="flex: 1 1 100px; display:flex; flex-flow:column;">
-        <label>condition</label>
-        <input type="text" class="field-condition" [(ngModel)]="node.condition" style="flex:1">
-        <label>type</label>
-        <input type="text" class="field-type" [(ngModel)]="node.type">
-        <label>cause</label>
-        <input type="text" class="field-cause" [(ngModel)]="node.cause">
-      </flex-column>
-    </flex-row>
-
-    <div cell>
-      <label>choices</label>
-      <flex-row class="item inner" *ngFor="let choice of node.choices; let j=index; trackBy:trackByFn">
-        <div row style="flex: 15 1 240px">
-          <div cell style="flex: 15 1 400px">
-            <label>handle</label>
-            <input type="text" class="field-handle" [(ngModel)]="choice.handle">
-          </div>
-          <flex-row style="flex: 1 1 280px">
-            <div cell style="flex: 3 1 160px">
-              <label for="goto.text">condition</label>
-              <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
-            </div>
-            <div cell style="flex: 1 1 80px" *ngIf="selection.showDetails(node)">
-              <label>next</label>
-              <input type="text" class="input field-convo" [(ngModel)]="choice.next">
-            </div>
+        <div class="item" [selectable]="node">
+          <flex-row>
+            <flex-column cell style="flex: 15 1 240px" *ngIf="node.text||selection.showDetails(node)">
+              <label>text</label>
+              <textarea autoresize class="field-text" [(ngModel)]="node.text"></textarea>
+            </flex-column>
+            <flex-column cell style="flex: 8 1 240px" *ngIf="node.code||selection.showDetails(node)">
+              <label>code</label>
+              <textarea autoresize class="field-code" [(ngModel)]="node.code"></textarea>
+            </flex-column>
+            <flex-column cell style="flex: 1 1 100px; display:flex; flex-flow:column;">
+              <label>condition</label>
+              <input type="text" class="field-condition" [(ngModel)]="node.condition" style="flex:1">
+              <label>type</label>
+              <input type="text" class="field-type" [(ngModel)]="node.type">
+              <label>cause</label>
+              <input type="text" class="field-cause" [(ngModel)]="node.cause">
+            </flex-column>
           </flex-row>
-        </div>
-        <div cell style="flex:1 1 100px">
-          <button (click)="goto(node,choice)">go</button>
-        </div>
-      </flex-row>
-      <div class="notice" *ngIf="!node.choices?.length">
-        <p>This node presents no further choices to make.</p>
-        <p>Your sequence will end with this.</p>
-      </div>
-      <div class="item inner spawner"
-            style="cursor:pointer"
-            *ngIf="selection.showDetails(node)"
-            (click)="addChoice(node)" >+ choice</div>
-    </div>
 
-  </div>
-  <div class="item spawner" (click)="addNode(data_nodes.length)" style="cursor:pointer">+ node</div>
+          <div cell>
+            <label>choices</label>
+            <flex-row class="item inner" *ngFor="let choice of node.choices; let j=index; trackBy:trackByFn">
+              <div row style="flex: 15 1 240px">
+                <div cell style="flex: 15 1 400px">
+                  <label>handle</label>
+                  <input type="text" class="field-handle" [(ngModel)]="choice.handle">
+                </div>
+                <flex-row style="flex: 1 1 280px">
+                  <div cell style="flex: 3 1 160px">
+                    <label for="goto.text">condition</label>
+                    <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
+                  </div>
+                  <div cell style="flex: 1 1 80px" *ngIf="selection.showDetails(node)">
+                    <label>next</label>
+                    <input type="text" class="input field-convo" [(ngModel)]="choice.next">
+                  </div>
+                </flex-row>
+              </div>
+              <div cell style="flex:1 1 100px">
+                <button (click)="goto(node,choice)">go</button>
+              </div>
+            </flex-row>
+            <div class="notice" *ngIf="!node.choices?.length">
+              <p>This node presents no further choices to make.</p>
+              <p>Your sequence will end with this.</p>
+            </div>
+            <div class="item inner spawner"
+                  style="cursor:pointer"
+                  *ngIf="selection.showDetails(node)"
+                  (click)="addChoice(node)" >+ choice</div>
+          </div>
+        </div>
+
+    </ng-template>
+  </items-list>
 
 </div>

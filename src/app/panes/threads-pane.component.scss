@@ -17,7 +17,7 @@
 *.breadcrum:hover { color: #BBB }
 
 /// DIVIDER
-$accent-on: $accent-convo;
+$accent-on: $accent-thread;
 $accent-off: mix($accent-on,#333,10%);
 .darkform {
   *.notice {

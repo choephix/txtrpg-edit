@@ -9,7 +9,7 @@ $accent-off: #464646;
 $accent-on: #ffffff;
 $super: #00a2ff;
 
-$spacing: 4px;
+$spacing: 2px;
 
 @mixin inset {
   background: $inset-background;
@@ -25,17 +25,13 @@ $spacing: 4px;
   border-right: 1px solid $bev-dn;
 }
 
-flex-row {
-  display: flex;
-  flex-flow: row wrap;
-}
-flex-column {
-  display: flex;
-  flex-flow: column wrap;
-}
 [cell] {
   display:block;
   padding: $spacing;
+}
+
+.items-list [li] {
+  padding-left:16px !important;
 }
 
 .darkform {

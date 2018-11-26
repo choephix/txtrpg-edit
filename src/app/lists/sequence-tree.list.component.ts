@@ -5,7 +5,7 @@ import { WorldDataService } from '../services/world-data.service';
 
 @Component({
   selector: 'sequence-tree-list',
-  templateUrl: './sequence-tree.list.component.html',
+  templateUrl: './sequence-tree.list.component.html'
 })
 export class SequenceTreeListComponent
 {
