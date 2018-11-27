@@ -81,7 +81,7 @@ export class WorldDataService
   public static deleteEmpties( data:any=null ):void
   {
     for ( let key in data )
-      if ( data[key] == null || data[key] == "" )
+      if ( data[key] === null || data[key] === "" )
         delete data[key]
       else
       if ( typeof data[key] === 'object' )
