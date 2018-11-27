@@ -13,10 +13,10 @@
 <div class="items-list">
 
   <!-- LIST OF NODES -->
-  <items-list [items]="listVisibleNodes">
+  <items-list [items]="data_nodes" [factory]="makeNode" [filter]="filterNode" [addItemLabel]="'add node'">
     <ng-template let-node="item">
 
-        <div class="item" [selectable]="node">
+        <div li class="item" [selectable]="node">
           <flex-row>
             <flex-column cell style="flex: 15 1 240px" *ngIf="node.text||selection.showDetails(node)">
               <label>text</label>
@@ -38,35 +38,35 @@
 
           <div cell>
             <label>choices</label>
-            <flex-row class="item inner" *ngFor="let choice of node.choices; let j=index; trackBy:trackByFn">
-              <div row style="flex: 15 1 240px">
-                <div cell style="flex: 15 1 400px">
-                  <label>handle</label>
-                  <input type="text" class="field-handle" [(ngModel)]="choice.handle">
-                </div>
-                <flex-row style="flex: 1 1 280px">
-                  <div cell style="flex: 3 1 160px">
-                    <label for="goto.text">condition</label>
-                    <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
-                  </div>
-                  <div cell style="flex: 1 1 80px" *ngIf="selection.showDetails(node)">
-                    <label>next</label>
-                    <input type="text" class="input field-convo" [(ngModel)]="choice.next">
-                  </div>
-                </flex-row>
-              </div>
-              <div cell style="flex:1 1 100px">
-                <button (click)="goto(node,choice)">go</button>
-              </div>
-            </flex-row>
             <div class="notice" *ngIf="!node.choices?.length">
               <p>This node presents no further choices to make.</p>
               <p>Your sequence will end with this.</p>
             </div>
-            <div class="item inner spawner"
-                  style="cursor:pointer"
-                  *ngIf="selection.showDetails(node)"
-                  (click)="addChoice(node)" >+ choice</div>
+            <items-list [items]="node.choices" [factory]="makeChoice" [addItemLabel]="'add choice'">
+              <ng-template let-choice="item" let-j="index">
+                <flex-row li class="item inner">
+                  <flex-row style="flex: 15 1 240px">
+                    <div cell style="flex: 15 1 400px">
+                      <label>handle</label>
+                      <input type="text" class="field-handle" [(ngModel)]="choice.handle">
+                    </div>
+                    <flex-row style="flex: 1 1 280px" *ngIf="selection.showDetails(node)||choice.condition">
+                      <div cell style="flex: 3 1 160px">
+                        <label for="goto.text">condition</label>
+                        <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
+                      </div>
+                      <div cell style="flex: 1 1 80px" *ngIf="selection.showDetails(node)">
+                        <label>next</label>
+                        <input type="text" class="input field-convo" [(ngModel)]="choice.next">
+                      </div>
+                    </flex-row>
+                  </flex-row>
+                  <div cell style="flex:1 1 100px">
+                    <button (click)="goto(node,choice)">go</button>
+                  </div>
+                </flex-row>
+              </ng-template>
+            </items-list>
           </div>
         </div>
 

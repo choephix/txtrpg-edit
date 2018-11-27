@@ -14,6 +14,24 @@ export class SequenceTreeListComponent
   get data_nodes():SequenceNode[] { return this.gamedata.data.journal.sequences.nodes }
   get data_nodes_original() { return this.gamedata.originalData.journal.sequences.nodes }
 
+  makeNode = ():SequenceNode =>
+  {
+    return {
+      uid:this.uidgen.make(8),
+      type:this.breadcrums.length?this.breadcrums[0].node.type:undefined,
+      cause:this.currentCauseUID(),
+      text:" • • • ",
+      choices:[ ]
+      // choices:[ this.makeChoice() ]
+    }
+  }
+
+  makeChoice = ():SequenceChoice =>
+  { return {handle:"...",next:this.uidgen.make(12)} }
+
+  filterNode = (node):boolean =>
+  { return node.cause===this.currentCauseUID() }
+
   breadcrums:Breadcrum[] = []
 
   constructor( public gamedata:WorldDataService,
@@ -23,9 +41,6 @@ export class SequenceTreeListComponent
     this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.data_nodes ) )
   }
 
-  get listVisibleNodes():SequenceNode[]
-  { return this.data_nodes.filter( (node,i,a)=>node.cause===this.currentCauseUID() ) }
-
   currentCauseUID():string
   {
     if ( this.breadcrums.length == 0 )
@@ -33,12 +48,6 @@ export class SequenceTreeListComponent
     else
       return this.breadcrums[0].choice.next
   }
-
-  // passesFilter( o:SequenceNode ):boolean
-  // {
-  //   if ( this.filter.search && !String(o.text).includes( this.filter.search ) ) return false
-  //   return true
-  // }
 
   goto( node, choice ):void
   {
@@ -57,58 +66,6 @@ export class SequenceTreeListComponent
     while ( this.breadcrums.length >= i )
       this.breadcrums.shift()
   }
-
-  isDirty( o:object, key:string ):boolean
-  {
-    return false
-  }
-
-  isDirtyIndex( o:object ):boolean
-  {
-    return false
-  }
-
-  isDirtyNew( o:object ):boolean
-  {
-    return false
-  }
-
-  addNode( index )
-  {
-    let item:SequenceNode = {
-      uid:this.uidgen.make(8),
-      type:this.breadcrums.length?this.breadcrums[0].node.type:undefined,
-      cause:this.currentCauseUID(),text:"..."
-    }
-    this.data_nodes.splice(index,0,item)
-    this.data_nodes_original.splice(index,0,{})
-  }
-
-  addChoice( o:SequenceNode )
-  {
-    if ( !o.choices ) o.choices = []
-    let index = o.choices.length
-    let item:SequenceChoice = {handle:"...",next:this.uidgen.make(12)}
-    o.choices.splice(index,0,item)
-  }
-
-  move( array, target, offset )
-  {
-    let index = array.indexOf(target)
-    if ( index < 0 ) return
-    if ( offset < -index ) offset = array.length
-    array.splice(index,1)
-    array.splice(index+offset,0,target)
-  }
-
-  delete( array, target )
-  {
-    let index = array.indexOf(target)
-    if ( index < 0 ) return
-    array.splice(index,1)
-  }
-
-  trackByFn(index: any, item: any) { return index; }
 }
 
 class Breadcrum {
@@ -122,7 +79,7 @@ class SequenceNode {
   text:string;
   condition?:string;
   code?:string;
-  choices?:SequenceChoice[]
+  choices:SequenceChoice[]
 }
 class SequenceChoice {
   condition?:string;

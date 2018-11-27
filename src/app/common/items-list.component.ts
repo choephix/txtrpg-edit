@@ -1,6 +1,7 @@
-import { Component, ContentChild, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef, ViewEncapsulation, ViewChild } from '@angular/core';
 import { SelectionService } from '../services/selection.service';
 import { WorldDataService } from '../services/world-data.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'items-list',
@@ -11,8 +12,11 @@ export class ItemsListComponent
 {
   @ContentChild(TemplateRef) templateVariable:TemplateRef<any>;
   @Input() items:any[] = []
+  @Input() factory:Function = null
+  @Input() filter:Function = null
   @Input() trackByKey:string = null
-  @Input() itemFactoryFunc:Function = null
+  @Input() addItemLabel:string = "+"
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor( public gamedata:WorldDataService,
                public selection:SelectionService )
@@ -20,9 +24,17 @@ export class ItemsListComponent
     this.selection.callbacks_OnSelect.push( o => WorldDataService.deleteEmpties( this.items ) )
   }
 
+  onContextMenu( e:MouseEvent )
+  {
+    // this.trigger.openMenu()
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
   add( index )
   {
-    let item = this.itemFactoryFunc ? this.itemFactoryFunc() : {}
+    let item = this.factory ? this.factory() : {}
+    console.log(item, this.items)
     this.items.splice(index,0,item)
   }
 
@@ -30,8 +42,8 @@ export class ItemsListComponent
   {
     let item = {}
     Object.assign( item, target )
-    if ( this.itemFactoryFunc )
-      Object.assign( item, this.itemFactoryFunc() )
+    if ( this.factory )
+      Object.assign( item, this.factory() )
     this.items.splice(index,0,item)
   }
 

@@ -1,4 +1,4 @@
-<flex-column class="items-list">
+<flex-column class="items-list" (contextmenu)="onContextMenu($event)">
 
   <style>
     .menu-toggle {
@@ -33,7 +33,8 @@
   <div *ngFor="let item of items; let index = index">
 
     <template [ngTemplateOutlet]="templateVariable"
-              [ngTemplateOutletContext]="{item:item,index:index}">
+              [ngTemplateOutletContext]="{item:item,index:index}"
+              *ngIf="!filter||filter(item)">
     </template>
 
     <span class="menu-toggle"
@@ -43,15 +44,21 @@
 
   </div>
 
+  <div>
+    <button class="item" style="margin-bottom:1px"
+            (click)="add(items.length)">{{addItemLabel}}</button>
+  </div>
+
 </flex-column>
 
 <mat-menu #appMenu="matMenu" [overlapTrigger]="true" >
   <ng-template matMenuContent let-item="item" let-i="index">
+    <p>{{item}}</p>
     <button mat-menu-item (click)="move(item,-1)">   🔼 move up</button>
     <button mat-menu-item (click)="add(i)">          ➕ add above</button>
     <button mat-menu-item (click)="clone(item,i)">   📰 clone above</button>
     <button mat-menu-item (click)="delete(item)">    ❌ delete forever</button>
-    <button mat-menu-item (click)="clone(item,i+1)"> © clone below</button>
+    <button mat-menu-item (click)="clone(item,i+1)"> 📰 clone below</button>
     <button mat-menu-item (click)="add(i+1)">        ➕ add below</button>
     <button mat-menu-item (click)="move(move,1)">    🔽 move down</button>
   </ng-template>

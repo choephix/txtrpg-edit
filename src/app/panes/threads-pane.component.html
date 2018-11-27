@@ -11,7 +11,10 @@
     <div class="items-list">
 
       <!-- LIST OF THREADS -->
-      <items-list [items]="data_threads" *ngIf="!currentThread">
+      <items-list [items]="data_threads"
+                  [factory]="factory_thread"
+                  [addItemLabel]="'add thread'"
+                  *ngIf="!currentThread">
         <ng-template let-thread="item">
 
           <flex-row>
@@ -34,7 +37,10 @@
 
       <!-- LIST OF THREAD STAGES -->
 
-      <items-list [items]="currentThread.stages" *ngIf="currentThread && !currentInterceptorChoice">
+      <items-list [items]="currentThread.stages"
+                  [factory]="factory_stage"
+                  [addItemLabel]="'add stage'"
+                  *ngIf="currentThread && !currentInterceptorChoice">
         <ng-template let-stage="item">
 
           <div li class="item" [selectable]="stage">
@@ -47,13 +53,17 @@
           </div>
 
           <!-- LIST OF INTERCEPTORS -->
-          <items-list [items]="stage.interceptors">
+          <items-list [items]="stage.interceptors"
+                      [factory]="factory_interceptor"
+                      [addItemLabel]="'add interceptor'">
             <ng-template let-interceptor="item">
               <div li class="item" [selectable]="interceptor">
 
                 <div space></div>
-                <label>when</label>
-                <items-list [items]="interceptor.when">
+                <label>when (any is true)</label>
+                <items-list [items]="interceptor.when"
+                            [factory]="factory_interceptor_when"
+                            [addItemLabel]="'add when'">
                   <ng-template let-when="item">
                     <flex-row li class="item inner">
                       <div cell style="flex: 15 1 100px;">
@@ -69,8 +79,10 @@
                 </items-list>
 
                 <div space></div>
-                <label>what</label>
-                <items-list [items]="interceptor.what">
+                <label>what (first valid)</label>
+                <items-list [items]="interceptor.what"
+                            [factory]="factory_interceptor_what"
+                            [addItemLabel]="'add what'">
                   <ng-template let-what="item">
                     <flex-row li class="item inner">
                       <div cell style="flex:2 1 400px">
@@ -91,7 +103,9 @@
 
                 <div space></div>
                 <label>choices</label>
-                <items-list [items]="interceptor.choices">
+                <items-list [items]="interceptor.choices"
+                            [factory]="factory_interceptor_choice"
+                            [addItemLabel]="'add choice'">
                   <ng-template let-choice="item">
                     <flex-row>
                       <flex-row li class="item inner" style="flex: 7 1;">

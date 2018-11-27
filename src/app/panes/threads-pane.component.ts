@@ -13,6 +13,23 @@ export class ThreadsPaneComponent
 {
   get data_threads():{ [id: string] : Thread } { return this.gamedata.data.journal.threads }
 
+  factory_thread = ():Thread => ({
+    slug:"thread_"+this.uidgen.make(5),
+    stages:[ { slug:"initial", interceptors:[ this.factory_interceptor() ] } ]
+  })
+  factory_stage = ():ThreadStage => ({
+    slug:"stage_"+this.uidgen.make(2),
+    interceptors:[ this.factory_interceptor() ]
+  })
+  factory_interceptor = ():Interceptor => ({
+    when: [this.factory_interceptor_when()],
+    what: [this.factory_interceptor_what()],
+    choices: [this.factory_interceptor_choice()]
+  })
+  factory_interceptor_when = ():InterceptorWhen => ({ type:"goto", condition:"true" })
+  factory_interceptor_what = ():InterceptorWhat => ({ text:" ✶ ✶ ✶ " })
+  factory_interceptor_choice = ():InterceptorChoice => ({ handle:"...", next:this.makeNewChoiceNextCUID() })
+
   currentThread:Thread = null
   currentInterceptorText:string = null
   currentInterceptorChoice:InterceptorChoice = null
@@ -37,53 +54,46 @@ export class ThreadsPaneComponent
     this.currentInterceptorChoice = null
   }
 
-  move( array, target, offset )
-  {
-    let index = array.indexOf(target)
-    if ( index < 0 ) return
-    if ( offset < -index ) offset = array.length
-    array.splice(index,1)
-    array.splice(index+offset,0,target)
+  openContextMenu(event) {
+    event.preventDefault(); // Suppress the browser's context menu
+    // this.contextMenu.openMenu(); // Open your custom context menu instead
+    alert(4345)
   }
 
-  delete( array, target )
-  {
-    let index = array.indexOf(target)
-    if ( index < 0 ) return
-    array.splice(index,1)
-  }
+  makeNewChoiceNextCUID()
+  { return `${this.uidgen.make(12)}` }
 
   trackByFn(index: any, item: any) { return index; }
 }
 
 class Thread {
   slug:string
-  stages:ThreadStage[]
+  stages:ThreadStage[] = [ new ThreadStage ]
 }
 class ThreadStage {
   slug:string
-  interceptors:Interceptor[]
+  interceptors:Interceptor[] = [ new Interceptor ]
 }
 class Interceptor {
-  when?:InterceptorWhen[] = []
-  what?:InterceptorWhat[] = []
-  choices?:InterceptorChoice[] = []
-  options:InterceptorOptions = {}
+  when:InterceptorWhen[] = []
+  what:InterceptorWhat[] = []
+  choices:InterceptorChoice[] = []
+  options?:InterceptorOptions
 }
 class InterceptorWhen {
-  condition?:string;
-//   event_type?:string;
+  condition:string
+  type?:string
 }
 class InterceptorWhat {
-  code?:string;
-  text:string;
-  condition?:string;
+  code?:string
+  text:string
+  condition?:string
 }
 class InterceptorChoice {
-  condition?:string;
-  handle:string;
-  next:string;
+  condition?:string
+  handle:string
+  next:string
 }
 class InterceptorOptions {
-  hideDefaultChoices?:string
+  hideDefaultChoices?:boolean = false
 }
