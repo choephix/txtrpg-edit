@@ -1,13 +1,11 @@
-<div class="darkform" [attr.gutter]="gutter">
-  <div gutter-background></div>
-  <div class="pane-inner" gutter-sided style="min-height:100%">
+<div class="darkform">
+  <div class="pane-inner" style="min-height:100%">
 
     <div class="item not-selectable">
       <p>GAMEDATA / JOURNAL / ACTIONS / GOTO -- (TEXT)</p>
-      <button tabindex="-1" clear gutter-toggle (click)="gutter=!gutter">{{gutter?'>':'<'}}</button>
     </div>
     <div class="item">
-      <div row>
+      <flex-row>
         <div cell style="flex: 1 1 80px">
           <label>from</label>
           <input type="text" class="input" [(ngModel)]="filter.from">
@@ -20,7 +18,7 @@
           <label>search</label>
           <input type="text" class="input" [(ngModel)]="filter.search">
         </div>
-      </div>
+      </flex-row>
       <div cell class="toolbar">
         <button tabindex="-1" clear (click)="add(0)">＋ add new</button>
       </div>
@@ -30,81 +28,70 @@
 
     <div class="items-list" #thelist spellcheck="false">
 
-      <ng-container *ngFor="let o of data; let i = index">
-      <ng-container *ngIf="passesFilter(o)">
-        <div class="item" [selectable]="o" [class.dirty]="isDirtyIndex(o)">
+      <items-list [items]="data" [filter]="passesFilter" [factory]="factory_item" [addItemLabel]="'add'">
+        <ng-template let-o="item" let-i="index">
+          <div li class="item" [class.dirty]="isDirtyIndex(o)" [selectable]="o" *ngIf="passesFilter(o)">
 
-            <div row>
-              <div cell style="flex: 1 1 80px">
-                <label>from</label>
+              <flex-row>
+                <div cell style="flex: 1 1 80px">
+                  <label>from</label>
+                  <input type="text"
+                        class="input field-from"
+                        [class.dirty]="isDirty(o,'from')"
+                        [(ngModel)]="o.from">
+                </div>
+                <div cell style="flex: 1 1 80px">
+                  <label>to</label>
+                  <input type="text"
+                        class="input field-to"
+                        [class.dirty]="isDirty(o,'to')"
+                        [(ngModel)]="o.to">
+                </div>
+                <div cell style="flex: 30 1 160px">
+                  <label>condition</label>
+                  <input type="text"
+                        class="input field-condition"
+                        [class.dirty]="isDirty(o,'condition')"
+                        [(ngModel)]="o.condition">
+                </div>
+              </flex-row>
+
+              <div cell *ngIf="o.handle||selection.showDetails(o)">
+                <label for="goto.handle">handle</label>
                 <input type="text"
-                      class="input field-from"
-                      [class.dirty]="isDirty(o,'from')"
-                      [(ngModel)]="o.from">
+                      class="input field-handle"
+                      [class.dirty]="isDirty(o,'handle')"
+                      [(ngModel)]="o.handle">
               </div>
-              <div cell style="flex: 1 1 80px">
-                <label>to</label>
-                <input type="text"
-                      class="input field-to"
-                      [class.dirty]="isDirty(o,'to')"
-                      [(ngModel)]="o.to">
+
+              <div cell *ngIf="o.code||selection.showDetails(o)">
+                <label for="goto.text">code</label>
+                <textarea autoresize
+                          class="field-code"
+                          style="min-height: 3.2em;"
+                          [class.dirty]="isDirty(o,'code')"
+                          [(ngModel)]="o.code"></textarea>
               </div>
-              <div cell style="flex: 30 1 160px">
-                <label>condition</label>
-                <input type="text"
-                      class="input field-condition"
-                      [class.dirty]="isDirty(o,'condition')"
-                      [(ngModel)]="o.condition">
+
+              <div cell>
+                <label for="goto.text">text</label>
+                <textarea autoresize
+                          class="field-text"
+                          style="min-height: 80px;"
+                          [class.dirty]="isDirty(o,'text')"
+                          [(ngModel)]="o.text"></textarea>
               </div>
-            </div>
 
-            <div cell *ngIf="o.handle||selection.showDetails(o)">
-              <label for="goto.handle">handle</label>
-              <input type="text"
-                    class="input field-handle"
-                    [class.dirty]="isDirty(o,'handle')"
-                    [(ngModel)]="o.handle">
-            </div>
+              <div space></div>
+              <div space></div>
+              <div class="uid" [class.dirty]="isDirtyNew(o)">{{o.uid}}</div>
 
-            <div cell *ngIf="o.code||selection.showDetails(o)">
-              <label for="goto.text">code</label>
-              <textarea autoresize
-                        class="field-code"
-                        style="min-height: 3.2em;"
-                        [class.dirty]="isDirty(o,'code')"
-                        [(ngModel)]="o.code"></textarea>
-            </div>
-
-            <div cell>
-              <label for="goto.text">text</label>
-              <textarea autoresize
-                        class="field-text"
-                        style="min-height: 80px;"
-                        [class.dirty]="isDirty(o,'text')"
-                        [(ngModel)]="o.text"></textarea>
-            </div>
-
-            <div space></div>
-            <div space></div>
-            <div class="uid" [class.dirty]="isDirtyNew(o)">{{o.uid}}</div>
-
-            <div gutter-toolbar>
-              <button clear tabindex="-1" class="move"   (click)="move(o,i,-1)">▲▼</button>
-              <button clear tabindex="-1" class="clone"  (click)="cloneTo(o,i)">⬆+</button>
-              <button clear tabindex="-1" class="delete" (click)="delete(i)">╳</button>
-              <button clear tabindex="-1" class="clone"  (click)="cloneTo(o,i+1)">⬇+</button>
-              <button clear tabindex="-1" class="move"   (click)="move(o,i,1)">▼▲</button>
-            </div>
-
-        </div>
-      </ng-container>
-      </ng-container>
-
-      <div class="item spawner" (click)="add(data.length)" style="cursor:pointer">add new</div>
+          </div>
+        </ng-template>
+      </items-list>
 
       <div class="filler">- ⚜ -</div>
 
     </div>
-
   </div>
 </div>

@@ -6,7 +6,7 @@ import { WorldDataService } from '../services/world-data.service';
 @Component({
   selector: 'goto-texts-pane',
   templateUrl: './goto-texts-pane.component.html',
-  styleUrls: ['./../darkform.scss','./goto-texts-pane.component.scss'],
+  styleUrls: ['./../flatform.scss','./goto-texts-pane.component.scss'],
 })
 export class GotoActionsPaneComponent
 {
@@ -16,17 +16,23 @@ export class GotoActionsPaneComponent
   get data():LinkTextData[] { return this.gamedata.data.journal.actions.goto }
   get data_original():LinkTextData[] { return this.gamedata.originalData.journal.actions.goto }
 
+  factory_item = ():LinkTextData => ({
+    uid:this.uidgen.make(8),
+    from: this.filter.from ? this.filter.from : undefined,
+    to: this.filter.to ? this.filter.to : undefined,
+  })
+
   constructor( public gamedata:WorldDataService,
                public selection:SelectionService,
                public uidgen:UID_GenerationService )
   {
     this.selection.callbacks_OnSelect.push( o => this.onAnySelect( o ) )
   }
-  
+
   onAnySelect( o )
   {
     WorldDataService.deleteEmpties( this.data )
-    
+
     if ( !o )
       this.filter.from = ""
     else
@@ -37,7 +43,7 @@ export class GotoActionsPaneComponent
   passesFilter( o:LinkTextData ):boolean
   {
     if ( this.filter.from && !String(o.from).includes( this.filter.from ) ) return false
-    if ( this.filter.to && !String(o.to).includes( this.filter.to ) ) return false
+    if ( this.filter.to   && !String(o.to).includes( this.filter.to ) ) return false
     if ( this.filter.search && !String(o.handle).includes( this.filter.search )
                             && !String(o.text).includes( this.filter.search ) ) return false
     return true

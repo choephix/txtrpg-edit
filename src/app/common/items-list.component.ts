@@ -12,8 +12,8 @@ export class ItemsListComponent
 {
   @ContentChild(TemplateRef) templateVariable:TemplateRef<any>;
   @Input() items:any[] = []
-  @Input() factory:Function = null
-  @Input() filter:Function = null
+  @Input() factory:()=>any = null
+  @Input() filter:(o)=>boolean = (o)=>true
   @Input() trackByKey:string = null
   @Input() addItemLabel:string = "+"
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
@@ -40,10 +40,15 @@ export class ItemsListComponent
 
   clone( target, index )
   {
-    let item = {}
+    let item:any = {}
     Object.assign( item, target )
     if ( this.factory )
-      Object.assign( item, this.factory() )
+    {
+      let base = this.factory()
+      if ( base.uid != undefined ) item.uid = base.uid
+      if ( base.cuid != undefined ) item.cuid = base.cuid
+      if ( base.next != undefined ) item.next = base.next
+    }
     this.items.splice(index,0,item)
   }
 
