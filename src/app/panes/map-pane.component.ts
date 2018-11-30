@@ -107,17 +107,11 @@ export class MapPaneComponent
     this.linking = null
   }
 
-  click_link(e:MouseEvent,link_index:number)
+  click_link(e:MouseEvent,from:LocationNode,to:string)
   {
     if ( e.button == 2 )
     {
-  		this.w.removeLink( link_index )
-      e.stopPropagation()
-    }
-    else
-    if ( e.button == 0 )
-    {
-      this.selected = this.w.links[link_index]
+  		this.w.removeLink( from, to )
       e.stopPropagation()
     }
   	this.linking = null

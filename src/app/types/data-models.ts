@@ -1,10 +1,9 @@
 
 ///
 
-export interface WorldData { nodes:LocationNode[]; subnodes:LocationSubnode[]; links:Link[] }
-export interface LocationNode { uid: string; slug: string; x: number; y: number }
+export interface WorldData { locations:LocationNode[]; subnodes:LocationSubnode[]; }
+export interface LocationNode { uid: string; slug: string; x: number; y: number, exits:string[] }
 export interface LocationSubnode extends LocationNode { parent:string }
-export interface Link { from:string; to:string }
 
 ///
 

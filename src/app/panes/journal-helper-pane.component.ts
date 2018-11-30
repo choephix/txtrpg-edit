@@ -46,13 +46,13 @@ export class JournalHelperPaneComponent
     </div>
     <div class="divider" [class.active]="!!filterLocations"></div>
     <div class="items-list">
-      <ng-container *ngFor="let loc of gamedata.data.world.nodes">
+      <ng-container *ngFor="let loc of locations">
       <ng-container *ngIf="!filterLocations||loc.slug.includes(filterLocations)">
         <flex-row class="item">
           <div class="cell-uid">{{loc.uid}}</div>
           <div class="cell-slug">{{loc.slug}}</div>
         </flex-row>
-        <ng-container *ngFor="let sub of gamedata.data.world.subnodes">
+        <ng-container *ngFor="let sub of subnodes">
         <ng-container *ngIf="sub.parent==loc.uid||sub.parent==loc.slug">
           <flex-row>
             <div indent></div>
@@ -71,7 +71,7 @@ export class JournalHelperPaneComponent
 export class LocationsListComponent
 {
   filterLocations:string= ''
-  get nodes():LocationNode[] { return this.gamedata.data.world.nodes }
+  get locations():LocationNode[] { return this.gamedata.data.world.locations }
   get subnodes():LocationSubnode[] { return this.gamedata.data.world.subnodes }
-  constructor( public gamedata:WorldDataService ) { }
+  constructor( private gamedata:WorldDataService ) { }
 }

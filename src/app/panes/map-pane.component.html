@@ -41,16 +41,18 @@
         class="link tobe"/>
     </ng-container>
 
-    <ng-container *ngFor="let link of w.links; let i = index">
-      <line
-        (mousedown)="click_link($event,i)"
-        [attr.data-index]="i"
-        [attr.x1]="getViewX(link.to)+5"
-        [attr.y1]="getViewY(link.to)+random(i,5)"
-        [attr.x2]="getViewX(link.from)-5"
-        [attr.y2]="getViewY(link.from)-random(i,5)"
-        [class.focused]="focused&&(link.to==focused.uid||link.from==focused.uid)"
-        class="link smooth"/>
+    <ng-container *ngFor="let from of w.nodes; let i = index;">
+      <ng-container *ngFor="let to of from.exits">
+        <line
+          (mousedown)="click_link($event,from,to)"
+          [attr.data-index]="i"
+          [attr.x1]="getViewX(to)+5"
+          [attr.y1]="getViewY(to)+random(i,5)"
+          [attr.x2]="getViewX(from)-5"
+          [attr.y2]="getViewY(from)-random(i,5)"
+          [class.focused]="focused&&(to==focused.uid||from.uid==focused.uid)"
+          class="link smooth"/>
+      </ng-container>
     </ng-container>
     <ng-container *ngFor="let node of w.subnodes; let i = index">
       <line
