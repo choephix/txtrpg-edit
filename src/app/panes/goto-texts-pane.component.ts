@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { UID_GenerationService } from '../services/id-gen.service';
 import { SelectionService } from '../services/selection.service';
 import { WorldDataService } from '../services/world-data.service';
@@ -6,7 +6,8 @@ import { WorldDataService } from '../services/world-data.service';
 @Component({
   selector: 'goto-texts-pane',
   templateUrl: './goto-texts-pane.component.html',
-  styleUrls: ['./../flatform.scss','./goto-texts-pane.component.scss'],
+  styleUrls: ['./../darkform.scss','./goto-texts-pane.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class GotoActionsPaneComponent
 {

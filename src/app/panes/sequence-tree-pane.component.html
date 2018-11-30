@@ -1,140 +1,57 @@
-<div class="darkform" [attr.gutter]="gutter">
-  <div gutter-background></div>
+<div class="darkform">
   <div class="pane-inner" gutter-sided style="min-height:100%">
 
     <div class="item not-selectable">
       <p>GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES</p>
-      <button clear gutter-toggle (click)="gutter=!gutter">{{gutter?'>':'<'}}</button>
     </div>
 
     <div class="divider" [class.active]="currentTrigger"></div>
 
-    <ng-container *ngIf="currentTrigger">
-      <div class="item breadcrum" (click)="gobackto(0)"><p>►  {{currentTrigger.handle}}</p></div>
-    </ng-container>
-
-    <ng-container *ngFor="let breadcrum of breadcrums.slice().reverse(); let i = index">
-      <div class="item breadcrum" (click)="gobackto(i+1)">
-        <p>{{breadcrum.node.text}}</p>
-        <p>•  {{breadcrum.choice.handle}}</p>
-      </div>
-    </ng-container>
-
     <div class="items-list">
 
       <!-- LIST OF TRIGGERS -->
-      <ng-container *ngIf="!currentTrigger">
-      <div class="item" [selectable]="trigger" *ngFor="let trigger of listVisibleTriggers; let i = index">
-        <div row>
-          <div style="flex: 25 1 400px;">
-            <div row>
-              <div cell style="flex: 10 1 400px;">
-                <label>handle</label>
-                <input type="text" class="input field-handle" [(ngModel)]="trigger.handle">
-              </div>
-              <div row style="flex: 5 1 280px;">
-                <div cell style="flex: 10 1 160px;">
-                  <label>condition</label>
-                  <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
+      <items-list [items]="data_triggers"
+                  [factory]="factory_trigger"
+                  [addItemLabel]="'add trigger'"
+                  *ngIf="!currentTrigger">
+        <ng-template let-trigger="item" let-i="index">
+          <flex-row li class="item" [selectable]="trigger">
+
+            <div style="flex: 25 1 400px;">
+              <flex-row>
+                <div cell style="flex: 10 1 400px;">
+                  <label>handle</label>
+                  <input type="text" class="input field-handle" [(ngModel)]="trigger.handle">
                 </div>
-                <div cell style="flex: 1 0 80px;">
-                  <label>location</label>
-                  <input type="text" class="input field-location" [(ngModel)]="trigger.node">
-                </div>
-                <div cell style="flex: 1 0 80px" *ngIf="selection.showDetails(trigger)">
-                  <label>uid</label>
-                  <input type="text" class="input field-convo" [(ngModel)]="trigger.uid">
-                </div>
-              </div>
+                <flex-row style="flex: 5 1 280px;">
+                  <div cell style="flex: 10 1 160px;">
+                    <label>condition</label>
+                    <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
+                  </div>
+                  <div cell style="flex: 1 0 80px;">
+                    <label>location</label>
+                    <input type="text" class="input field-location" [(ngModel)]="trigger.node">
+                  </div>
+                  <div cell style="flex: 1 0 80px" *ngIf="selection.showDetails(trigger)">
+                    <label>uid</label>
+                    <input type="text" class="input field-convo" [(ngModel)]="trigger.uid">
+                  </div>
+                </flex-row>
+              </flex-row>
             </div>
-          </div>
-          <div cell style="flex: 1 0 100px;">
-            <button (click)="currentTrigger=trigger">select</button>
-          </div>
-        </div>
-        <div gutter-toolbar>
-          <button clear tabindex="-1" class="move" (click)="move(data_triggers,trigger,-1)">▲▼</button>
-          <button clear tabindex="-1" class="delete" (click)="delete(data_triggers,trigger)">╳</button>
-          <button clear tabindex="-1" class="clone" (click)="addTrigger(i+1)">╋</button>
-        </div>
-      </div>
-      <div class="item spawner" (click)="addTrigger(data_triggers.length)">
-        ＋ trigger
-      </div>
-      </ng-container>
+            <div cell style="flex: 1 0 100px;">
+              <button (click)="currentTrigger=trigger">select</button>
+            </div>
+          </flex-row>
+        </ng-template>
+      </items-list>
 
-      <!-- LIST OF NODES -->
-
+      <!-- LIST OF SEQUENCE NODES -->
       <ng-container *ngIf="currentTrigger">
-        <div class="item" [selectable]="node" *ngFor="let node of listVisibleNodes; let i = index">
-
-          <div row>
-            <div cell style="flex: 15 1 240px" *ngIf="node.text||selection.showDetails(node)">
-              <label>text</label>
-              <textarea autoresize class="field-text" [(ngModel)]="node.text"></textarea>
-            </div>
-            <div cell style="flex: 8 1 240px" *ngIf="node.code||selection.showDetails(node)">
-              <label>code</label>
-              <textarea autoresize class="field-code" [(ngModel)]="node.code"></textarea>
-            </div>
-            <div cell style="flex: 1 1 100px; display:flex; flex-flow:column;">
-              <label>condition</label>
-              <input type="text" class="field-condition" [(ngModel)]="node.condition" style="flex:1">
-              <label>type</label>
-              <input type="text" class="field-type" [(ngModel)]="node.type">
-              <label>cause</label>
-              <input type="text" class="field-cause" [(ngModel)]="node.cause">
-            </div>
-          </div>
-
-          <div cell gutter-sided>
-            <label>choices</label>
-            <div class="item inner" *ngFor="let choice of node.choices; let j=index; trackBy:trackByFn">
-              <div row>
-                <div row style="flex: 15 1 240px">
-                  <div cell style="flex: 15 1 400px">
-                    <label>handle</label>
-                    <input type="text" class="field-handle" [(ngModel)]="choice.handle">
-                  </div>
-                  <div row style="flex: 1 1 280px">
-                    <div cell style="flex: 1 1 160px">
-                      <label for="goto.text">condition</label>
-                      <input type="text" class="input field-condition" [(ngModel)]="choice.condition">
-                    </div>
-                    <div cell style="flex: 1 1 80px" *ngIf="selection.showDetails(node)">
-                      <label>next</label>
-                      <input type="text" class="input field-convo" [(ngModel)]="choice.next">
-                    </div>
-                  </div>
-                </div>
-                <div cell style="flex:1 1 100px">
-                  <button (click)="goto(node,choice)">go</button>
-                </div>
-              </div>
-              <div gutter-toolbar>
-                <button clear tabindex="-1" class="move" (click)="move(node.choices,choice,-1)">▲▼</button>
-                <button clear tabindex="-1" class="delete" (click)="delete(node.choices,choice)">╳</button>
-              </div>
-            </div>
-            <div class="notice" *ngIf="!node.choices?.length">
-              <p>This node presents no further choices to make.</p>
-              <p>Your sequence will end with this.</p>
-            </div>
-            <div class="item inner spawner"
-                 style="cursor:pointer"
-                 *ngIf="selection.showDetails(node)"
-                 (click)="addChoice(node)" >+ choice</div>
-          </div>
-          <div gutter-toolbar>
-            <button clear tabindex="-1" class="move" (click)="move(data_nodes,node,-1)">▲▼</button>
-            <button clear tabindex="-1" class="delete" (click)="delete(data_nodes,node)">╳</button>
-          </div>
-
-        </div>
-        <div class="item spawner" (click)="addNode(data_nodes.length)" style="cursor:pointer">+ node</div>
+        <div class="item breadcrum" (click)="currentTrigger=null"><p>►  {{currentTrigger.handle}}</p></div>
+        <sequence-tree-list [(rootCause)]="currentTrigger">
+        </sequence-tree-list>
       </ng-container>
-
-      <div class="filler">- ⚜ -</div>
 
     </div>
   </div>

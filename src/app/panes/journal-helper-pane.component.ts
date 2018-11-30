@@ -35,14 +35,14 @@ export class JournalHelperPaneComponent
   template: `
   <div class="darkform">
     <div class="item">
-      <div row>
+      <flex-row>
         <div cell style="flex: 3">
           <label>search</label>
           <div><input type="text" [(ngModel)]="filterLocations"></div>
           <div space></div>
           <label>Location nodes and subnodes in this world</label>
         </div>
-      </div>
+      </flex-row>
     </div>
     <div class="divider" [class.active]="!!filterLocations"></div>
     <div class="items-list">

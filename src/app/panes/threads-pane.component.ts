@@ -6,7 +6,7 @@ import { WorldDataService } from '../services/world-data.service';
 @Component({
   selector: 'threads-pane',
   templateUrl: './threads-pane.component.html',
-  styleUrls: ['./../flatform.scss','./threads-pane.component.scss'],
+  styleUrls: ['./../darkform.scss','./threads-pane.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ThreadsPaneComponent

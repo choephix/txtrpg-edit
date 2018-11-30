@@ -8,7 +8,7 @@ $accent-off: #464646;
 $accent-on: #ffffff;
 $super: #00a2ff;
 
-$spacing: 3px;
+$spacing: 2px;
 
 @mixin inset {
   background: $inset-background;
@@ -24,18 +24,24 @@ $spacing: 3px;
   border-right: 1px solid $bev-dn;
 }
 
-.flex-row, .cell {background:darkorange;}
-
-[row] {
-  display: flex;
-  flex-flow: row wrap;
-}
-[column] {
-  display: flex;
-  flex-flow: column wrap;
-}
 [cell] {
-  margin: $spacing;
+  display:block;
+  padding: $spacing;
+}
+
+.items-list {
+  &:after {
+    content: "- ⚜ -";
+    height:50vh;
+    color:#000B;
+    padding-top:4px;
+    text-align:center;
+    display:block
+  }
+
+  [li] {
+    padding-left:16px !important;
+  }
 }
 
 .darkform {
@@ -83,118 +89,44 @@ $spacing: 3px;
     @include bevel-left-right;
   }
 
-  /// GUTTER SHIT
-
-  $gutter: 20px;
-  $anidu: 300ms;
-  @at-root [gutter] {
-    position: relative;
-    [gutter-background] {
-      background: #333;
-      border-left: 1px solid #0009;
-      position: absolute;
-      top: 0;
-      right: 0;
-      height:100%;
-      width: $gutter;
-      transition: width $anidu;
-    }
-    [gutter-sided] {
-      transition: margin-right $anidu;
-    }
-    [gutter-toolbar] {
-      position: absolute;
-      top: 0;
-      height: 100%;
-      display:flex;
-      flex-flow: column nowrap;
-      justify-content:flex-start;
-      overflow: hidden;
-      font-weight: bolder;
-      z-index: 2;
-      >* {
-        font-family: 'Courier New', Courier, monospace;
-        flex: 0 1 24px;
-        opacity: .2;
-      }
-      :hover>* { opacity: .25; }
-      >*:hover { opacity: 1; }
-    }
-    [gutter-toggle] {
-      position: absolute;
-      top: 0;
-      right:0;
-      width: $gutter;
-      height: 100%;
-      font-weight: bolder;
-      transition: right $anidu !important;
-    }
-  }
-  @at-root [gutter="false"]{
-    [gutter-background] {
-      width: 0;
-    }
-    [gutter-sided] {
-      margin-right: 0;
-    }
-    [gutter-toolbar] {
-      pointer-events: none;
-      width: 0;
-      right: 0;
-    }
-  }
-  @at-root [gutter="true"]{
-    [gutter-background] {
-      width: $gutter;
-    }
-    [gutter-sided] {
-      margin-right: $gutter;
-    }
-    [gutter-toolbar] {
-      pointer-events: all;
-      width: $gutter;
-      right: -$gutter;
-    }
-    [gutter-toggle] {
-      right: -$gutter;
-    }
-  }
-
   /// INPUTOS
 
-  textarea {
-    background: none;
-    border:none;
-    resize: none;
-    min-height: calc(100% - 9px);
-    overflow: hidden;
-  }
-  textarea, input, label {
-    font-family:monospace;
-    display: block;
-    width: 100%;
-  }
-  textarea, input, .input {
-    @include inset;
-    outline: none;
-    outline-color: #0000;
-    user-select: normal;
-    outline: 1px solid #0000;
-    color: #AAA;
-  }
-  textarea:hover, input:hover, .input:hover {
-    color: #BBB;
-  }
-  textarea:focus, input:focus, .input:focus {
-    outline: 1px solid $super;
-    color: #EEE;
-    opacity:1;
-  }
+  *:not(.ace_editor)
+  {
+    textarea {
+      background: none;
+      border:none;
+      resize: none;
+      min-height: calc(100% - 9px);
+      overflow: hidden;
+    }
+    textarea, input, label {
+      font-family:monospace;
+      display: block;
+      width: 100%;
+    }
+    textarea, input, .input {
+      @include inset;
+      outline: none;
+      outline-color: #0000;
+      user-select: normal;
+      outline: 1px solid #0000;
+      color: #AAA;
+    }
+    textarea:hover, input:hover, .input:hover {
+      color: #BBB;
+    }
+    textarea:focus, input:focus, .input:focus {
+      outline: 1px solid $super;
+      color: #EEE;
+      opacity:1;
+    }
 
-  label {
-    color: #888;
-    font-size: .8em;
-    font-style: italic;
+    label {
+      color: #888;
+      font-size: .8em;
+      font-style: italic;
+    }
   }
 
   .item.selected {
@@ -215,7 +147,7 @@ $spacing: 3px;
     cursor: pointer;
     color: #AAA;
   }
-  button:not([clear]) {
+  button:not([clear]):not(.item) {
     display: block;
     height:100%;
     width:100%;
@@ -223,19 +155,26 @@ $spacing: 3px;
     border: 1px solid #FFF2;
     outline: 1px solid #0007;
     background: #FFFFFF0B;
+    &:hover {
+      background: #FFF1;
+      color: white;
+    }
+    &:focus {
+      border: 1px solid $super;
+      color: white;
+    }
+    &:active {
+      border: 1px solid white;
+      background: $super;
+      color: white;
+    }
   }
-  button:not([clear]):hover {
-    background: #FFF1;
-    color: white;
-  }
-  button:not([clear]):focus {
-    border: 1px solid $super;
-    color: white;
-  }
-  button:not([clear]):active {
-    border: 1px solid white;
-    background: $super;
-    color: white;
+  button.item {
+    display: block;
+    width:100%;
+    padding: 12px 4px;
+    border-left:none;
+    border-right:none;
   }
   button[clear] {
     background: none;
@@ -245,30 +184,9 @@ $spacing: 3px;
     opacity:.5;
     transition-property: opacity, color;
     transition-duration: 250ms;
-  }
-  button[clear]:active,
-  button[clear]:hover {
-    opacity:1;
-  }
-  /// SWAPPER
-  button.swapper {
-    position: absolute;
-    left: 0px;
-    margin-top: -1.6em;
-    width: unset;
-    height: unset;
-    display:block;
-    padding: 0 8px;
-    opacity:0;
-    color: #777;
-    text-shadow: 0 0 16px black;
-  }
-  .item:hover > button.swapper {
-    opacity:1;
-  }
-  button.swapper:hover {
-    color: $super;
-    text-shadow: 0 0 16px $super;
+    &:active, &:hover {
+      opacity:1;
+    }
   }
 
   /// TABS
