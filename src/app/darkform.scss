@@ -53,7 +53,7 @@ $spacing: 2px;
 
   ///
 
-  * {
+  *:not(ace-editor, ace-editor *) {
     font-size: 10px;
     position:relative;
     box-sizing: border-box;
@@ -61,7 +61,7 @@ $spacing: 2px;
     ::selection      { background: #6f70c25e; }
     ::-moz-selection { background: #6f70c25e; }
   }
-  * {
+  *:not(ace-editor, ace-editor *) {
     transition-property: opacity, color, background-color, border-color, outline-color;
     transition-duration: 250ms;
   }
@@ -91,42 +91,39 @@ $spacing: 2px;
 
   /// INPUTOS
 
-  *:not(.ace_editor)
-  {
-    textarea {
-      background: none;
-      border:none;
-      resize: none;
-      min-height: calc(100% - 9px);
-      overflow: hidden;
-    }
-    textarea, input, label {
-      font-family:monospace;
-      display: block;
-      width: 100%;
-    }
-    textarea, input, .input {
-      @include inset;
-      outline: none;
-      outline-color: #0000;
-      user-select: normal;
-      outline: 1px solid #0000;
-      color: #AAA;
-    }
-    textarea:hover, input:hover, .input:hover {
-      color: #BBB;
-    }
-    textarea:focus, input:focus, .input:focus {
-      outline: 1px solid $super;
-      color: #EEE;
-      opacity:1;
-    }
+  textarea[class^='field-'] {
+    background: none;
+    border:none;
+    resize: none;
+    min-height: calc(100% - 9px);
+    overflow: hidden;
+  }
+  textarea[class^='field-'], input, label {
+    font-family:monospace;
+    display: block;
+    width: 100%;
+  }
+  textarea[class^='field-'], input, .input {
+    @include inset;
+    outline: none;
+    outline-color: #0000;
+    user-select: normal;
+    outline: 1px solid #0000;
+    color: #AAA;
+  }
+  textarea[class^='field-']:hover, input:hover, .input:hover {
+    color: #BBB;
+  }
+  textarea[class^='field-']:focus, input:focus, .input:focus {
+    outline: 1px solid $super;
+    color: #EEE;
+    opacity:1;
+  }
 
-    label {
-      color: #888;
-      font-size: .8em;
-      font-style: italic;
-    }
+  label {
+    color: #888;
+    font-size: .8em;
+    font-style: italic;
   }
 
   .item.selected {
