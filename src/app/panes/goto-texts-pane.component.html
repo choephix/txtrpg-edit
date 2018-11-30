@@ -1,95 +1,93 @@
 <div class="darkform">
-  <div class="pane-inner" style="min-height:100%">
 
-    <div class="item not-selectable">
-      <p>GAMEDATA / JOURNAL / ACTIONS / GOTO -- (TEXT)</p>
-    </div>
-    <div class="item">
-      <flex-row>
-        <div cell style="flex: 1 1 80px">
-          <label>from</label>
-          <input type="text" class="input" [(ngModel)]="filter.from">
-        </div>
-        <div cell style="flex: 1 1 80px">
-          <label>to</label>
-          <input type="text" class="input" [(ngModel)]="filter.to">
-        </div>
-        <div cell style="flex: 30 1 160px">
-          <label>search</label>
-          <input type="text" class="input" [(ngModel)]="filter.search">
-        </div>
-      </flex-row>
-      <div cell class="toolbar">
-        <button tabindex="-1" clear (click)="add(0)">＋ add new</button>
+  <div class="item not-selectable">
+    <p>GAMEDATA / JOURNAL / ACTIONS / GOTO -- (TEXT)</p>
+  </div>
+  <div class="item">
+    <flex-row>
+      <div cell style="flex: 1 1 80px">
+        <label>from</label>
+        <input type="text" class="input" [(ngModel)]="filter.from">
       </div>
+      <div cell style="flex: 1 1 80px">
+        <label>to</label>
+        <input type="text" class="input" [(ngModel)]="filter.to">
+      </div>
+      <div cell style="flex: 30 1 160px">
+        <label>search</label>
+        <input type="text" class="input" [(ngModel)]="filter.search">
+      </div>
+    </flex-row>
+    <div cell class="toolbar">
+      <button tabindex="-1" clear (click)="add(0)">＋ add new</button>
     </div>
+  </div>
 
-    <div class="divider" [class.active]="filter.from||filter.to||filter.search"></div>
+  <div class="divider" [class.active]="filter.from||filter.to||filter.search"></div>
 
-    <div class="items-list" #thelist spellcheck="false">
+  <div class="items-list" #thelist spellcheck="false">
 
-      <items-list [items]="data" [filter]="passesFilter" [factory]="factory_item" [addItemLabel]="'add'">
-        <ng-template let-o="item" let-i="index">
-          <div li class="item" [class.dirty]="isDirtyIndex(o)" [selectable]="o" *ngIf="passesFilter(o)">
+    <items-list [items]="data" [filter]="passesFilter" [factory]="factory_item" [addItemLabel]="'add'">
+      <ng-template let-o="item" let-i="index">
+        <div li class="item" [class.dirty]="isDirtyIndex(o)" [selectable]="o" *ngIf="passesFilter(o)">
 
-              <flex-row>
-                <div cell style="flex: 1 1 80px">
-                  <label>from</label>
-                  <input type="text"
-                        class="input field-from"
-                        [class.dirty]="isDirty(o,'from')"
-                        [(ngModel)]="o.from">
-                </div>
-                <div cell style="flex: 1 1 80px">
-                  <label>to</label>
-                  <input type="text"
-                        class="input field-to"
-                        [class.dirty]="isDirty(o,'to')"
-                        [(ngModel)]="o.to">
-                </div>
-                <div cell style="flex: 30 1 160px">
-                  <label>condition</label>
-                  <input type="text"
-                        class="input field-condition"
-                        [class.dirty]="isDirty(o,'condition')"
-                        [(ngModel)]="o.condition">
-                </div>
-              </flex-row>
-
-              <div cell *ngIf="o.handle||selection.showDetails(o)">
-                <label for="goto.handle">handle</label>
+            <flex-row>
+              <div cell style="flex: 1 1 80px">
+                <label>from</label>
                 <input type="text"
-                      class="input field-handle"
-                      [class.dirty]="isDirty(o,'handle')"
-                      [(ngModel)]="o.handle">
+                      class="input field-from"
+                      [class.dirty]="isDirty(o,'from')"
+                      [(ngModel)]="o.from">
               </div>
-
-              <div cell *ngIf="o.code||selection.showDetails(o)">
-                <label for="goto.text">code</label>
-                <textarea autoresize
-                          class="field-code"
-                          style="min-height: 3.2em;"
-                          [class.dirty]="isDirty(o,'code')"
-                          [(ngModel)]="o.code"></textarea>
+              <div cell style="flex: 1 1 80px">
+                <label>to</label>
+                <input type="text"
+                      class="input field-to"
+                      [class.dirty]="isDirty(o,'to')"
+                      [(ngModel)]="o.to">
               </div>
-
-              <div cell>
-                <label for="goto.text">text</label>
-                <textarea autoresize
-                          class="field-text"
-                          style="min-height: 80px;"
-                          [class.dirty]="isDirty(o,'text')"
-                          [(ngModel)]="o.text"></textarea>
+              <div cell style="flex: 30 1 160px">
+                <label>condition</label>
+                <input type="text"
+                      class="input field-condition"
+                      [class.dirty]="isDirty(o,'condition')"
+                      [(ngModel)]="o.condition">
               </div>
+            </flex-row>
 
-              <div space></div>
-              <div space></div>
-              <div class="uid readonly" [class.dirty]="isDirtyNew(o)">{{o.uid}}</div>
+            <div cell *ngIf="o.handle||selection.showDetails(o)">
+              <label for="goto.handle">handle</label>
+              <input type="text"
+                    class="input field-handle"
+                    [class.dirty]="isDirty(o,'handle')"
+                    [(ngModel)]="o.handle">
+            </div>
 
-          </div>
-        </ng-template>
-      </items-list>
+            <div cell *ngIf="o.code||selection.showDetails(o)">
+              <label for="goto.text">code</label>
+              <textarea autoresize
+                        class="field-code"
+                        style="min-height: 3.2em;"
+                        [class.dirty]="isDirty(o,'code')"
+                        [(ngModel)]="o.code"></textarea>
+            </div>
 
-    </div>
+            <div cell>
+              <label for="goto.text">text</label>
+              <textarea autoresize
+                        class="field-text"
+                        style="min-height: 80px;"
+                        [class.dirty]="isDirty(o,'text')"
+                        [(ngModel)]="o.text"></textarea>
+            </div>
+
+            <div space></div>
+            <div space></div>
+            <div class="uid readonly" [class.dirty]="isDirtyNew(o)">{{o.uid}}</div>
+
+        </div>
+      </ng-template>
+    </items-list>
+
   </div>
 </div>

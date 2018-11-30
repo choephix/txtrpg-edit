@@ -84,7 +84,7 @@ $spacing: 2px;
     background: #FFFFFF13;
   }
 
-  .item.inner {
+  .item .item {
     @include bevel-top-bottom;
     @include bevel-left-right;
   }

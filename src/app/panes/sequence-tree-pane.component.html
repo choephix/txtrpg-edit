@@ -1,58 +1,56 @@
 <div class="darkform">
-  <div class="pane-inner" gutter-sided style="min-height:100%">
 
-    <div class="item not-selectable">
-      <p>GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES</p>
-    </div>
+  <div class="item not-selectable">
+    <p>GAMEDATA / JOURNAL / SEQUENCE (CONVO) TREES</p>
+  </div>
 
-    <div class="divider" [class.active]="currentTrigger"></div>
+  <div class="divider" [class.active]="currentTrigger"></div>
 
-    <div class="items-list">
+  <div class="items-list">
 
-      <!-- LIST OF TRIGGERS -->
-      <items-list [items]="data_triggers"
-                  [factory]="factory_trigger"
-                  [addItemLabel]="'add trigger'"
-                  *ngIf="!currentTrigger">
-        <ng-template let-trigger="item" let-i="index">
-          <flex-row li class="item" [selectable]="trigger">
+    <!-- LIST OF TRIGGERS -->
+    <items-list [items]="data_triggers"
+                [factory]="factory_trigger"
+                [addItemLabel]="'add trigger'"
+                *ngIf="!currentTrigger">
+      <ng-template let-trigger="item" let-i="index">
+        <flex-row li class="item" [selectable]="trigger">
 
-            <div style="flex: 25 1 400px;">
-              <flex-row>
-                <div cell style="flex: 10 1 400px;">
-                  <label>handle</label>
-                  <input type="text" class="input field-handle" [(ngModel)]="trigger.handle">
+          <div style="flex: 25 1 400px;">
+            <flex-row>
+              <div cell style="flex: 10 1 400px;">
+                <label>handle</label>
+                <input type="text" class="input field-handle" [(ngModel)]="trigger.handle">
+              </div>
+              <flex-row style="flex: 5 1 280px;">
+                <div cell style="flex: 10 1 160px;">
+                  <label>condition</label>
+                  <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
                 </div>
-                <flex-row style="flex: 5 1 280px;">
-                  <div cell style="flex: 10 1 160px;">
-                    <label>condition</label>
-                    <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
-                  </div>
-                  <div cell style="flex: 1 0 80px;">
-                    <label>location</label>
-                    <input type="text" class="input field-location" [(ngModel)]="trigger.node">
-                  </div>
-                  <div cell style="flex: 1 0 80px" *ngIf="selection.showDetails(trigger)">
-                    <label>uid</label>
-                    <input type="text" class="input field-convo" [(ngModel)]="trigger.uid">
-                  </div>
-                </flex-row>
+                <div cell style="flex: 1 0 80px;">
+                  <label>location</label>
+                  <input type="text" class="input field-location" [(ngModel)]="trigger.node">
+                </div>
+                <div cell style="flex: 1 0 80px" *ngIf="selection.showDetails(trigger)">
+                  <label>uid</label>
+                  <input type="text" class="input field-convo" [(ngModel)]="trigger.uid">
+                </div>
               </flex-row>
-            </div>
-            <div cell style="flex: 1 0 100px;">
-              <button (click)="currentTrigger=trigger">select</button>
-            </div>
-          </flex-row>
-        </ng-template>
-      </items-list>
+            </flex-row>
+          </div>
+          <div cell style="flex: 1 0 100px;">
+            <button (click)="currentTrigger=trigger">select</button>
+          </div>
+        </flex-row>
+      </ng-template>
+    </items-list>
 
-      <!-- LIST OF SEQUENCE NODES -->
-      <ng-container *ngIf="currentTrigger">
-        <div class="item breadcrum" (click)="currentTrigger=null"><p>►  {{currentTrigger.handle}}</p></div>
-        <sequence-tree-list [(rootCause)]="currentTrigger">
-        </sequence-tree-list>
-      </ng-container>
+    <!-- LIST OF SEQUENCE NODES -->
+    <ng-container *ngIf="currentTrigger">
+      <div class="item breadcrum" (click)="currentTrigger=null"><p>►  {{currentTrigger.handle}}</p></div>
+      <sequence-tree-list [(rootCause)]="currentTrigger">
+      </sequence-tree-list>
+    </ng-container>
 
-    </div>
   </div>
 </div>
