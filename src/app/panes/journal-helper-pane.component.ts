@@ -48,19 +48,19 @@ export class JournalHelperPaneComponent
     <div class="items-list">
       <ng-container *ngFor="let loc of gamedata.data.world.nodes">
       <ng-container *ngIf="!filterLocations||loc.slug.includes(filterLocations)">
-        <div row class="item">
+        <flex-row class="item">
           <div class="cell-uid">{{loc.uid}}</div>
           <div class="cell-slug">{{loc.slug}}</div>
-        </div>
+        </flex-row>
         <ng-container *ngFor="let sub of gamedata.data.world.subnodes">
         <ng-container *ngIf="sub.parent==loc.uid||sub.parent==loc.slug">
-          <div row>
+          <flex-row>
             <div indent></div>
-            <div row class="item" style="flex:1 1">
+            <flex-row class="item" style="flex:1 1">
               <div class="cell-uid">{{sub.uid}}</div>
               <div class="cell-slug">{{sub.slug}}</div>
-            </div>
-          </div>
+            </flex-row>
+          </flex-row>
         </ng-container>
         </ng-container>
       </ng-container>

@@ -1,11 +1,11 @@
 <div class="darkform main">
   <!-- TABS -->
-  <div class="tabs" row>
+  <flex-row class="tabs">
     <div *ngFor="let tab of TABS"
           (click)="currentTab=tab"
           [class.current]="currentTab==tab"
           class="tab">{{tab}}</div>
-  </div>
+  </flex-row>
   <div class="content-container">
 
     <!-- LOCATIONS LIST -->
