@@ -4,8 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { WorldDataService } from '../services/world-data.service';
 import { Logger } from '../services/logging.service';
 import { DataLoader } from '../util/data-loader'
-
-const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
+import { NavigashtiService } from '../services/navigashti.service';
 
 @Component({
   selector: 'automodi',
@@ -26,10 +25,10 @@ const ALL_BRANCHES:string[] = ["shitbox","develop","lorem","poc","master"]
 		</table>
 
     <form>
-      <label *ngFor="let b of getAllBranches()">
-        <p (click)="branches[b]=!branches[b]"
-           [class.true]="branches[b]"
-           [class.false]="!branches[b]">{{b}}</p>
+      <label *ngFor="let b of branches">
+        <p (click)="toggleBranch(b)"
+           [class.true]="branchEnabled(b)"
+           [class.false]="!branchEnabled(b)">{{b}}</p>
       </label>
     </form>
   `,
@@ -82,7 +81,9 @@ for ( let o of list )
     useSoftTabs: true
 	}
 
-  public branches = {}
+  public ignore = []
+
+  get branches():string[] { return this.navi.branches }
 
   private modify = function(code,uidgen):void
   {
@@ -93,21 +94,24 @@ for ( let o of list )
 
   constructor( private http:HttpClient,
                private globalWorld:WorldDataService,
+               private navi:NavigashtiService,
                private logger:Logger,
-               private uidgen:UID_GenerationService )
+               private uidgen:UID_GenerationService ) {}
+
+  toggleBranch(b)
   {
-    for ( let b of ALL_BRANCHES )
-      this.branches[b] = true
+    let i = this.ignore.indexOf(b)
+    if ( i < 0 ) this.ignore.push(b)
+    else         this.ignore.splice(i,1)
   }
 
-  public getAllBranches():string[]
-  { return Object.keys(this.branches) }
+  branchEnabled(b) { return this.ignore.indexOf(b) < 0  }
 
   private getSelectedBranches():string[]
   {
     let list: string[] = []
-    for ( let name of this.getAllBranches() )
-      if ( this.branches[name] )
+    for ( let name of this.navi.branches )
+      if ( this.ignore.indexOf(name) < 0 )
         list.push(name)
     return list
   }
