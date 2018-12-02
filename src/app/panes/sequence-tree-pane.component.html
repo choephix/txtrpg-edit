@@ -22,7 +22,7 @@
                 <label>handle</label>
                 <input type="text" class="input field-handle" [(ngModel)]="trigger.handle">
               </div>
-              <flex-row style="flex: 5 1 280px;">
+              <flex-row style="flex: 5 1 410px;">
                 <div cell style="flex: 10 1 160px;">
                   <label>condition</label>
                   <input type="text" class="input field-condition" [(ngModel)]="trigger.condition">
@@ -30,6 +30,10 @@
                 <div cell style="flex: 1 0 80px;">
                   <label>location</label>
                   <input type="text" class="input field-location" [(ngModel)]="trigger.node">
+                </div>
+                <div cell style="flex: 0 0 40px;">
+                  <label>weight</label>
+                  <input type="text" class="input field-weight" [(ngModel)]="trigger.weight">
                 </div>
                 <div cell style="flex: 1 0 80px" *ngIf="selection.showDetails(trigger)">
                   <label>uid</label>
