@@ -17,6 +17,7 @@ import { GotoTextsPage } from './view/pages.component'
 import { SequenceTreesPage } from './view/pages.component'
 import { ThreadsPage } from './view/pages.component'
 import { FullJsonAcePageComponent } from './view/pages.component'
+import { GameClientPageComponent } from './view/pages.component'
 
 import { SidebarComponent } from './view-sidebar/sidebar.component'
 import { AutomodiPanelComponent } from './view-sidebar/automodi.panel.component'
@@ -28,6 +29,7 @@ import { SequenceTreePaneComponent } from './panes/sequence-tree-pane.component'
 import { ThreadsPaneComponent } from './panes/threads-pane.component'
 import { JournalHelperPaneComponent, LocationsListComponent } from './panes/journal-helper-pane.component'
 import { AcePaneComponent } from './panes/ace-pane.component'
+import { GameClientPaneComponent } from './panes/game-client-pane.component';
 
 import { SequenceTreeListComponent } from './lists/sequence-tree.list.component';
 
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
           { path: 'convo', component: SequenceTreesPage },
           { path: 'threads', component: ThreadsPage },
           { path: 'jsonfull', component: FullJsonAcePageComponent },
+          { path: 'play', component: GameClientPageComponent },
         ]
   },
   { path: '', redirectTo: 'develop', pathMatch: 'full' },
@@ -66,6 +69,7 @@ const appRoutes: Routes = [
   	SequenceTreesPage,
   	ThreadsPage,
     FullJsonAcePageComponent,
+    GameClientPageComponent,
     //sidebar
     SidebarComponent,
     AutomodiPanelComponent,
@@ -78,6 +82,7 @@ const appRoutes: Routes = [
     JournalHelperPaneComponent,
     LocationsListComponent,
     AcePaneComponent,
+    GameClientPaneComponent,
     //lists
     SequenceTreeListComponent,
     //common

@@ -13,3 +13,36 @@ export interface Snippet { key: string; text: string }
 export interface LinkText { from: string; to: string; params:string[]; handle:string; text:string }
 
 ///
+
+
+export class Thread {
+  slug:string
+  stages:ThreadStage[] = [ new ThreadStage ]
+}
+export class ThreadStage {
+  slug:string
+  interceptors:Interceptor[] = [ new Interceptor ]
+}
+export class Interceptor {
+  when:InterceptorWhen[] = []
+  what:InterceptorWhat[] = []
+  choices:InterceptorChoice[] = []
+  options?:InterceptorOptions
+}
+export class InterceptorWhen {
+  condition:string
+  type?:string
+}
+export class InterceptorWhat {
+  code?:string
+  text:string
+  condition?:string
+}
+export class InterceptorChoice {
+  condition?:string
+  handle:string
+  next:string
+}
+export class InterceptorOptions {
+  hideDefaultChoices?:boolean = false
+}

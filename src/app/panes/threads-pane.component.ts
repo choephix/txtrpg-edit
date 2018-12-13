@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { UID_GenerationService } from '../services/id-gen.service';
 import { SelectionService } from '../services/selection.service';
 import { WorldDataService } from '../services/world-data.service';
+import { Thread, ThreadStage, Interceptor, InterceptorWhen, InterceptorWhat, InterceptorChoice } from '../types/data-models';
 
 @Component({
   selector: 'threads-pane',
@@ -64,36 +65,4 @@ export class ThreadsPaneComponent
   { return `${this.uidgen.make(12)}` }
 
   trackByFn(index: any, item: any) { return index; }
-}
-
-class Thread {
-  slug:string
-  stages:ThreadStage[] = [ new ThreadStage ]
-}
-class ThreadStage {
-  slug:string
-  interceptors:Interceptor[] = [ new Interceptor ]
-}
-class Interceptor {
-  when:InterceptorWhen[] = []
-  what:InterceptorWhat[] = []
-  choices:InterceptorChoice[] = []
-  options?:InterceptorOptions
-}
-class InterceptorWhen {
-  condition:string
-  type?:string
-}
-class InterceptorWhat {
-  code?:string
-  text:string
-  condition?:string
-}
-class InterceptorChoice {
-  condition?:string
-  handle:string
-  next:string
-}
-class InterceptorOptions {
-  hideDefaultChoices?:boolean = false
 }

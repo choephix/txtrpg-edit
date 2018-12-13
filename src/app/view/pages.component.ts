@@ -56,3 +56,19 @@ export class LocationsMapPage{}
   template: `<ace-pane></ace-pane>`
 })
 export class FullJsonAcePageComponent{}
+
+@Component({
+  template: `
+  <style type="scss/text">
+  :host(.pane) { overflow: hidden !important; }
+  .pane.right { border-left: #222 1px solid !important; }
+  </style>
+  <two-pane-view>
+    <game-client-pane pane-left>
+    </game-client-pane>
+    <journal-helper-pane pane-right>
+    </journal-helper-pane>
+  </two-pane-view>
+  `
+})
+export class GameClientPageComponent{}
